@@ -7,11 +7,6 @@ namespace facturator_api.Models
 {
     public class Bill
     {
-        int Id { get; set; }
-        DateTime Date { get; set; }
-        float Total { get; set; }
-        Boolean IsValid { get; set; }
-
         public Bill(int id, DateTime date, float total, bool isValid)
         {
             Id = id;
@@ -19,5 +14,21 @@ namespace facturator_api.Models
             Total = total;
             IsValid = isValid;
         }
+
+        public Bill(int id, DateTime date, float total, bool isValid, List<Article> articles)
+        {
+            Id = id;
+            Date = date;
+            Total = total;
+            IsValid = isValid;
+            Articles = articles;
+        }
+
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public float Total { get; set; }
+        public Boolean IsValid { get; set; }
+        public List<Article> Articles { get; set; }
+        
     }
 }

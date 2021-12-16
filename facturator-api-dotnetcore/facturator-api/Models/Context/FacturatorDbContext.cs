@@ -23,6 +23,8 @@ namespace facturator_api.Models.Context
         { }
 
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Bill> Bills { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
