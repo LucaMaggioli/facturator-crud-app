@@ -28,7 +28,7 @@ namespace facturator_api.Controllers
         [HttpPost]
         public string AddClient([FromBody] ArticleBody body)
         {
-            jjthis._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
+            this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
             return "article registered";
         }
 
