@@ -1,0 +1,4 @@
+<div id="article-page">
+  <app-add-article-form (newArticle)="saveArticle($event)" id="add-article-form"></app-add-article-form>
+  <app-articles-list *ngIf="dataLoaded" id="article-list" [articles]="articles"></app-articles-list>
+</div>

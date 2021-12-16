@@ -1,0 +1,23 @@
+<div *ngIf="articles.length !== 0" id="articles-container">
+  <mat-card class="article-element" *ngFor="let article of this.articles" >
+    <mat-card-title>{{article.name}}</mat-card-title>
+    <mat-card-content>
+      <h1>{{article.price}} CHF</h1>
+      <p>
+        {{article.description}}
+      </p>
+      <img [src]="article.photo" alt="article photo">
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="selectionMode">
+      <mat-checkbox (click)="selUnselArticle(article)">Select Article</mat-checkbox>
+    </mat-card-actions>
+
+  </mat-card>
+</div>
+<div class="no-articles-container">
+  <div *ngIf="articles.length === 0" class="no-articles">
+    <p><strong>No Articles are available</strong></p>
+    <mat-spinner style="margin-left: 1em" [diameter]="30"></mat-spinner>
+  </div>
+</div>

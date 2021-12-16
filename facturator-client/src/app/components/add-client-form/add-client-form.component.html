@@ -1,0 +1,30 @@
+<div id="add-client-container">
+  <h1 id="title">Add a new Client:</h1>
+  <div class="fullname">
+    <mat-form-field appearance="outline">
+      <mat-label>Surname</mat-label>
+      <input matInput required [formControl]="fName">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput required [formControl]="lName">
+    </mat-form-field>
+  </div>
+  <p>
+    <mat-form-field appearance="outline" class="full-line">
+      <mat-label>Address</mat-label>
+      <input matInput required [formControl]="address">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline" class="full-line">
+      <mat-label>E-Mail</mat-label>
+      <input matInput [formControl]="email">
+      <mat-error *ngIf="email.invalid">{{emailInvalidErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <div id="form-footer">
+    <button mat-raised-button class="hover-trasparent" [disabled]="!isValidForm()" (click)="sendNewClientEvent()">Add Client</button>
+    <p *ngIf="tempoMessage" class="message"><strong>{{tempoMessage}}</strong></p>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.inline-text{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.spacer{
+  flex:1 1 auto;
+}

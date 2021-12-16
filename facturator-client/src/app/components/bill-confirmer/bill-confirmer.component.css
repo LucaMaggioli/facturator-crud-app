@@ -1,0 +1,5 @@
+.confirm-bill{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 2em 0 2em 0;
+}

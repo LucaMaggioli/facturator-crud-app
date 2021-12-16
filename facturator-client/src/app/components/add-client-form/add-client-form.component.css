@@ -1,0 +1,34 @@
+.fullname{
+  display: flex;
+  flex-direction: row;
+}
+
+.full-line{
+  width: 100%;
+}
+
+#add-client-container{
+  background-color: #DCDDE580;
+  /*0.3;*/
+  padding: 4em 2em 4em 2em;
+  margin: 4em 2em 4em 2em;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+#add-client-container:hover{
+  border-color: royalblue;
+}
+
+#title{
+  padding-bottom: 1em;
+}
+
+.hover-trasparent:hover{
+  background-color: transparent;
+}
+
+#form-footer{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}

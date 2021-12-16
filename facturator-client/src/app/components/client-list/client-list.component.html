@@ -1,0 +1,18 @@
+<div *ngIf="clients.length !== 0" id="clients-container">
+  <mat-card class="client-element" *ngFor="let client of this.clients" >
+    <mat-card-title>{{client.name}}</mat-card-title>
+    <mat-card-content>
+      <p><strong>Address: </strong>{{client.address}}</p>
+      <p><strong>E-Mail: </strong>{{client.email}}</p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="selectionMode">
+      <button mat-stroked-button color="primary" (click)="selectClient(client)">Select Client</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div class="no-clients-container" *ngIf="clients.length === 0">
+  <div class="no-clients">
+    <p><strong>No Clients are available</strong></p>
+    <mat-spinner style="margin-left: 1em" [diameter]="30"></mat-spinner>
+  </div>
+</div>

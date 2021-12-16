@@ -1,0 +1,10 @@
+#article-page{
+  margin: 2em 6em 2em 6em;
+}
+
+#add-article-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

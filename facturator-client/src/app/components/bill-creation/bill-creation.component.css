@@ -1,0 +1,20 @@
+.bill-expansion{
+  margin: 4em;
+  margin-left: 8em;
+  margin-right: 8em;
+}
+
+mat-expansion-panel{
+  margin: 2em 0 2em 0
+}
+
+.client-list{
+  height: 400px;
+  /*background-color: lightblue;*/
+}
+
+.confirm-bill{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 2em 0 2em 0;
+}
