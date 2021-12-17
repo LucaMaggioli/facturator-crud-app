@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using facturator_api.DataProviders;
+using facturator_api.Models.Context;
 
 namespace facturator_api.Controllers
 {
@@ -15,13 +16,19 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ClientController : Controller
     {
+        private readonly FacturatorDbContext _context;
+        public ClientController(FacturatorDbContext context){
+            _context = context;
+        }
 
-        private ClientDataProvider _ClientDataProvider = new ClientDataProvider();
 
         [HttpGet("all")]
         public string GetClients()
         {
-            List<Client> clients = _ClientDataProvider.GetClients();
+            // private ClientDataProvider _ClientDataProvider = new ClientDataProvider(_context);
+
+            // List<Client> clients =  _ClientDataProvider.GetClients();
+            List<Client> clients = new ClientDataProvider(_context).GetClients();
 
             return JsonSerializer.Serialize(clients);
         }
@@ -35,7 +42,7 @@ namespace facturator_api.Controllers
         [HttpPost("add")]
         public string AddClient([FromBody] ClientBody body)
         {
-            this._ClientDataProvider.AddClient(body.Name, body.Address, body.Email);
+            new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);
             return "client registered";
         }
 

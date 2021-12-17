@@ -11,8 +11,9 @@ namespace facturator_api.DataProviders
     public class ArticleDataProvider
     {
 
-        private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
-
+        //private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
+        
+        private string path = @"C:\Users\mm\Desktop\WorkDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
 
         public List<Article> getArticles()
         {
