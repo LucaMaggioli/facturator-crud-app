@@ -18,5 +18,18 @@ namespace facturator_api.Models.Context
     public class FacturatorDbContext : DbContext
     {
 
+        public FacturatorDbContext(DbContextOptions<FacturatorDbContext> options)
+        : base(options)
+        { }
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        //optionsBuilder.UseSQLite(@"DataSource=mydatabase.db;");
+        }
     }
 }

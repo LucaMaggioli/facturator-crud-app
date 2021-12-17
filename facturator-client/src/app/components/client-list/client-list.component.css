@@ -1,0 +1,45 @@
+#clients-container{
+  height: 100%;
+  overflow: auto;
+  border-radius: 12px;
+}
+
+.client-element{
+  margin: 1em;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6C52FE;
+  border-radius: 5px;
+}
+
+.no-clients-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-clients{
+  background-color: aliceblue;
+  width: 24em;
+  height: 4em;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-clients p{
+  font-size: 22px;
+  margin: 0;
+}

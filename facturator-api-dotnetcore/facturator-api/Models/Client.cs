@@ -12,13 +12,23 @@ namespace facturator_api.Models
             Id = id;
             Name = name;
             Address = address;
-            this.Email = email;
+            Email = email;
+        }
+
+        public Client(int id, string name, string address, string email, List<Bill> bills)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            Email = email;
+            Bills = bills;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
+        public List<Bill> Bills { get; set; }
 
     }
 }

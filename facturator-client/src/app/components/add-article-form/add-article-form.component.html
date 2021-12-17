@@ -1,0 +1,39 @@
+<mat-expansion-panel [expanded]="false" (opened)="formOpened" hideToggle id="add-expansion-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="header-panel">
+      <h2>Add Article</h2>
+      <mat-icon aria-hidden="false" aria-label="Add an article">add_circle_outline</mat-icon>
+    </mat-panel-title>
+    </mat-expansion-panel-header>
+  <div id="add-article-container">
+    <h1 id="title">Article:</h1>
+    <div class="fullname">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput required [formControl]="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Photo Link</mat-label>
+        <input matInput required [formControl]="photoLink">
+      </mat-form-field>
+    </div>
+    <p>
+      <mat-form-field appearance="outline" class="full-line">
+        <mat-label>Price</mat-label>
+        <input matInput required [formControl]="price">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline" class="full-line">
+        <mat-label>Description</mat-label>
+        <input matInput [formControl]="description">
+      </mat-form-field>
+    </p>
+    <div id="form-footer">
+      <button mat-raised-button class="hover-trasparent" [disabled]="!isValidForm()" (click)="sendNewArticleEvent()">Add Article</button>
+      <p *ngIf="tempoMessage" class="message"><strong>{{tempoMessage}}</strong></p>
+    </div>
+  </div>
+
+</mat-expansion-panel>
+

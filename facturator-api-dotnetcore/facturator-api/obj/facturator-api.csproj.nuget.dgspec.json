@@ -1,36 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj": {}
+    "C:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj": {
+    "C:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
+        "projectUniqueName": "C:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
         "projectName": "facturator-api",
-        "projectPath": "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
-        "packagesPath": "C:\\Users\\maggioli\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\obj\\",
+        "projectPath": "C:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
+        "packagesPath": "C:\\Users\\mm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\maggioli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net5.0": {
+            "targetAlias": "netcoreapp5.0",
             "projectReferences": {}
           }
         },
@@ -41,12 +43,22 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "netcoreapp5.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Relational": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[1.1.4, )"
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             }
           },
           "imports": [
@@ -67,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

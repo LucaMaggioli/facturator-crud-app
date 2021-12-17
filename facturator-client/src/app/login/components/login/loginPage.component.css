@@ -1,0 +1,9 @@
+.login-form-container{
+  height: 8em;
+  width: 20em;
+  margin: 2em 4em 2em 4em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2em;
+  align-items: center;
+}

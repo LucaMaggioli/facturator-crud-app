@@ -1,0 +1,52 @@
+#add-article-container{
+  padding: 4em 2em 4em 2em;
+  margin: 4em 2em 4em 2em;
+  width: 90%;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+#add-article-container:hover{
+  border-color: royalblue;
+}
+
+#add-expansion-panel{
+  width: 100%;
+  /*height: 6em;*/
+  margin: 4em 2em 4em 2em;
+}
+
+.header-panel{
+  display: flex;
+  flex-direction: row;
+  grid-gap: 2em;
+  justify-content: center;
+  align-content: center;
+}
+.header-panel h2{
+  margin: 0;
+  padding: 0;
+}
+
+.header-panel mat-icon{
+  align-self: center;
+}
+
+#form-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  grid-gap: 2em;
+}
+
+#form-footer p{
+  color: forestgreen;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+::ng-deep .mat-panel-title {
+  text-align: center;
+}*/
