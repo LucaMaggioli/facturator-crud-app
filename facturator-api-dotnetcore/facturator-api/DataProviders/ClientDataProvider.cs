@@ -1,6 +1,7 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,40 +25,20 @@ namespace facturator_api.DataProviders
         private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Clients.csv";
 
 
-        public List<Client> GetClients()
+        public async Task<List<ClientDto>> GetClientsAsync()
         {
-            List<Client> clients = new List<Client>();
+            //List<Client> clients = new List<Client>();
+            //List<ClientDto> clients = new List<ClientDto>();
 
-            //  _facturatorDbContext.Clients.ForEach();
-            _facturatorDbContext.Clients.ToList().ForEach(client =>{
-                clients.Add(new Client(client.Id, client.Name, client.Address, client.Email));
-            });
+            //_facturatorDbContext.Clients.ToList().ForEach(client =>{
+            //    clients.Add(new Client(client.Id, client.Name, client.Address, client.Email));
+            //});
+
+            var clients = await _facturatorDbContext.Clients.Select(client =>
+                new ClientDto { Name = client.Name, Address = client.Address, Email = client.Email }
+            ).ToListAsync();
 
             return clients;
-            // _facturatorDbContext.Clients.Select(client => new ClientDto{
-            //     Id = client.Id,
-            //     Name = client.Name,
-            //     Address = client.Address,
-            //     Email = client.Email,
-            // });
-
-            // try
-            // {
-            //     string[] lines = System.IO.File.ReadAllLines(this.path);
-            //     //string[] lines = { "", "x" };
-            //     foreach (string line in lines)
-            //     {
-            //         string[] columns = line.Split(',');
-            //         int id = 0;
-            //         int.TryParse(columns[0], out id);
-            //         clients.Add(new Client(id, columns[1], columns[2], columns[3]));
-            //     }
-            // }
-            // catch (FileNotFoundException exception)
-            // {
-            //     Console.WriteLine(exception);
-            // }
-
         }
 
         public async Task<Client> AddClient(string name, string address, string email)

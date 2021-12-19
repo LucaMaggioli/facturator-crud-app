@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
+  "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15619,38 +15619,38 @@
   "RootNamespace": "facturator_api",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\_ViewImports.cshtml",
-      "TargetPath": "Views\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\_ViewStart.cshtml",
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\mm\\Desktop\\WorkDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mm\\Desktop\\WorkingDirectory\\Apprentissage\\EPSIC-3\\Exam-sem-1-facturator\\facturator-crud-app\\facturator-api-dotnetcore\\facturator-api\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     }
   ],

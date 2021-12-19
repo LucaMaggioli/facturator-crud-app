@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using facturator_api.DataProviders;
 using facturator_api.Models.Context;
+using facturator_api.Models.Dtos;
 
 namespace facturator_api.Controllers
 {
@@ -22,24 +23,26 @@ namespace facturator_api.Controllers
         }
 
 
+        // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
         [HttpGet("all")]
-        public string GetClients()
+        public async Task<List<ClientDto>> GetClients()
         {
-            // private ClientDataProvider _ClientDataProvider = new ClientDataProvider(_context);
+            //List<ClientDto> clients = new ClientDataProvider(_context).GetClientsAsync();
+            var clients = await new ClientDataProvider(_context).GetClientsAsync();
 
-            // List<Client> clients =  _ClientDataProvider.GetClients();
-            List<Client> clients = new ClientDataProvider(_context).GetClients();
-
-            return JsonSerializer.Serialize(clients);
+            //return JsonSerializer.Serialize(clients);
+            return clients;
         }
 
-        [HttpGet("id")]
+        // Call this endpoint to get the client with the selected id
+        [HttpGet("{id}")]
         public string GetClient(int id)
         {
             return "client - " + id.ToString();
         }
 
-        [HttpPost("add")]
+        // Call this endpoint to add a new client
+        [HttpPost]
         public string AddClient([FromBody] ClientBody body)
         {
             new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);

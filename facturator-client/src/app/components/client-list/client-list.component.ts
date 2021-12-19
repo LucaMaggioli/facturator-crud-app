@@ -1,28 +1,25 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Client} from "../../shared/models/client";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ClientDto } from '../../shared/models/ClientDto';
 
 @Component({
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.css']
+  styleUrls: ['./client-list.component.css'],
 })
 export class ClientListComponent implements OnInit {
+  @Input() clients: any[] = [];
+  @Input() selectionMode: boolean = false;
+  @Output() selectedClient = new EventEmitter<ClientDto>();
 
-  @Input() clients:any [] = [];
-  @Input() selectionMode:boolean = false;
-  @Output() selectedClient = new EventEmitter<Client>();
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  ngOnChanges():void{
+  ngOnChanges(): void {
     console.log(this.clients);
   }
 
-  selectClient(client:Client){
+  selectClient(client: ClientDto) {
     this.selectedClient.emit(client);
   }
-
 }
