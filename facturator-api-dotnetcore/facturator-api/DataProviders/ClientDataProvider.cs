@@ -37,6 +37,13 @@ namespace facturator_api.DataProviders
             return clients;
         }
 
+        /// <summary>
+        /// Add a new client
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task<Client> AddClient(string name, string address, string email)
         {
             Client clientToAdd = new Client(name,address, email);
