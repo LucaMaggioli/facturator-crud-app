@@ -20,11 +20,7 @@ export class HomePageComponent implements OnInit {
   }
 
   addClient(newClient: ClientDto) {
-    this._dataService.addClient(
-      newClient.name!,
-      newClient.address!,
-      newClient.email!
-    );
+    this._dataService.addClient(newClient);
     this.clients.push(newClient);
   }
 

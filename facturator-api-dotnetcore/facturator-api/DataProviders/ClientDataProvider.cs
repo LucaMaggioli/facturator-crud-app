@@ -39,10 +39,10 @@ namespace facturator_api.DataProviders
 
         public async Task<Client> AddClient(string name, string address, string email)
         {
-            Client clientToAdd = new Client(0,name,address, email);
+            Client clientToAdd = new Client(name,address, email);
 
             var addedClient = await _facturatorDbContext.Clients.AddAsync(clientToAdd);
-            await this.SaveChanges();
+            await SaveChanges();
 
             return addedClient.Entity;
         }

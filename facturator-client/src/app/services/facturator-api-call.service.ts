@@ -16,18 +16,22 @@ export class FacturatorApiCallService {
     );
   }
 
-  async addClient(name: string, address: string, email: string) {
-    let body = JSON.stringify({ name: name, address: address, email: email });
-    console.log(body);
-    return await fetch(this.backendURL + '/client/add', {
+  async addClient(clientToAdd: ClientDto) {
+    let body = JSON.stringify({
+      name: clientToAdd.name,
+      address: clientToAdd.address,
+      email: clientToAdd.email,
+    });
+    return await fetch(this.backendURL + '/client', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: body,
-    }).then((data) => console.log(data));
+    }).then((response) => response.json());
   }
+
   async getArticles() {
     return await fetch(this.backendURL + '/article/', { method: 'GET' }).then(
       (response) => response.json()

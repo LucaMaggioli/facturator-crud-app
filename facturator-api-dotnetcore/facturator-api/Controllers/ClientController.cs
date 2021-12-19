@@ -43,10 +43,10 @@ namespace facturator_api.Controllers
 
         // Call this endpoint to add a new client
         [HttpPost]
-        public string AddClient([FromBody] ClientBody body)
+        public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);
-            return "client registered";
+            var client = await new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);
+            return new ClientDto { Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
         public class ClientBody

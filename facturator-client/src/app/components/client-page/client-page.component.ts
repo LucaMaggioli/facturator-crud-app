@@ -15,13 +15,10 @@ export class ClientPageComponent implements OnInit {
     this.getClients();
   }
 
-  addClient(newClient: ClientDto) {
-    this._dataService.addClient(
-      newClient.name!,
-      newClient.address!,
-      newClient.email!
-    );
-    this.clients.push(newClient);
+  addClient(clientToAdd: ClientDto) {
+    this._dataService.addClient(clientToAdd).then((addedClient) => {
+      this.clients.push(addedClient);
+    });
   }
 
   getClients() {
