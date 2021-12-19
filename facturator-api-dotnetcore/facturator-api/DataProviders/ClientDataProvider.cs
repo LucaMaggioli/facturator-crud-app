@@ -24,16 +24,12 @@ namespace facturator_api.DataProviders
 
         private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Clients.csv";
 
-
+        /// <summary>
+        /// Return all clients
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<ClientDto>> GetClientsAsync()
         {
-            //List<Client> clients = new List<Client>();
-            //List<ClientDto> clients = new List<ClientDto>();
-
-            //_facturatorDbContext.Clients.ToList().ForEach(client =>{
-            //    clients.Add(new Client(client.Id, client.Name, client.Address, client.Email));
-            //});
-
             var clients = await _facturatorDbContext.Clients.Select(client =>
                 new ClientDto { Name = client.Name, Address = client.Address, Email = client.Email }
             ).ToListAsync();

@@ -26,12 +26,8 @@ export class ClientPageComponent implements OnInit {
 
   getClients() {
     this._dataService.getCLients().then((data) => {
-      console.log(data);
       let clientsDto = [];
       for (let client of data) {
-        console.log(client);
-        console.log(client.name);
-        console.log(client.address);
         clientsDto.push(
           new ClientDto(client.name, client.address, client.email)
         );
