@@ -23,8 +23,11 @@ namespace facturator_api.DataProviders
         {
         }
 
-        private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Clients.csv";
-
+        /// <summary>
+        /// Return a specific client by a given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Client> GetClient(int id)
         {
             // TOASK quelle est la difference entre "return client" et Return "client.Entity"
@@ -44,8 +47,8 @@ namespace facturator_api.DataProviders
             var clients = await _facturatorDbContext.Clients
                 .Where(c=> !c.IsArchived)
                 .Select(client =>
-                new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email }
-            ).ToListAsync();
+                    new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email })
+                .ToListAsync();
 
             return clients;
         }
@@ -67,6 +70,11 @@ namespace facturator_api.DataProviders
             return addedClient.Entity;
         }
 
+        /// <summary>
+        /// Update an existing client by it's Id
+        /// </summary>
+        /// <param name="clientToUpdate"></param>
+        /// <returns></returns>
         public async Task<Client> UpdateClient(ClientDto clientToUpdate)
         {
             var client = await _facturatorDbContext.Clients.FindAsync(clientToUpdate.Id);
@@ -81,6 +89,11 @@ namespace facturator_api.DataProviders
             return client;
         }
 
+        /// <summary>
+        /// Set the IsArchived property of a Client by a given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Client> ArchiveClient(int id)
         {
             var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
@@ -92,17 +105,16 @@ namespace facturator_api.DataProviders
             return client;
         }
 
-
+        /// <summary>
+        /// Get all the clients that have IsArchived property set to True
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<ClientDto>> GetArchivedClientsAsync()
         {
             var archivedClients = await _facturatorDbContext.Clients
                 .Where(c=> c.IsArchived)
-                .Select(client =>
-                new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email }
-            )
-                
+                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
                 .ToListAsync();
-
             return archivedClients;
         }
 

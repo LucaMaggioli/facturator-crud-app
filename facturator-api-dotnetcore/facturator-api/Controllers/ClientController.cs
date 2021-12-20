@@ -36,9 +36,11 @@ namespace facturator_api.Controllers
 
         // Call this endpoint to get the client with the selected id
         [HttpGet("{id:int}")]
-        public string GetClient(int id)
+        public async Task<ClientDto> GetClient(int id)
         {
-            return "client - " + id.ToString();
+            var client = await new ClientDataProvider(_context).GetClient(id);
+
+            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to add a new client
@@ -49,6 +51,7 @@ namespace facturator_api.Controllers
             return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
+        // Call this endpoint to Update an existing client
         [HttpPatch]
         public async Task<ClientDto> UpdateClient([FromBody] ClientBody body)
         {
@@ -57,6 +60,7 @@ namespace facturator_api.Controllers
             return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
+        // Call this endpoint to Archive a client by it's Id
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
@@ -64,11 +68,11 @@ namespace facturator_api.Controllers
             return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
         }
 
+        // Call this enpoint to get all the Archived clients
         [HttpGet("all/archived")]
         public async Task<List<ClientDto>> GetArchivedClients()
         {
             var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
-
             return clients;
         }
 
@@ -79,13 +83,5 @@ namespace facturator_api.Controllers
             public string Address { get; set; }
             public string Email { get; set; }
         }
-
-
-        //Methods below should be in a service class
-        //private List<string> _clientToJson(Client client)
-        //{
-        //    List<string> jsonClient = { "id":client.Id }
-        //}
-
     }
 }
