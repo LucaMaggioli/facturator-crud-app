@@ -46,6 +46,7 @@ export class AddClientFormComponent implements OnInit {
       this.email.value
     );
     this.newClient.emit(newClient);
+    //this is not true, at this point I don't know the status if add goes well or not
     this.setTemporaryMessage('Client added successfully !', true);
     this.resetForm();
   }

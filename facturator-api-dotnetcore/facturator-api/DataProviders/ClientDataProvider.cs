@@ -41,7 +41,9 @@ namespace facturator_api.DataProviders
             //TOASK Ceci n'est pas juste car dans le dataprovider je devrais passer que l'objet Client
             // et en suite dans le controlleur je devrais donc décider quois envoyer au frontend? et donc construire un Dto comment je le désire?
             // et donc AddClient serait plus juste comme methode?
-            var clients = await _facturatorDbContext.Clients.Select(client =>
+            var clients = await _facturatorDbContext.Clients
+                .Where(c=> !c.IsArchived)
+                .Select(client =>
                 new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email }
             ).ToListAsync();
 

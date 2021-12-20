@@ -53,6 +53,7 @@ namespace facturator_api.Controllers
         public async Task<ClientDto> UpdateClient([FromBody] ClientBody body)
         {
             var client = await new ClientDataProvider(_context).UpdateClient(new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email });
+            //If is null should return an error code
             return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
