@@ -14,14 +14,11 @@ namespace facturator_api.Models
             Name = name;
             Address = address;
             Email = email;
+            IsArchived = false;
         }
 
-        public Client(int id, string name, string address, string email, List<Bill> bills)
+        public Client(string name, string address, string email, List<Bill> bills) :this(name, address, email)
         {
-            Id = id;
-            Name = name;
-            Address = address;
-            Email = email;
             Bills = bills;
         }
 
@@ -29,6 +26,7 @@ namespace facturator_api.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
+        public bool IsArchived { get; set; }
         public List<Bill> Bills { get; set; }
 
     }

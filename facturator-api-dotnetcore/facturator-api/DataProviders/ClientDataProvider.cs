@@ -1,4 +1,5 @@
-﻿using facturator_api.Models;
+﻿using System.Net.Http;
+using facturator_api.Models;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -24,14 +25,24 @@ namespace facturator_api.DataProviders
 
         private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Clients.csv";
 
+        public async Task<Client> GetClient(int id)
+        {
+            // TOASK quelle est la difference entre "return client" et Return "client.Entity"
+            var client = await _facturatorDbContext.Clients.FindAsync(id);
+            return client;
+        }
+
         /// <summary>
         /// Return all clients
         /// </summary>
         /// <returns></returns>
         public async Task<List<ClientDto>> GetClientsAsync()
         {
+            //TOASK Ceci n'est pas juste car dans le dataprovider je devrais passer que l'objet Client
+            // et en suite dans le controlleur je devrais donc décider quois envoyer au frontend? et donc construire un Dto comment je le désire?
+            // et donc AddClient serait plus juste comme methode?
             var clients = await _facturatorDbContext.Clients.Select(client =>
-                new ClientDto { Name = client.Name, Address = client.Address, Email = client.Email }
+                new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email }
             ).ToListAsync();
 
             return clients;
@@ -53,6 +64,32 @@ namespace facturator_api.DataProviders
 
             return addedClient.Entity;
         }
+
+        public async Task<Client> ArchiveClient(int id)
+        {
+            var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
+            if (client != null)
+            {
+                client.IsArchived = true;
+                await SaveChanges();
+            }
+            return client;
+        }
+
+
+        public async Task<List<ClientDto>> GetArchivedClientsAsync()
+        {
+            var archivedClients = await _facturatorDbContext.Clients
+                .Where(c=> c.IsArchived)
+                .Select(client =>
+                new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email }
+            )
+                
+                .ToListAsync();
+
+            return archivedClients;
+        }
+
         private async Task SaveChanges()
         {
             await _facturatorDbContext.SaveChangesAsync();

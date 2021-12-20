@@ -29,7 +29,6 @@ C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-d
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\runtimes\osx-x64\native\libe_sqlite3.dylib
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.csproj.AssemblyReference.cache
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.AssemblyInfoInputs.cache
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.AssemblyInfo.cs
@@ -190,3 +189,4 @@ C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator
 C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\ref\facturator-api.dll
 C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.pdb
 C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.genruntimeconfig.cache
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.csproj.AssemblyReference.cache

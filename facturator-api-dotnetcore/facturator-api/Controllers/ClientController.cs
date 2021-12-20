@@ -1,4 +1,5 @@
-﻿using facturator_api.Models;
+﻿using System.Net.Http;
+using facturator_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,13 @@ namespace facturator_api.Controllers
         [HttpGet("all")]
         public async Task<List<ClientDto>> GetClients()
         {
-            //List<ClientDto> clients = new ClientDataProvider(_context).GetClientsAsync();
             var clients = await new ClientDataProvider(_context).GetClientsAsync();
 
-            //return JsonSerializer.Serialize(clients);
             return clients;
         }
 
         // Call this endpoint to get the client with the selected id
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public string GetClient(int id)
         {
             return "client - " + id.ToString();
@@ -46,7 +45,22 @@ namespace facturator_api.Controllers
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
             var client = await new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);
-            return new ClientDto { Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
+        {
+            var deletedClient = await new ClientDataProvider(_context).ArchiveClient(id);
+            return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+        }
+
+        [HttpGet("archived")]
+        public async Task<List<ClientDto>> GetArchivedClients()
+        {
+            var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
+
+            return clients;
         }
 
         public class ClientBody
