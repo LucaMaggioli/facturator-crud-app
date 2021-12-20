@@ -25,6 +25,7 @@ namespace facturator_api.Controllers
 
 
         // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
+        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
         [HttpGet("all")]
         public async Task<List<ClientDto>> GetClients()
         {
@@ -55,7 +56,7 @@ namespace facturator_api.Controllers
             return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
         }
 
-        [HttpGet("archived")]
+        [HttpGet("all/archived")]
         public async Task<List<ClientDto>> GetArchivedClients()
         {
             var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
