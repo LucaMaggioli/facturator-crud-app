@@ -65,6 +65,20 @@ namespace facturator_api.DataProviders
             return addedClient.Entity;
         }
 
+        public async Task<Client> UpdateClient(ClientDto clientToUpdate)
+        {
+            var client = await _facturatorDbContext.Clients.FindAsync(clientToUpdate.Id);
+
+            if (client != null)
+            {
+                client.Name = clientToUpdate.Name;
+                client.Address = clientToUpdate.Address;
+                client.Email = clientToUpdate.Email;
+                await SaveChanges();
+            }
+            return client;
+        }
+
         public async Task<Client> ArchiveClient(int id)
         {
             var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);

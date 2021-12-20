@@ -49,6 +49,13 @@ namespace facturator_api.Controllers
             return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
+        [HttpPatch]
+        public async Task<ClientDto> UpdateClient([FromBody] ClientBody body)
+        {
+            var client = await new ClientDataProvider(_context).UpdateClient(new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email });
+            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
@@ -66,6 +73,7 @@ namespace facturator_api.Controllers
 
         public class ClientBody
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Address { get; set; }
             public string Email { get; set; }
