@@ -38,7 +38,7 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ClientDto> GetClient(int id)
         {
-            var client = await new ClientDataProvider(_context).GetClient(id);
+            var client = await new ClientDataProvider(_context).GetClientById(id);
 
             return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
@@ -47,7 +47,7 @@ namespace facturator_api.Controllers
         [HttpPost]
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).AddClient(body.Name, body.Address, body.Email);
+            var client = await new ClientDataProvider(_context).Add(body.Name, body.Address, body.Email);
             return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
@@ -55,7 +55,7 @@ namespace facturator_api.Controllers
         [HttpPatch]
         public async Task<ClientDto> UpdateClient([FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).UpdateClient(new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email });
+            var client = await new ClientDataProvider(_context).Update(new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email });
             //If is null should return an error code
             return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
@@ -64,7 +64,7 @@ namespace facturator_api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
-            var deletedClient = await new ClientDataProvider(_context).ArchiveClient(id);
+            var deletedClient = await new ClientDataProvider(_context).Archive(id);
             return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
         }
 

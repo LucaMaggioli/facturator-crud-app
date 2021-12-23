@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    public class ClientDataProvider
+    public class ClientDataProvider : IClientDataProvider
     {
         private readonly FacturatorDbContext _facturatorDbContext;
 
@@ -28,7 +28,7 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Client> GetClient(int id)
+        public async Task<Client> GetClientById(int id)
         {
             // TOASK quelle est la difference entre "return client" et Return "client.Entity"
             var client = await _facturatorDbContext.Clients.FindAsync(id);
@@ -60,7 +60,7 @@ namespace facturator_api.DataProviders
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<Client> AddClient(string name, string address, string email)
+        public async Task<Client> Add(string name, string address, string email)
         {
             Client clientToAdd = new Client(name,address, email);
 
@@ -75,7 +75,7 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="clientToUpdate"></param>
         /// <returns></returns>
-        public async Task<Client> UpdateClient(ClientDto clientToUpdate)
+        public async Task<Client> Update(ClientDto clientToUpdate)
         {
             var client = await _facturatorDbContext.Clients.FindAsync(clientToUpdate.Id);
 
@@ -94,7 +94,7 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Client> ArchiveClient(int id)
+        public async Task<Client> Archive(int id)
         {
             var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
             if (client != null)
