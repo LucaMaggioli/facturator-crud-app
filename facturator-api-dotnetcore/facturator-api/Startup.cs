@@ -57,7 +57,7 @@ namespace facturator_api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(); 
+                app.UseSwaggerUI();
             }
             else
             {
