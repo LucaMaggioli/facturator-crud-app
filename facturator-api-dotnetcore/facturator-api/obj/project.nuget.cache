@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4G7QcSJjOXE1664AmsiAPF921w0RAqektF/uECs/nEE4VeWuKJMeVyvZp5/IQ0yAuYqvJhxHWUW5Yz6f2OdbOg==",
+  "dgSpecHash": "V6v3bbJnZvYoutWMAghoqMsQVaFbbprF2oKrCNg9QVvAJYLNZpLJS7tgJREWhG4SAd7W7HrvAnA+URPlzkG2lA==",
   "success": true,
   "projectFilePath": "C:\\Users\\maggioli\\Desktop\\Apprentissage\\EPSIC-3\\i326\\facturator\\facturator-api-dotnetcore\\facturator-api\\facturator-api.csproj",
   "expectedPackageFiles": [
@@ -26,10 +26,12 @@
     "C:\\Users\\maggioli\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.0\\microsoft.extensions.logging.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
+    "C:\\Users\\maggioli\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.0\\sqlitepclraw.bundle_e_sqlite3.2.0.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\sqlitepclraw.core\\2.0.0\\sqlitepclraw.core.2.0.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.0\\sqlitepclraw.lib.e_sqlite3.2.0.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.0\\sqlitepclraw.provider.dynamic_cdecl.2.0.0.nupkg.sha512",
+    "C:\\Users\\maggioli\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\system.collections.immutable\\1.6.0\\system.collections.immutable.1.6.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\system.componentmodel.annotations\\4.6.0\\system.componentmodel.annotations.4.6.0.nupkg.sha512",
     "C:\\Users\\maggioli\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.6.0\\system.diagnostics.diagnosticsource.4.6.0.nupkg.sha512",

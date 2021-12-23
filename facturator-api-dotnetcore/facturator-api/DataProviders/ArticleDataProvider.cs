@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    public class ArticleDataProvider
+    public class ArticleDataProvider : IArticleDataProvider
     {
 
         //private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
-        
+
         private string path = @"C:\Users\mm\Desktop\WorkDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
 
         public List<Article> getArticles()
@@ -57,6 +57,19 @@ namespace facturator_api.DataProviders
             {
                 Console.WriteLine(exception.Message);
             }
+        }
+    }
+
+    public class ArticleDataProviderMock : IArticleDataProvider
+    {
+        public void AddArticle(string name, string photoUrl, string price, string description)
+        {
+            
+        }
+
+        public List<Article> getArticles()
+        {
+            return new List<Article> { new Article(1, "", "", 1, "")};
         }
     }
 }

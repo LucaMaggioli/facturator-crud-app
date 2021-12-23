@@ -14,8 +14,12 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ArticleController : Controller
     {
+        private readonly IArticleDataProvider _articleDataProvider;
 
-        private ArticleDataProvider _articleDataProvider = new ArticleDataProvider();
+        public ArticleController(IArticleDataProvider articleDataProvider)
+        {
+            _articleDataProvider = articleDataProvider;
+        }
 
         [HttpGet]
         public string getArticles()
