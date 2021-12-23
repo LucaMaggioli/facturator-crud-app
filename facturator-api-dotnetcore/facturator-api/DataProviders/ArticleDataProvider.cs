@@ -68,5 +68,10 @@ namespace facturator_api.DataProviders
         {
             throw new NotImplementedException();
         }
+
+        Task<ActionResult<Article>> IArticleDataProvider.AddArticle(string name, string photoUrl, decimal price, string description)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
