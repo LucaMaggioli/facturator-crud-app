@@ -33,8 +33,8 @@ export class FacturatorApiCallService {
   }
 
   async getArticles() {
-    return await fetch(this.backendURL + '/article/', { method: 'GET' }).then(
-      (response) => response.json()
-    );
+    return await fetch(this.backendURL + '/article/all', {
+      method: 'GET',
+    }).then((response) => response.json());
   }
 }

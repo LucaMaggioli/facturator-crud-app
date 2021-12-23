@@ -1,5 +1,6 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace facturator_api.DataProviders
             return articles;
         }
 
-        public async Task<Article> AddArticle(string name, string photoUrl, decimal price, string description)
+        public async Task<ActionResult<Article>> AddArticle(string name, string photoUrl, decimal price, string description)
         {
             var articleToAdd = new Article(name, photoUrl, price, description);
             _facturatorDbContext.Articles.Add(articleToAdd);

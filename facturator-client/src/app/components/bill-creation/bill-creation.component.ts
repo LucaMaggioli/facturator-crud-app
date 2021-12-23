@@ -3,7 +3,7 @@ import { ClientDto } from '../../shared/models/ClientDto';
 import { Bill } from '../../shared/models/bill';
 import { Article } from '../../shared/models/article';
 import { auditTime } from 'rxjs/operators';
-import { ArticlesServiceService } from '../../services/articles-service.service';
+import { ArticleService } from '../../services/articles-service.service';
 import { ClientService } from '../../services/client.service';
 import { FormControl } from '@angular/forms';
 
@@ -25,7 +25,7 @@ export class BillCreationComponent implements OnInit {
   date = new FormControl(new Date());
 
   constructor(
-    private _ArticleService: ArticlesServiceService,
+    private _ArticleService: ArticleService,
     private _ClientService: ClientService
   ) {}
 
