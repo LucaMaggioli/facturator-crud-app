@@ -16,6 +16,10 @@ export class FacturatorApiCallService {
     );
   }
 
+  async callApi(url: string, options: {}) {
+    return await fetch(url, options).then((response) => response.json());
+  }
+
   async addClient(clientToAdd: ClientDto) {
     let body = JSON.stringify({
       name: clientToAdd.name,
