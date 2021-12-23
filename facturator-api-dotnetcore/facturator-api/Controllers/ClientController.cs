@@ -27,11 +27,11 @@ namespace facturator_api.Controllers
         // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
         // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
         [HttpGet("all")]
-        public async Task<List<ClientDto>> GetClients()
+        public async Task<ActionResult<List<ClientDto>>> GetClients()
         {
             var clients = await new ClientDataProvider(_context).GetClientsAsync();
 
-            return clients;
+            return Ok(clients);
         }
 
         // Call this endpoint to get the client with the selected id
