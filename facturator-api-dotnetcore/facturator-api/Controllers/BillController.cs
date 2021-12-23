@@ -11,7 +11,7 @@ namespace facturator_api.Controllers
     {
         private readonly IBillDataProvider _billDataProvider;
         /// <summary>
-        /// Constructor will inject into the constructor an object with type IbillDataProvider, thanks to AddTransient<> into Startup.cs
+        /// billDataProvider will be injected into controller in Startup
         /// </summary>
         /// <param name="billDataProvider"></param>
         public BillController(BillDataProvider billDataProvider)

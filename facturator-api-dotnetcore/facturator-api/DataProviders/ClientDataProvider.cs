@@ -15,7 +15,8 @@ namespace facturator_api.DataProviders
     {
         private readonly FacturatorDbContext _facturatorDbContext;
 
-        public ClientDataProvider(FacturatorDbContext context){
+        public ClientDataProvider(FacturatorDbContext context)
+        {
             _facturatorDbContext = context;
         }
 
@@ -39,15 +40,12 @@ namespace facturator_api.DataProviders
         /// Return all clients
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ClientDto>> GetClientsAsync()
+        public async Task<List<Client>> GetClientsAsync()
         {
-            //TOASK Ceci n'est pas juste car dans le dataprovider je devrais passer que l'objet Client
-            // et en suite dans le controlleur je devrais donc décider quois envoyer au frontend? et donc construire un Dto comment je le désire?
-            // et donc AddClient serait plus juste comme methode?
             var clients = await _facturatorDbContext.Clients
-                .Where(c=> !c.IsArchived)
-                .Select(client =>
-                    new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email })
+                .Where(c => !c.IsArchived)
+                .Select(client => client)
+                //new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email })
                 .ToListAsync();
 
             return clients;
@@ -62,7 +60,7 @@ namespace facturator_api.DataProviders
         /// <returns></returns>
         public async Task<Client> Add(string name, string address, string email)
         {
-            Client clientToAdd = new Client(name,address, email);
+            Client clientToAdd = new Client(name, address, email);
 
             var addedClient = await _facturatorDbContext.Clients.AddAsync(clientToAdd);
             await SaveChanges();
@@ -94,12 +92,12 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Client> Archive(int id)
+        public async Task<Client> SetArchived(int id, bool isArchived)
         {
             var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
             if (client != null)
             {
-                client.IsArchived = true;
+                client.IsArchived = isArchived;
                 await SaveChanges();
             }
             return client;
@@ -112,7 +110,7 @@ namespace facturator_api.DataProviders
         public async Task<List<ClientDto>> GetArchivedClientsAsync()
         {
             var archivedClients = await _facturatorDbContext.Clients
-                .Where(c=> c.IsArchived)
+                .Where(c => c.IsArchived)
                 .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
                 .ToListAsync();
             return archivedClients;

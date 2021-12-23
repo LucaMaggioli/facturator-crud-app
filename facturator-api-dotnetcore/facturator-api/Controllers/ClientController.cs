@@ -30,8 +30,12 @@ namespace facturator_api.Controllers
         public async Task<List<ClientDto>> GetClients()
         {
             var clients = await new ClientDataProvider(_context).GetClientsAsync();
+            
+            var clientsDto = clients
+                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .ToList();
 
-            return clients;
+            return clientsDto;
         }
 
         // Call this endpoint to get the client with the selected id
@@ -48,6 +52,7 @@ namespace facturator_api.Controllers
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
             var client = await new ClientDataProvider(_context).Add(body.Name, body.Address, body.Email);
+
             return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
@@ -64,8 +69,15 @@ namespace facturator_api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
-            var deletedClient = await new ClientDataProvider(_context).Archive(id);
-            return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+            var deletedClient = await new ClientDataProvider(_context).SetArchived(id, true);
+
+            if (deletedClient != null){
+                return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+            }
+            else
+            {
+                return NotFound("Client to Archive not found");
+            }
         }
 
         // Call this enpoint to get all the Archived clients
