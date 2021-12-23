@@ -10,7 +10,6 @@ namespace facturator_api.Models
         //public Client(int id, string name, string address, string email)
         public Client(string name, string address, string email)
         {
-            //Id = id;
             Name = name;
             Address = address;
             Email = email;

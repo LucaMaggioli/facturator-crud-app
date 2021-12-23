@@ -21,16 +21,16 @@ namespace facturator_api.Controllers
             _articleDataProvider = articleDataProvider;
         }
 
-        [HttpGet]
-        public string getArticles()
+        [HttpGet("all")]
+        public async Task<List<Article>> getArticles()
         {
-            List<Article> articles = this._articleDataProvider.getArticles();
+            var articles = await _articleDataProvider.GetArticlesAsync();
 
-            return JsonSerializer.Serialize(articles);
+            return articles;
         }
 
         [HttpPost]
-        public string AddClient([FromBody] ArticleBody body)
+        public string AddArticle([FromBody] ArticleBody body)
         {
             this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
             return "article registered";
@@ -40,7 +40,7 @@ namespace facturator_api.Controllers
         {
             public string Name { get; set; }
             public string PhotoUrl { get; set; }
-            public string Price { get; set; }
+            public decimal Price { get; set; }
             public string Description { get; set; }
         }
     }

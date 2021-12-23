@@ -1,4 +1,6 @@
 ﻿using facturator_api.Models;
+using facturator_api.Models.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,54 +13,38 @@ namespace facturator_api.DataProviders
     public class ArticleDataProvider : IArticleDataProvider
     {
 
-        //private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
+        private readonly FacturatorDbContext _facturatorDbContext;
 
-        private string path = @"C:\Users\mm\Desktop\WorkDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\Data\Articles.csv";
-
-        public List<Article> getArticles()
+        public ArticleDataProvider(FacturatorDbContext context)
         {
-            List<Article> articles = new List<Article>();
+            _facturatorDbContext = context;
+        }
 
-            try
-            {
-                string[] lines = System.IO.File.ReadAllLines(this.path);
-                foreach (string line in lines)
-                {
-                    string[] columns = line.Split(',');
-                    int id;
-                    int.TryParse(columns[0], out id);
-                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-                    ci.NumberFormat.CurrencyDecimalSeparator = ".";
-                    decimal price = decimal.Parse(columns[3], CultureInfo.InvariantCulture.NumberFormat);
-                    articles.Add(new Article(id, columns[1], columns[2], price, columns[4]));
-                }
-            }
-            catch (FileNotFoundException exception)
-            {
-                Console.WriteLine(exception);
-            }
+        public async Task<List<Article>> GetArticlesAsync()
+        {
+            var articles = await _facturatorDbContext.Articles
+                .Select(article => article)
+                .ToListAsync();
 
             return articles;
         }
 
-        public async void AddArticle(string name, string photoUrl, string price, string description)
+        public async Task<Article> AddArticle(string name, string photoUrl, decimal price, string description)
         {
-            try
-            {
-                //get Id for new client
-                string[] lines = System.IO.File.ReadAllLines(this.path);
-                int id = lines.Length;
+            var articleToAdd = new Article(name, photoUrl, price, description);
+            _facturatorDbContext.Articles.Add(articleToAdd);
+            await SaveChanges();
 
-                //add new Client to file
-                using StreamWriter file = new StreamWriter(this.path, append: true);
-                file.WriteLine(id + ", " + name + ", " + photoUrl + ", " + price + "," + description + ",");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
+            return articleToAdd;
+        }
+
+        private async Task SaveChanges()
+        {
+            await _facturatorDbContext.SaveChangesAsync();
         }
     }
+
+
 
     public class ArticleDataProviderMock : IArticleDataProvider
     {
@@ -67,9 +53,19 @@ namespace facturator_api.DataProviders
             
         }
 
+        public Task<Article> AddArticle(string name, string photoUrl, decimal price, string description)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Article> getArticles()
         {
-            return new List<Article> { new Article(1, "", "", 1, "")};
+            return new List<Article> { new Article("", "", 1, "")};
+        }
+
+        public Task<List<Article>> GetArticlesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

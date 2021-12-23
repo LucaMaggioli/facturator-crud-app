@@ -73,9 +73,9 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="clientToUpdate"></param>
         /// <returns></returns>
-        public async Task<Client> Update(ClientDto clientToUpdate)
+        public async Task<Client> Update(int id,  ClientDto clientToUpdate)
         {
-            var client = await _facturatorDbContext.Clients.FindAsync(clientToUpdate.Id);
+            var client = await _facturatorDbContext.Clients.FindAsync(id);
 
             if (client != null)
             {

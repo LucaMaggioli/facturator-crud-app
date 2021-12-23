@@ -57,10 +57,11 @@ namespace facturator_api.Controllers
         }
 
         // Call this endpoint to Update an existing client
-        [HttpPatch]
-        public async Task<ClientDto> UpdateClient([FromBody] ClientBody body)
+        [HttpPatch("id:int")]
+        public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).Update(new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email });
+            var updatedClientDto = new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email };
+            var client = await new ClientDataProvider(_context).Update(id, updatedClientDto);
             //If is null should return an error code
             return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
