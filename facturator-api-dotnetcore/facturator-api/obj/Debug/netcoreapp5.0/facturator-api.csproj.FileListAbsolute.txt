@@ -190,3 +190,8 @@ C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator
 C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.pdb
 C:\Users\mm\Desktop\WorkingDirectory\Apprentissage\EPSIC-3\Exam-sem-1-facturator\facturator-crud-app\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.genruntimeconfig.cache
 C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.csprojAssemblyReference.cache
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\Microsoft.OpenApi.dll
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\obj\Debug\netcoreapp5.0\facturator-api.MvcApplicationPartsAssemblyInfo.cs

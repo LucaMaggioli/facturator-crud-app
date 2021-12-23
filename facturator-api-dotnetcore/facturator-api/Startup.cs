@@ -32,6 +32,11 @@ namespace facturator_api
 
             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", GenerateCorsPolicy()); });
             services.AddControllersWithViews();
+            
+            //services.AddControllers();
+            //services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
         }
 
 
@@ -51,6 +56,8 @@ namespace facturator_api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(); 
             }
             else
             {
