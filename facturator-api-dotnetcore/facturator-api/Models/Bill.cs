@@ -7,27 +7,27 @@ namespace facturator_api.Models
 {
     public class Bill
     {
-        public Bill(int id, DateTime date, float total, bool isValid)
+        public Bill(int id, DateTime date, bool isPayed)
         {
             Id = id;
             Date = date;
-            Total = total;
-            IsValid = isValid;
+            Total = 0;
+            IsPayed = isPayed;
         }
 
-        public Bill(int id, DateTime date, float total, bool isValid, List<Article> articles)
+        public Bill(int id, DateTime date, bool isPayed, List<Article> articles)
         {
+            articles.ForEach(article => { Total += article.Price; });
             Id = id;
             Date = date;
-            Total = total;
-            IsValid = isValid;
+            IsPayed = isPayed;
             Articles = articles;
         }
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public float Total { get; set; }
-        public Boolean IsValid { get; set; }
+        public decimal Total { get; set; }
+        public bool IsPayed { get; set; }
         public List<Article> Articles { get; set; }
         
     }
