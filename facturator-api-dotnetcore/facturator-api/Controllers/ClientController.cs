@@ -59,7 +59,7 @@ namespace facturator_api.Controllers
         }
 
         // Call this endpoint to Update an existing client
-        [HttpPatch("id:int")]
+        [HttpPatch("{id:int}")]
         public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
         {
             var updatedClientDto = new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email };

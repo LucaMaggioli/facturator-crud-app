@@ -72,7 +72,12 @@ namespace facturator_api.DataProviders
             return article;
         }
 
-        public async Task<Article> DeleteArticle(int id)
+        //TOASK better DeleteArticle(int id) or DeleteArticle(Article articleToDelete)???
+        //this will result into a controller modification too:
+        //controller should use _articleDataProvider.GetArticleAsync(id) 
+        //and then the found article is passed thruough this method ->
+        //in controller call: _articleDataProvider.DeleteArticle(Article article);
+        public async Task<Article> DeleteArticleById(int id)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
             article.IsArchived = true;
@@ -81,6 +86,15 @@ namespace facturator_api.DataProviders
 
             return article;
         }
+        //Or better like this ? 
+        /*
+        public async Task<Article> DeleteArticle(Article articleToDelete)
+        {
+            articleToDelete.IsArchived = true;
+            await SaveChanges();
+
+            return articleToDelete;
+        }*/
 
 
         private async Task SaveChanges()
@@ -103,7 +117,7 @@ namespace facturator_api.DataProviders
             throw new NotImplementedException();
         }
 
-        public Task<Article> DeleteArticle(int id)
+        public Task<Article> DeleteArticleById(int id)
         {
             throw new NotImplementedException();
         }

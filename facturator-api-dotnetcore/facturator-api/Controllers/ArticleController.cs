@@ -31,7 +31,7 @@ namespace facturator_api.Controllers
         }
 
         // Call this enpoint to get the list of all available articles 
-        [HttpGet("id:int")]
+        [HttpGet("{id:int}")]
         public async Task<Article> getArticle(int id)
         {
             var articles = await _articleDataProvider.GetArticleAsync(id);
@@ -50,22 +50,19 @@ namespace facturator_api.Controllers
         }
 
         // Call this enpoint to update an article
-        [HttpPatch("id:int")]
-        public string UpdateArticle(int id, [FromBody] ArticleBody body)
+        [HttpPatch("{id:int}")]
+        public Task<Article> UpdateArticle(int id, [FromBody] ArticleBody body)
         {
             var updatedArticle = this._articleDataProvider.UpdateArticle(id, body.Name, body.PhotoUrl, body.Price, body.Description);
-            Console.WriteLine("article updated");
-            Console.WriteLine(updatedArticle);
-            return "article updated";
+            return updatedArticle;
         }
 
-        [HttpDelete("id:int")]
-        public string DeleteArticle(int id)
+        [HttpDelete("{id:int}")]
+        public Task<Article> DeleteArticle(int id)
         {
-            var deletedArticle = _articleDataProvider.DeleteArticle(id);
-            Console.WriteLine("article deleted");
-            Console.WriteLine(deletedArticle);
-            return "article updated";
+            var deletedArticle = _articleDataProvider.DeleteArticleById(id);
+            
+            return deletedArticle;
         }
 
         public class ArticleBody
