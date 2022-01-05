@@ -108,6 +108,16 @@ namespace facturator_api.Migrations
                         .WithMany("Bills")
                         .HasForeignKey("ClientId");
                 });
+
+            modelBuilder.Entity("facturator_api.Models.Bill", b =>
+                {
+                    b.Navigation("Articles");
+                });
+
+            modelBuilder.Entity("facturator_api.Models.Client", b =>
+                {
+                    b.Navigation("Bills");
+                });
 #pragma warning restore 612, 618
         }
     }

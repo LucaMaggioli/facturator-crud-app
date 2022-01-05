@@ -5,28 +5,16 @@ using System.Threading.Tasks;
 
 namespace facturator_api.Models
 {
-    public class Client
+    public class Client : User
     {
-        //public Client(int id, string name, string address, string email)
-        public Client(string name, string address, string email)
+        public Client(string firstName, string lastName, string address, string email) : base(firstName, lastName, address, email)
         {
-            Name = name;
-            Address = address;
-            Email = email;
             IsArchived = false;
+            ClientUniqueCode = "generate here a unique code to let clients login into their Client Page to see their Bills";
         }
 
-        public Client(string name, string address, string email, List<Bill> bills) :this(name, address, email)
-        {
-            Bills = bills;
-        }
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
+        public string ClientUniqueCode { get; set; }
         public bool IsArchived { get; set; }
-        public List<Bill> Bills { get; set; }
 
     }
 }

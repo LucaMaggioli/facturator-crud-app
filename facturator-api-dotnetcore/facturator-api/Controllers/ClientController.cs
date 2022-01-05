@@ -34,7 +34,7 @@ namespace facturator_api.Controllers
             var clients = await new ClientDataProvider(_context).GetClientsAsync();
             
             var clientsDto = clients
-                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .Select(client => new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email })
                 .ToList();
 
             return clientsDto;
@@ -46,26 +46,26 @@ namespace facturator_api.Controllers
         {
             var client = await new ClientDataProvider(_context).GetClientById(id);
 
-            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to add a new client
         [HttpPost]
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).Add(body.Name, body.Address, body.Email);
+            var client = await new ClientDataProvider(_context).Add(body.FirstName, body.LastName, body.Address, body.Email);
 
-            return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to Update an existing client
         [HttpPatch("{id:int}")]
         public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
         {
-            var updatedClientDto = new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email };
+            var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
             var client = await new ClientDataProvider(_context).Update(id, updatedClientDto);
             //If is null should return an error code
-            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to Archive a client by it's Id
@@ -75,7 +75,7 @@ namespace facturator_api.Controllers
             var deletedClient = await new ClientDataProvider(_context).SetArchived(id, true);
 
             if (deletedClient != null){
-                return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+                return new ClientDto { Id = deletedClient.Id, FirstName = deletedClient.FirstName, LastName = deletedClient.LastName, Address = deletedClient.Address, Email = deletedClient.Email };
             }
             else
             {
@@ -94,7 +94,8 @@ namespace facturator_api.Controllers
         public class ClientBody
         {
             public int Id { get; set; }
-            public string Name { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
             public string Address { get; set; }
             public string Email { get; set; }
         }

@@ -25,11 +25,12 @@ namespace facturator_api.DataProviders
         /// <summary>
         /// Add a client
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        Task<Client> Add(string name, string address, string email);
+        Task<Client> Add(string firstName, string lastName, string address, string email);
 
         /// <summary>
         /// Get the clients with property IsArchived = true
