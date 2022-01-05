@@ -30,6 +30,15 @@ namespace facturator_api.Controllers
             return articles;
         }
 
+        // Call this enpoint to get the list of all available articles 
+        [HttpGet("id:int")]
+        public async Task<Article> getArticle(int id)
+        {
+            var articles = await _articleDataProvider.GetArticleAsync(id);
+
+            return articles;
+        }
+
         // Call this enpoint to add an article
         [HttpPost]
         public string AddArticle([FromBody] ArticleBody body)
