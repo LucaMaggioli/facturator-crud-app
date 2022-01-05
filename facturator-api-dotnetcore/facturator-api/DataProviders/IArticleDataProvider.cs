@@ -10,6 +10,6 @@ namespace facturator_api.DataProviders
         Task<Article> DeleteArticleById(int id);
         Task<Article> GetArticleAsync(int id);
         Task<List<Article>> GetArticlesAsync();
-        Task<Article> UpdateArticle(int id, string name, string photoUrl, decimal price, string description);
+        Task<Article> UpdateArticleById(int id, string name, string photoUrl, decimal price, string description);
     }
 }

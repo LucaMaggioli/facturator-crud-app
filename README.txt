@@ -6,4 +6,5 @@ Pour la separation entre les DataProviders et le Controller:
 QUESTIONS:
 
 Selmir:
-	- inArticleDataProvider: DeleteArticle(Article article) or DeleteArticleById(int id) ??
+	- in ArticleDataProvider: DeleteArticle(Article article) or DeleteArticleById(int id) ??
+	- same for the UpdateArticle method

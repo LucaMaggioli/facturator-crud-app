@@ -56,7 +56,7 @@ namespace facturator_api.DataProviders
         /// <param name="price"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public async Task<Article> UpdateArticle(int id, string name, string photoUrl, decimal price, string description)
+        public async Task<Article> UpdateArticleById(int id, string name, string photoUrl, decimal price, string description)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
 
@@ -77,6 +77,7 @@ namespace facturator_api.DataProviders
         //controller should use _articleDataProvider.GetArticleAsync(id) 
         //and then the found article is passed thruough this method ->
         //in controller call: _articleDataProvider.DeleteArticle(Article article);
+        //Same comment for the UpdateArticle
         public async Task<Article> DeleteArticleById(int id)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
@@ -127,7 +128,7 @@ namespace facturator_api.DataProviders
             throw new NotImplementedException();
         }
 
-        public Task<Article> UpdateArticle(int id, string name, string photoUrl, decimal price, string description)
+        public Task<Article> UpdateArticleById(int id, string name, string photoUrl, decimal price, string description)
         {
             throw new NotImplementedException();
         }
