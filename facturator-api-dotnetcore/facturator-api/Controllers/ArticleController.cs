@@ -14,29 +14,62 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ArticleController : Controller
     {
+        private readonly IArticleDataProvider _articleDataProvider;
 
-        private ArticleDataProvider _articleDataProvider = new ArticleDataProvider();
-
-        [HttpGet]
-        public string getArticles()
+        public ArticleController(IArticleDataProvider articleDataProvider)
         {
-            List<Article> articles = this._articleDataProvider.getArticles();
-
-            return JsonSerializer.Serialize(articles);
+            _articleDataProvider = articleDataProvider;
         }
 
-        [HttpPost]
-        public string AddClient([FromBody] ArticleBody body)
+        // Call this enpoint to get the list of all available articles 
+        [HttpGet]
+        public async Task<List<Article>> getArticles()
         {
-            this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
+            var articles = await _articleDataProvider.GetArticlesAsync();
+
+            return articles;
+        }
+
+        // Call this enpoint to get the list of all available articles 
+        [HttpGet("{id:int}")]
+        public async Task<Article> getArticle(int id)
+        {
+            var articles = await _articleDataProvider.GetArticleAsync(id);
+
+            return articles;
+        }
+
+        // Call this enpoint to add an article
+        [HttpPost]
+        public string AddArticle([FromBody] ArticleBody body)
+        {
+            var addedArticle = this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
+            Console.WriteLine("new article added");
+            Console.WriteLine(addedArticle);
             return "article registered";
+        }
+
+        // Call this enpoint to update an article
+        [HttpPatch("{id:int}")]
+        public Task<Article> UpdateArticle(int id, [FromBody] ArticleBody body)
+        {
+            var updatedArticle = this._articleDataProvider.UpdateArticleById(id, body.Name, body.PhotoUrl, body.Price, body.Description);
+            return updatedArticle;
+        }
+
+        [HttpDelete("{id:int}")]
+        public Task<Article> DeleteArticle(int id)
+        {
+            var deletedArticle = _articleDataProvider.DeleteArticleById(id);
+            
+            return deletedArticle;
         }
 
         public class ArticleBody
         {
             public string Name { get; set; }
             public string PhotoUrl { get; set; }
-            public string Price { get; set; }
+            public decimal Price { get; set; }
             public string Description { get; set; }
         }
     }

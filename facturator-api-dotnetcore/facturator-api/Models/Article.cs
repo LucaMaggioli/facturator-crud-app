@@ -7,13 +7,17 @@ namespace facturator_api.Models
 {
     public class Article
     {
-        public Article(int id, string name, string photoUrl, decimal price, string description)
+        public Article(string name, string photoUrl, decimal price, string description)
         {
-            this.Id = id;
             this.Name = name;
             this.PhotoUrl = photoUrl;
             this.Price = price;
             this.Description = description;
+            this.IsArchived = false;
+        }
+        public Article(string name, string photoUrl, decimal price, string description, int id) : this(name, photoUrl, price, description)
+        {
+            this.Id = id;
         }
 
         public int Id { get; set; }
@@ -21,5 +25,6 @@ namespace facturator_api.Models
         public string PhotoUrl { get; set; }
         public decimal Price { get; set; }
         public string Description{ get; set; }
+        public bool IsArchived { get; set; }
     }
 }

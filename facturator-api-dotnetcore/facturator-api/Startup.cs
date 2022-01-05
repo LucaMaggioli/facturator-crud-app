@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using facturator_api.Models.Context;
 using Microsoft.EntityFrameworkCore;
+using facturator_api.DataProviders;
 
 namespace facturator_api
 {
@@ -32,6 +33,10 @@ namespace facturator_api
 
             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", GenerateCorsPolicy()); });
             services.AddControllersWithViews();
+            //injecte les dépendances pour les classes qui utilisent celles-ci -- P.ex va injecter ClientDataProvider dans ClientControlleur lors de son instanciation, donne un coup d'oeil ici https://www.c-sharpcorner.com/article/understanding-addtransient-vs-addscoped-vs-addsingleton-in-asp-net-core/
+            services.AddTransient<IArticleDataProvider, ArticleDataProvider>();
+            services.AddTransient<IClientDataProvider, ClientDataProvider>();
+            services.AddTransient<IBillDataProvider, BillDataProvider>();
         }
 
 

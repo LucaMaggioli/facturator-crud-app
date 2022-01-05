@@ -1,4 +1,8 @@
-﻿using facturator_api.Models;
+﻿using System.Net.Http;
+using facturator_api.Models;
+using facturator_api.Models.Context;
+using facturator_api.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,52 +11,114 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    public class ClientDataProvider
+    public class ClientDataProvider : IClientDataProvider
     {
+        private readonly FacturatorDbContext _facturatorDbContext;
 
-        private string path = @"C:\Users\maggioli\Desktop\Apprentissage\EPSIC-3\i326\facturator\facturator-api-dotnetcore\facturator-api\Data\Clients.csv";
-
-
-        public List<Client> GetClients()
+        public ClientDataProvider(FacturatorDbContext context)
         {
-            List<Client> clients = new List<Client>();
+            _facturatorDbContext = context;
+        }
 
-            try
-            {
-                string[] lines = System.IO.File.ReadAllLines(this.path);
-                //string[] lines = { "", "x" };
-                foreach (string line in lines)
-                {
-                    string[] columns = line.Split(',');
-                    int id = 0;
-                    int.TryParse(columns[0], out id);
-                    clients.Add(new Client(id, columns[1], columns[2], columns[3]));
-                }
-            }
-            catch (FileNotFoundException exception)
-            {
-                Console.WriteLine(exception);
-            }
+        public ClientDataProvider()
+        {
+        }
+
+        /// <summary>
+        /// Return a specific client by a given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Client> GetClientById(int id)
+        {
+            // TOASK quelle est la difference entre "return client" et Return "client.Entity"
+            var client = await _facturatorDbContext.Clients.FindAsync(id);
+            return client;
+        }
+
+        /// <summary>
+        /// Return all clients
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Client>> GetClientsAsync()
+        {
+            var clients = await _facturatorDbContext.Clients
+                .Where(c => !c.IsArchived)
+                .Select(client => client)
+                //new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email })
+                .ToListAsync();
 
             return clients;
         }
 
-        public async void AddClient(string name, string address, string email)
+        /// <summary>
+        /// Add a new client
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<Client> Add(string name, string address, string email)
         {
-            try
-            {
-                //get Id for new client
-                string[] lines = System.IO.File.ReadAllLines(this.path);
-                int id = lines.Length;
+            Client clientToAdd = new Client(name, address, email);
 
-                //add new Client to file
-                using StreamWriter file = new StreamWriter(this.path, append: true);
-                file.WriteLine( id + ", " + name + ", " + address + ", " + email + ",");
-            }
-            catch(Exception exception)
+            var addedClient = await _facturatorDbContext.Clients.AddAsync(clientToAdd);
+            await SaveChanges();
+
+            return addedClient.Entity;
+        }
+
+        /// <summary>
+        /// Update an existing client by it's Id
+        /// </summary>
+        /// <param name="clientToUpdate"></param>
+        /// <returns></returns>
+        public async Task<Client> Update(int id,  ClientDto clientToUpdate)
+        {
+            var client = await _facturatorDbContext.Clients.FindAsync(id);
+
+            if (client != null)
             {
-                Console.WriteLine(exception.Message);
+                client.Name = clientToUpdate.Name;
+                client.Address = clientToUpdate.Address;
+                client.Email = clientToUpdate.Email;
+                await SaveChanges();
             }
+            return client;
+        }
+
+        /// <summary>
+        /// Set the IsArchived property of a Client by a given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Client> SetArchived(int id, bool isArchived)
+        {
+            var client = await _facturatorDbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
+            if (client != null)
+            {
+                client.IsArchived = isArchived;
+                await SaveChanges();
+            }
+            return client;
+        }
+
+        /// <summary>
+        /// Get all the clients that have IsArchived property set to True
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ClientDto>> GetArchivedClientsAsync()
+        {
+            var archivedClients = await _facturatorDbContext.Clients
+                .Where(c => c.IsArchived)
+                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .ToListAsync();
+            return archivedClients;
+        }
+
+        private async Task SaveChanges()
+        {
+            await _facturatorDbContext.SaveChangesAsync();
         }
     }
 }

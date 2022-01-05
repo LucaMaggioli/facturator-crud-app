@@ -1,4 +1,5 @@
-﻿using facturator_api.Models;
+﻿using System.Net.Http;
+using facturator_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using System.Text.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using facturator_api.DataProviders;
+using facturator_api.Models.Context;
+using facturator_api.Models.Dtos;
 
 namespace facturator_api.Controllers
 {
@@ -15,43 +18,85 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ClientController : Controller
     {
+        private readonly FacturatorDbContext _context;
+        public ClientController(FacturatorDbContext context){
+            _context = context;
+        }
 
-        private ClientDataProvider _ClientDataProvider = new ClientDataProvider();
+        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
+        // /clients is different from /clients/{id}
 
+
+        // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
         [HttpGet("all")]
-        public string GetClients()
+        public async Task<List<ClientDto>> GetClients()
         {
-            List<Client> clients = _ClientDataProvider.GetClients();
+            var clients = await new ClientDataProvider(_context).GetClientsAsync();
+            
+            var clientsDto = clients
+                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .ToList();
 
-            return JsonSerializer.Serialize(clients);
+            return clientsDto;
         }
 
-        [HttpGet("id")]
-        public string GetClient(int id)
+        // Call this endpoint to get the client with the selected id
+        [HttpGet("{id:int}")]
+        public async Task<ClientDto> GetClient(int id)
         {
-            return "client - " + id.ToString();
+            var client = await new ClientDataProvider(_context).GetClientById(id);
+
+            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
         }
 
-        [HttpPost("add")]
-        public string AddClient([FromBody] ClientBody body)
+        // Call this endpoint to add a new client
+        [HttpPost]
+        public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            this._ClientDataProvider.AddClient(body.Name, body.Address, body.Email);
-            return "client registered";
+            var client = await new ClientDataProvider(_context).Add(body.Name, body.Address, body.Email);
+
+            return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
+        }
+
+        // Call this endpoint to Update an existing client
+        [HttpPatch("{id:int}")]
+        public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
+        {
+            var updatedClientDto = new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email };
+            var client = await new ClientDataProvider(_context).Update(id, updatedClientDto);
+            //If is null should return an error code
+            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+        }
+
+        // Call this endpoint to Archive a client by it's Id
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
+        {
+            var deletedClient = await new ClientDataProvider(_context).SetArchived(id, true);
+
+            if (deletedClient != null){
+                return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+            }
+            else
+            {
+                return NotFound("Client to Archive not found");
+            }
+        }
+
+        // Call this enpoint to get all the Archived clients
+        [HttpGet("archived")]
+        public async Task<List<ClientDto>> GetArchivedClients()
+        {
+            var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
+            return clients;
         }
 
         public class ClientBody
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Address { get; set; }
             public string Email { get; set; }
         }
-
-
-        //Methods below should be in a service class
-        //private List<string> _clientToJson(Client client)
-        //{
-        //    List<string> jsonClient = { "id":client.Id }
-        //}
-
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using facturator_api.Models.Context;
 
 namespace facturator_api.Migrations
 {
     [DbContext(typeof(FacturatorDbContext))]
-    partial class FacturatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211220094657_Add-IsArchived-Client-Column")]
+    partial class AddIsArchivedClientColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace facturator_api.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -59,11 +58,11 @@ namespace facturator_api.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsPayed")
+                    b.Property<bool>("IsValid")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("TEXT");
+                    b.Property<float>("Total")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 

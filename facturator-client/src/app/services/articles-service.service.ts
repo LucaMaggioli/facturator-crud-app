@@ -1,45 +1,55 @@
 import { Injectable } from '@angular/core';
-import {Article} from "../shared/models/article";
+import { Article } from '../shared/models/article';
+import { FacturatorApiCallService } from './facturator-api-call.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ArticlesServiceService {
+export class ArticleService {
+  backendURL: string = 'https://localhost:44335/api';
 
-  backendURL: string = "https://localhost:44335/api";
+  constructor(private _facturatorApiCallService: FacturatorApiCallService) {}
 
-  constructor() { }
-
-  getArticles(){
-    let articles:any[] = [];
-    fetch(this.backendURL + "/article/", {method: 'GET'}).then(response => response.json()).then((data)=>{
-      for (let article of data){
-        articles.push(new Article(article["Name"], article["Price"], article["Photo"], article["Description"], article["Id"]));
+  getArticles() {
+    let articles: any[] = [];
+    this._facturatorApiCallService.getArticles().then((data) => {
+      for (let article of data) {
+        console.log(article);
+        articles.push(
+          new Article(
+            article['name'],
+            article['price'],
+            article['photoUrl'],
+            article['description'],
+            article['id']
+          )
+        );
       }
-      //      return data;
     });
+
     return articles;
     //return articles;
   }
 
-  saveArticle(newArticle:Article){
+  saveArticle(newArticle: Article) {
     let updatedArticlesList;
     console.log(`saving new article`);
-    let body = JSON.stringify({"name":newArticle.name,
-      "photoUrl":newArticle.photo,
-      "price":newArticle.price,
-      "description":newArticle.description
+    let body = JSON.stringify({
+      name: newArticle.name,
+      photoUrl: newArticle.photo,
+      price: newArticle.price,
+      description: newArticle.description,
     });
     console.log(body);
-    return fetch(this.backendURL + "/article", {
+    return fetch(this.backendURL + '/article', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: body,
-    }).then((data)=> {
+    }).then((data) => {
       console.log(data);
-    })
+    });
   }
 }

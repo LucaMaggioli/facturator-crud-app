@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import {FacturatorApiCallService} from "./services/facturator-api-call.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { ArticlesListComponent } from './components/article/articles-list.component';
+import { ArticlesListComponent } from './components/articles-list/articles-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatCardModule} from '@angular/material/card';
@@ -25,7 +25,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { ClientPageComponent } from './components/client-page/client-page.component';
-import { ArticlesPageComponent } from './components/articles-page/articles-page.component';
+import { ArticlesPageComponent } from './components/article-page/article-page.component';
 import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
 import {MatIconModule} from "@angular/material/icon";
 import {LoginRoutingModule} from "./login/login-routing.module";
