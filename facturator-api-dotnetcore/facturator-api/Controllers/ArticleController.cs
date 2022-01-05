@@ -21,7 +21,8 @@ namespace facturator_api.Controllers
             _articleDataProvider = articleDataProvider;
         }
 
-        [HttpGet("all")]
+        // Call this enpoint to get the list of all available articles 
+        [HttpGet]
         public async Task<List<Article>> getArticles()
         {
             var articles = await _articleDataProvider.GetArticlesAsync();
@@ -29,11 +30,33 @@ namespace facturator_api.Controllers
             return articles;
         }
 
+        // Call this enpoint to add an article
         [HttpPost]
         public string AddArticle([FromBody] ArticleBody body)
         {
-            this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
+            var addedArticle = this._articleDataProvider.AddArticle(body.Name, body.PhotoUrl, body.Price, body.Description);
+            Console.WriteLine("new article added");
+            Console.WriteLine(addedArticle);
             return "article registered";
+        }
+
+        // Call this enpoint to update an article
+        [HttpPatch("id:int")]
+        public string UpdateArticle(int id, [FromBody] ArticleBody body)
+        {
+            var updatedArticle = this._articleDataProvider.UpdateArticle(id, body.Name, body.PhotoUrl, body.Price, body.Description);
+            Console.WriteLine("article updated");
+            Console.WriteLine(updatedArticle);
+            return "article updated";
+        }
+
+        [HttpDelete("id:int")]
+        public string DeleteArticle(int id)
+        {
+            var deletedArticle = _articleDataProvider.DeleteArticle(id);
+            Console.WriteLine("article deleted");
+            Console.WriteLine(deletedArticle);
+            return "article updated";
         }
 
         public class ArticleBody

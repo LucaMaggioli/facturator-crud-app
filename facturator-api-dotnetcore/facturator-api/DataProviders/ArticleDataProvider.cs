@@ -24,13 +24,14 @@ namespace facturator_api.DataProviders
         public async Task<List<Article>> GetArticlesAsync()
         {
             var articles = await _facturatorDbContext.Articles
+                .Where(article => !article.IsArchived)
                 .Select(article => article)
                 .ToListAsync();
 
             return articles;
         }
 
-        public async Task<ActionResult<Article>> AddArticle(string name, string photoUrl, decimal price, string description)
+        public async Task<Article> AddArticle(string name, string photoUrl, decimal price, string description)
         {
             var articleToAdd = new Article(name, photoUrl, price, description);
             _facturatorDbContext.Articles.Add(articleToAdd);
@@ -38,6 +39,42 @@ namespace facturator_api.DataProviders
 
             return articleToAdd;
         }
+
+        /// <summary>
+        /// Update an existing article by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="photoUrl"></param>
+        /// <param name="price"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public async Task<Article> UpdateArticle(int id, string name, string photoUrl, decimal price, string description)
+        {
+            var article = await _facturatorDbContext.Articles.FindAsync(id);
+
+            if (article != null)
+            {
+                article.Name = name;
+                article.PhotoUrl = photoUrl;
+                article.Price = price;
+                article.Description = description;
+                await SaveChanges();
+            }
+
+            return article;
+        }
+
+        public async Task<Article> DeleteArticle(int id)
+        {
+            var article = await _facturatorDbContext.Articles.FindAsync(id);
+            article.IsArchived = true;
+
+            await SaveChanges();
+
+            return article;
+        }
+
 
         private async Task SaveChanges()
         {
@@ -59,9 +96,9 @@ namespace facturator_api.DataProviders
             throw new NotImplementedException();
         }
 
-        public List<Article> getArticles()
+        public Task<Article> DeleteArticle(int id)
         {
-            return new List<Article> { new Article("", "", 1, "")};
+            throw new NotImplementedException();
         }
 
         public Task<List<Article>> GetArticlesAsync()
@@ -69,7 +106,17 @@ namespace facturator_api.DataProviders
             throw new NotImplementedException();
         }
 
-        Task<ActionResult<Article>> IArticleDataProvider.AddArticle(string name, string photoUrl, decimal price, string description)
+        public Task<Article> UpdateArticle(int id, string name, string photoUrl, decimal price, string description)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Article> getMockArticles()
+        {
+            return new List<Article> { new Article("", "", 1, "") };
+        }
+
+        Task<Article> IArticleDataProvider.AddArticle(string name, string photoUrl, decimal price, string description)
         {
             throw new NotImplementedException();
         }

@@ -23,9 +23,11 @@ namespace facturator_api.Controllers
             _context = context;
         }
 
+        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
+        // /clients is different from /clients/{id}
+
 
         // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
-        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
         [HttpGet("all")]
         public async Task<List<ClientDto>> GetClients()
         {
@@ -82,7 +84,7 @@ namespace facturator_api.Controllers
         }
 
         // Call this enpoint to get all the Archived clients
-        [HttpGet("all/archived")]
+        [HttpGet("archived")]
         public async Task<List<ClientDto>> GetArchivedClients()
         {
             var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();

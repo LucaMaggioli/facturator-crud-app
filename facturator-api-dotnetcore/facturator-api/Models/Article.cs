@@ -13,6 +13,7 @@ namespace facturator_api.Models
             this.PhotoUrl = photoUrl;
             this.Price = price;
             this.Description = description;
+            this.IsArchived = false;
         }
         public Article(string name, string photoUrl, decimal price, string description, int id) : this(name, photoUrl, price, description)
         {
@@ -24,5 +25,6 @@ namespace facturator_api.Models
         public string PhotoUrl { get; set; }
         public decimal Price { get; set; }
         public string Description{ get; set; }
+        public bool IsArchived { get; set; }
     }
 }
