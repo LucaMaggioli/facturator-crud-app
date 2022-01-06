@@ -11,6 +11,7 @@ namespace facturator_api.Models
         {
             CompanyName = companyName;
             Iban = iban;
+            Clients = new List<Client>();
         }
 
         public string CompanyName { get; set; }

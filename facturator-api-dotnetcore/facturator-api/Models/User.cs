@@ -13,6 +13,7 @@ namespace facturator_api.Models
             LastName = lastName;
             Address = address;
             Email = email;
+            Bills = new List<Bill>();
         }
 
         public User(string firstName, string lastName, string address, string email, List<Bill> bills) : this(firstName, lastName, address, email)

@@ -1,5 +1,6 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
+using facturator_api.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,21 @@ namespace facturator_api.DataProviders
             var bill = await _facturatorDbContext.Bills.FindAsync(id);
             return bill;
         }
+
+        public async Task<Bill> Add(Bill bill)
+        {
+            var addedBill = _facturatorDbContext.Bills.Add(bill);
+            await SaveChanges();
+            return addedBill.Entity;
+        }
+
+        private async Task SaveChanges()
+        {
+            await _facturatorDbContext.SaveChangesAsync();
+        }
+        //internal Task Add(object firstName, object lastName, object address, object email)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

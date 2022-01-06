@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using facturator_api.DataProviders;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using facturator_api.Controllers.Bodys;
 
 namespace facturator_api.Controllers
 {
@@ -91,13 +92,5 @@ namespace facturator_api.Controllers
             return clients;
         }
 
-        public class ClientBody
-        {
-            public int Id { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Address { get; set; }
-            public string Email { get; set; }
-        }
     }
 }

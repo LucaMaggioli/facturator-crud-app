@@ -7,6 +7,25 @@ namespace facturator_api.Models.Dtos
 {
     public class ClientDto
     {
+        public void ClientDtoFromClient(Client client)
+        {
+            Id = client.Id;
+            FirstName = client.FirstName;
+            LastName= client.LastName;
+            Address = client.Address;
+            Email = client.Email;
+        }
+
+        public ClientDto() { }
+        public ClientDto(Client client)
+        {
+        Id = client.Id;
+            FirstName = client.FirstName;
+            LastName= client.LastName;
+            Address = client.Address;
+            Email = client.Email;
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
