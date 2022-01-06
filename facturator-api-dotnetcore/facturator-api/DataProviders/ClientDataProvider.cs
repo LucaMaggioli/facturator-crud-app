@@ -52,9 +52,10 @@ namespace facturator_api.DataProviders
         }
 
         /// <summary>
-        /// Add a new client
+        /// Add a new Client
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>

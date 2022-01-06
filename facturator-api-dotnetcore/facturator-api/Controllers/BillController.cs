@@ -18,6 +18,5 @@ namespace facturator_api.Controllers
         {
             _billDataProvider = billDataProvider;
         }
-
     }
 }

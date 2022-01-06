@@ -35,7 +35,13 @@ namespace facturator_api.DataProviders
         {
             var login = await _facturatorDbContext.Logins
                 .Where(l => l.Username == username && l.Password == password)
+                .Include(l=> l.Vendor)
                 .FirstOrDefaultAsync();
+
+            if (login == null)
+            {
+                return null;
+            }
 
             return login.Vendor;
         }
