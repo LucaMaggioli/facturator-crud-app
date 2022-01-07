@@ -90,6 +90,7 @@ namespace facturator_api.Controllers
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
+
             var articlesDto = new List<ArticleDto>();
             vendor.Articles.ForEach(article => { articlesDto.Add(new ArticleDto(article)); });
 
@@ -97,13 +98,18 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/article")]
-        public async Task<VendorDto> AddArticle(int id, [FromBody] ArticleDto articleDto)
+        public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         {
-            var article = await new ArticleDataProvider(_context).AddArticle(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
             var vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
+            if (vendor == null)
+            {
+                return StatusCode(503, "vendor not found with the given Id");
+            }
+
+            var article = await new ArticleDataProvider(_context).AddArticle(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
             vendor = await new VendorDataProvider(_context).AddArticleToVendor(vendor, article);
 
-            return new VendorDto(vendor);
+            return Ok(new VendorDto(vendor));
         }
 
         [HttpPost("{id:int}/bill")]
