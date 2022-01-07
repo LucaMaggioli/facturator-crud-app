@@ -25,16 +25,21 @@ namespace facturator_api.DataProviders
 
         public async Task<List<Client>> GetVendorClients(int id)
         {
-            List<Client> clients = new List<Client>();
-                Vendor vendor = await _facturatorDbContext.Vendors
-                .Where(v => v.Id == id)
-                .Include(vendor => vendor.Clients)
-                .FirstOrDefaultAsync();
+            Vendor vendor = await _facturatorDbContext.Vendors
+            .Where(v => v.Id == id)
+            .Include(vendor => vendor.Clients)
+            .FirstOrDefaultAsync();
 
-            vendor.Clients.ForEach(c =>
+            List<Client> clients = new List<Client>();
+
+            if (vendor.Clients != null)
             {
-                clients.Add(c);
-            });
+                vendor.Clients.ForEach(c =>
+                {
+                    clients.Add(c);
+                });
+            }
+            
 
             return clients;
         }

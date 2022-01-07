@@ -57,13 +57,19 @@ namespace facturator_api.Controllers
         }
 
         [HttpGet("{id:int}/clients")]
-        public async Task<List<ClientDto>> VendorClients(int id) //async Task<IActionResult> 
+        //public async Task<List<ClientDto>> VendorClients(int id) //async Task<IActionResult> 
+        public async Task<IActionResult> VendorClients(int id) //async Task<IActionResult> 
         {
+            if (await new VendorDataProvider(_context).GetVendorByIdAsync(id) == null)
+            {
+                return StatusCode(503, "vendor not found with the given Id");
+            }
             var clients = await new VendorDataProvider(_context).GetVendorClients(id);
 
             var clientsDto = new List<ClientDto>();
             clients.ForEach(c => { clientsDto.Add(new ClientDto(c)); });
-            return clientsDto;
+            
+            return Ok(clientsDto);
         }
 
         [HttpPost("{id:int}/client")]
@@ -79,13 +85,14 @@ namespace facturator_api.Controllers
         [HttpPost("{id:int}/bill")]
         public async Task<VendorDto> AddBill(int id, [FromBody] BillDto body)
         {
-            List<Article> billArticles = body.Articles
+            List<Article> articles = body.Articles
                 .Select(article => new Article(article.Name, article.PhotoUrl, article.Price,article.Description,article.Id) )
                 .ToList();
             Client client = new Client(body.Client.FirstName, body.Client.LastName, body.Client.Address, body.Client.Email);
-            Vendor vendor = new Vendor(body.Vendor.FirstName, body.Vendor.LastName, body.Vendor.CompanyName, body.Vendor.Address, body.Vendor.Email, body.Vendor.Iban);
+            //Vendor vendor = new Vendor(body.Vendor.FirstName, body.Vendor.LastName, body.Vendor.CompanyName, body.Vendor.Address, body.Vendor.Email, body.Vendor.Iban);
+            Vendor vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
 
-            var bill = new Bill(body.Date, body.IsPayed, billArticles, client, vendor);
+            var bill = new Bill(body.Date, body.IsPayed, articles, client, vendor);
             var addedBill = await new BillDataProvider(_context).Add(bill);
             
             vendor = await new VendorDataProvider(_context).AddBillToVendor(vendor, bill);
