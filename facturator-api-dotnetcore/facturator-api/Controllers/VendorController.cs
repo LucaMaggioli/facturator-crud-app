@@ -59,7 +59,7 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}/clients")]
         public async Task<IActionResult> VendorClients(int id) //async Task<IActionResult> 
         {
-            if (await new VendorDataProvider(_context).GetVendorById(id) == null)
+            if (await new VendorDataProvider(_context).GetVendorByIdAsync(id) == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
@@ -76,7 +76,7 @@ namespace facturator_api.Controllers
         public async Task<VendorDto> AddClient(int id, [FromBody] ClientBody body)
         {
             var client = await new ClientDataProvider(_context).Add(body.FirstName, body.LastName, body.Address, body.Email);
-            var vendor = await new VendorDataProvider(_context).GetVendorById(id);
+            var vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
             vendor = await new VendorDataProvider(_context).AddClientToVendor(vendor, client);
 
             return new VendorDto(vendor);
@@ -85,24 +85,22 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}/articles")]
         public async Task<IActionResult> GetArticles(int id)
         {
-            if (await new VendorDataProvider(_context).GetVendorById(id) == null)
+            var vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
+            if (vendor == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
+            var articlesDto = new List<ArticleDto>();
+            vendor.Articles.ForEach(article => { articlesDto.Add(new ArticleDto(article)); });
 
-            var clients = await new VendorDataProvider(_context).GetVendorClients(id);
-
-            var clientsDto = new List<ClientDto>();
-            clients.ForEach(c => { clientsDto.Add(new ClientDto(c)); });
-
-            return Ok(clientsDto);
+            return Ok(articlesDto);
         }
 
         [HttpPost("{id:int}/article")]
         public async Task<VendorDto> AddArticle(int id, [FromBody] ArticleDto articleDto)
         {
             var article = await new ArticleDataProvider(_context).AddArticle(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
-            var vendor = await new VendorDataProvider(_context).GetVendorById(id);
+            var vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
             vendor = await new VendorDataProvider(_context).AddArticleToVendor(vendor, article);
 
             return new VendorDto(vendor);
@@ -116,7 +114,7 @@ namespace facturator_api.Controllers
                 .ToList();
             Client client = new Client(body.Client.FirstName, body.Client.LastName, body.Client.Address, body.Client.Email);
             //Vendor vendor = new Vendor(body.Vendor.FirstName, body.Vendor.LastName, body.Vendor.CompanyName, body.Vendor.Address, body.Vendor.Email, body.Vendor.Iban);
-            Vendor vendor = await new VendorDataProvider(_context).GetVendorById(id);
+            Vendor vendor = await new VendorDataProvider(_context).GetVendorByIdAsync(id);
 
             var bill = new Bill(body.Date, body.IsPayed, articles, client, vendor);
             var addedBill = await new BillDataProvider(_context).Add(bill);

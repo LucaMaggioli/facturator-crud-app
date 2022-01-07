@@ -17,7 +17,7 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
-        public async Task<Vendor> GetVendorById(int id)
+        public async Task<Vendor> GetVendorByIdAsync(int id)
         {
             //Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
             Vendor vendor = await _facturatorDbContext.Vendors
