@@ -7,6 +7,17 @@ namespace facturator_api.Models.Dtos
 {
     public class BillDto
     {
+        public BillDto() { }
+        public BillDto(Bill bill)
+        {
+            Id = bill.Id;
+            Date = bill.Date;
+            Client = new ClientDto(bill.Client);
+            Vendor = new VendorDto(bill.Vendor);
+            IsPayed = bill.IsPayed;
+            Total = bill.Total;
+        }
+
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Total { get; set; }

@@ -64,6 +64,7 @@ namespace facturator_api.Controllers
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
+            
             var clients = await new VendorDataProvider(_context).GetVendorClients(id);
 
             var clientsDto = new List<ClientDto>();

@@ -8,9 +8,9 @@ namespace facturator_api.Models.Dtos
     public class VendorDto
     {
         public VendorDto(){}
-
         public VendorDto(Vendor vendor)
         {
+            Id = vendor.Id;
             FirstName = vendor.FirstName;
             LastName = vendor.LastName;
             CompanyName = vendor.CompanyName;
@@ -24,6 +24,7 @@ namespace facturator_api.Models.Dtos
                 Clients.Add(clientDto);
             });
         }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

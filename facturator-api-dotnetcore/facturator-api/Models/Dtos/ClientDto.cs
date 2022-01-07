@@ -7,19 +7,10 @@ namespace facturator_api.Models.Dtos
 {
     public class ClientDto
     {
-        public void ClientDtoFromClient(Client client)
-        {
-            Id = client.Id;
-            FirstName = client.FirstName;
-            LastName= client.LastName;
-            Address = client.Address;
-            Email = client.Email;
-        }
-
         public ClientDto() { }
         public ClientDto(Client client)
         {
-        Id = client.Id;
+            Id = client.Id;
             FirstName = client.FirstName;
             LastName= client.LastName;
             Address = client.Address;
@@ -31,5 +22,14 @@ namespace facturator_api.Models.Dtos
         public string LastName { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
+
+        public void ClientDtoFromClient(Client client)
+        {
+            Id = client.Id;
+            FirstName = client.FirstName;
+            LastName = client.LastName;
+            Address = client.Address;
+            Email = client.Email;
+        }
     }
 }
