@@ -19,7 +19,12 @@ namespace facturator_api.DataProviders
 
         public async Task<Vendor> GetVendorByIdAsync(int id)
         {
-            Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
+            //Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
+            Vendor vendor = await _facturatorDbContext.Vendors
+            .Where(v => v.Id == id)
+            .Include(vendor => vendor.Clients)
+            .Include(vendor => vendor.Bills)
+            .FirstOrDefaultAsync();
             return vendor;
         }
 
@@ -40,7 +45,6 @@ namespace facturator_api.DataProviders
                 });
             }
             
-
             return clients;
         }
 
@@ -50,6 +54,27 @@ namespace facturator_api.DataProviders
             await SaveChanges();
 
             return vendor;
+        }
+
+        public async Task<List<Client>> GetVendorArticles(Vendor vendor)
+        {
+            //is there another way to do this? for example pass as parameter a vendor that already have Clients
+            vendor = await _facturatorDbContext.Vendors
+            .Where(v => v.Id == vendor.Id)
+            .Include(vendor => vendor.Clients)
+            .FirstOrDefaultAsync();
+
+            List<Client> clients = new List<Client>();
+
+            if (vendor.Clients != null)
+            {
+                vendor.Clients.ForEach(c =>
+                {
+                    clients.Add(c);
+                });
+            }
+
+            return clients;
         }
 
         internal async Task<Vendor> AddBillToVendor(Vendor vendor, Bill bill)

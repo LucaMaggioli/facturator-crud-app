@@ -57,7 +57,6 @@ namespace facturator_api.Controllers
         }
 
         [HttpGet("{id:int}/clients")]
-        //public async Task<List<ClientDto>> VendorClients(int id) //async Task<IActionResult> 
         public async Task<IActionResult> VendorClients(int id) //async Task<IActionResult> 
         {
             if (await new VendorDataProvider(_context).GetVendorByIdAsync(id) == null)
@@ -81,6 +80,22 @@ namespace facturator_api.Controllers
             vendor = await new VendorDataProvider(_context).AddClientToVendor(vendor, client);
 
             return new VendorDto(vendor);
+        }
+
+        [HttpGet("{id:int}/articles")]
+        public async Task<IActionResult> GetArticles(int id)
+        {
+            if (await new VendorDataProvider(_context).GetVendorByIdAsync(id) == null)
+            {
+                return StatusCode(503, "vendor not found with the given Id");
+            }
+
+            var clients = await new VendorDataProvider(_context).GetVendorClients(id);
+
+            var clientsDto = new List<ClientDto>();
+            clients.ForEach(c => { clientsDto.Add(new ClientDto(c)); });
+
+            return Ok(clientsDto);
         }
 
         [HttpPost("{id:int}/bill")]

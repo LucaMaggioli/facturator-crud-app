@@ -12,10 +12,12 @@ namespace facturator_api.Models
             CompanyName = companyName;
             Iban = iban;
             Clients = new List<Client>();
+            Articles = new List<Article>();
         }
 
         public string CompanyName { get; set; }
         public string Iban { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Article> Articles { get; set; }
     }
 }
