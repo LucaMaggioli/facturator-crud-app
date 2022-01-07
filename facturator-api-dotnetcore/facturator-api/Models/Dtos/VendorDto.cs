@@ -23,6 +23,12 @@ namespace facturator_api.Models.Dtos
                 var clientDto = new ClientDto(client);
                 Clients.Add(clientDto);
             });
+            Bills = new List<BillDto>();
+            vendor.Bills.ForEach(bill =>
+            {
+                var billDto = new BillDto(bill);
+                Bills.Add(billDto);
+            });
         }
 
         public int Id { get; set; }
@@ -33,5 +39,6 @@ namespace facturator_api.Models.Dtos
         public string Email { get; set; }
         public string Iban { get; set; }
         public List<ClientDto> Clients { get; set; }
+        public List<BillDto> Bills { get; set; }
     }
 }

@@ -35,10 +35,32 @@ namespace facturator_api.DataProviders
             return addedBill.Entity;
         }
 
+        internal async Task<Bill> AddArticles(Bill bill, List<Article> articles)
+        {
+            articles.ForEach(article => { bill.Articles.Add(article); });
+            await SaveChanges();
+            return bill;
+        }
+
+        internal async Task<Bill> SetBillClient(Bill bill, Client client)
+        {
+            bill.Client = client;
+            await SaveChanges();
+            return bill;
+        }
+
+        internal async Task<Bill> SetBillVendor(Bill bill, Vendor vendor)
+        {
+            bill.Vendor = vendor;
+            await SaveChanges();
+            return bill;
+        }
+
         private async Task SaveChanges()
         {
             await _facturatorDbContext.SaveChangesAsync();
         }
+
         //internal Task Add(object firstName, object lastName, object address, object email)
         //{
         //    throw new NotImplementedException();
