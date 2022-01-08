@@ -7,6 +7,7 @@ import {BillPageComponent} from "./components/bill-page/bill-page.component";
 
 const VENDOR: string = "vendor";
 const routes: Routes = [
+  { path: `${VENDOR}`, redirectTo: `${VENDOR}/home`, pathMatch: 'full' },
   { path: `${VENDOR}/home`,
     component: VendorHomePageComponent,
     children: [

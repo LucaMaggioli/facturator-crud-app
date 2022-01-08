@@ -35,19 +35,19 @@ import {VendorModule} from "./vendor/vendor.module";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    ArticlesListComponent,
-    AddClientFormComponent,
-    ClientListComponent,
-    BillCreationComponent,
-    BillConfirmerComponent,
-    ClientPageComponent,
-    ArticlesPageComponent,
-    AddArticleFormComponent,
-    //VendorHomePageComponent
-  ],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        ArticlesListComponent,
+        AddClientFormComponent,
+        ClientListComponent,
+        BillCreationComponent,
+        BillConfirmerComponent,
+        ClientPageComponent,
+        ArticlesPageComponent,
+        AddArticleFormComponent,
+        //VendorHomePageComponent
+    ],
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -68,7 +68,10 @@ import {VendorModule} from "./vendor/vendor.module";
         LoginModule,
         VendorModule,
     ],
-  providers: [FacturatorApiCallService, MatDatepickerModule],
-  bootstrap: [AppComponent]
+    providers: [FacturatorApiCallService, MatDatepickerModule],
+    exports: [
+        ArticlesListComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,8 +28,8 @@ namespace facturator_api.Models
         public DateTime Date { get; set; }
         public decimal Total { get; set; }
         public bool IsPayed { get; set; }
-        //public Client Client { get; set; }
-        //public Vendor Vendor { get; set; }
+        public Client Client { get; set; }
+        public Vendor Vendor { get; set; }
         public List<Article> Articles { get; set; }
         
     }
