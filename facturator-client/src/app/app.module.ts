@@ -30,6 +30,8 @@ import { AddArticleFormComponent } from './components/add-article-form/add-artic
 import {MatIconModule} from "@angular/material/icon";
 import {LoginRoutingModule} from "./login/login-routing.module";
 import {LoginModule} from "./login/login.module";
+import {VendorModule} from "./vendor/vendor.module";
+//import { VendorHomePageComponent } from './vendor-home-page/vendor-home-page.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {LoginModule} from "./login/login.module";
     BillConfirmerComponent,
     ClientPageComponent,
     ArticlesPageComponent,
-    AddArticleFormComponent
+    AddArticleFormComponent,
+    //VendorHomePageComponent
   ],
     imports: [
         BrowserModule,
@@ -63,6 +66,7 @@ import {LoginModule} from "./login/login.module";
         MatToolbarModule,
         MatIconModule,
         LoginModule,
+        VendorModule,
     ],
   providers: [FacturatorApiCallService, MatDatepickerModule],
   bootstrap: [AppComponent]

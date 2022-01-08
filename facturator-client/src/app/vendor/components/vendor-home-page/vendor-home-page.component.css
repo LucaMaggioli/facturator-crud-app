@@ -1,0 +1,16 @@
+#navbar{
+  background-color: #DCDDE5;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.basicBtn{
+  height: 2em;
+  width: 6em;
+  border: 2px solid #6C52FE;
+  border-radius: 8px;
+  background-color: #9198e5;
+}
