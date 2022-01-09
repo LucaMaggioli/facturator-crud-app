@@ -8,6 +8,8 @@ import { ClientPageComponent } from './components/client-page/client-page.compon
 import { BillPageComponent } from './components/bill-page/bill-page.component';
 import {MatButtonModule} from "@angular/material/button";
 import { ArticlesListComponent } from './components/articles-list/articles-list.component';
+import { VendorPageComponent } from './components/vendor-page/vendor-page.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { ArticlesListComponent } from './components/articles-list/articles-list.
     ArticlePageComponent,
     ClientPageComponent,
     BillPageComponent,
-    ArticlesListComponent
+    ArticlesListComponent,
+    VendorPageComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
