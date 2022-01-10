@@ -8,6 +8,7 @@ import {ClientService} from "./client.service";
 export class AuthService {
 
   currentUser:any;
+  isUserLogger:boolean = false;
 
   constructor(
     private _vendorService:VendorService,
@@ -16,10 +17,11 @@ export class AuthService {
 
   logInVendor(username:string, password:string){
     this._vendorService.logIn(username, password).then(result=>{
-      console.log("in login component");
+      console.log("auth service");
       console.log(result);
+      //if result != error then set current user as user returned from api
       this.currentUser = result;
-      localStorage.userLogged = result;
+      localStorage.userLogged = this.currentUser;
     });
   }
 }
