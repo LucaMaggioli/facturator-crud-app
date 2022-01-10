@@ -23,7 +23,7 @@ export class LoginGuard implements CanActivate {
       return true;
     }
     else {
-      return this.router.parseUrl('vendor/login')
+      return this.router.parseUrl('vendor/login');
     }
   }
 

@@ -16,9 +16,9 @@ const routes: Routes = [
     component: VendorHomePageComponent,
     children: [
       { path: 'articles', component: ArticlePageComponent, canActivate: [LoginGuard] },
-      { path: 'clients', component: ClientPageComponent },
-      { path: 'bills', component: BillPageComponent },
-      { path: 'info', component: VendorPageComponent },
+      { path: 'clients', component: ClientPageComponent, canActivate: [LoginGuard] },
+      { path: 'bills', component: BillPageComponent, canActivate: [LoginGuard] },
+      { path: 'info', component: VendorPageComponent, canActivate: [LoginGuard] },
     ],
   },
 ];

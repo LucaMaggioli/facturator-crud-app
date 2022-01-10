@@ -7,7 +7,7 @@ import {ClientService} from "./client.service";
 })
 export class AuthService {
 
-  currentUser:any;
+  currentUser:any = null;
   isUserLogger:boolean = false;
 
   constructor(
@@ -16,12 +16,29 @@ export class AuthService {
   ) { }
 
   logInVendor(username:string, password:string){
-    this._vendorService.logIn(username, password).then(result=>{
+    this._vendorService.logIn(username, password).then(vendor=>{
       console.log("auth service");
-      console.log(result);
+      console.log(vendor);
+      if (vendor !== "Password or username incorrect"){
+        this.isUserLogger = true;
+        this.currentUser = vendor;
+        //localStorage.currentUser = vendor;
+        //localStorage.isUserLogged = true;
+      }
+      else {
+        console.log("vendor = undefined, user not logged");
+        this.isUserLogger = false;
+      }
       //if result != error then set current user as user returned from api
-      this.currentUser = result;
-      localStorage.userLogged = this.currentUser;
+      //this.currentUser = result;
+      //localStorage.userLogged = this.currentUser;
     });
+  }
+
+  logOut(){
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("isUserLogged");
+
+    this.isUserLogger = false;
   }
 }

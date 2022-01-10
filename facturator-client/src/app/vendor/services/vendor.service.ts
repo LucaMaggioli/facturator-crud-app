@@ -4,6 +4,8 @@ import {env} from "./config";
 @Injectable({
   providedIn: 'root'
 })
+
+/// This is the service that manages all the API calls for the endpoint {URL}/vendor/*
 export class VendorService {
 
   constructor() { }
@@ -19,7 +21,16 @@ export class VendorService {
         'username': username,
         'password': password
       })
-    }).then((response) => response.json());
+    }).then((response) => response.json()/*
+      {
+      if (response.status === 502){
+        return Promise.reject(response);
+      }
+      else {
+        return Promise.resolve(response);
+      }
+    }*/
+    );
   }
 
 }
