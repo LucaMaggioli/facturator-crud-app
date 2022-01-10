@@ -24,7 +24,6 @@ namespace facturator_api.Controllers
         [HttpPost("singin")]
         public async Task<IActionResult> VendorSingin([FromBody] SinginBody body)
         {
-            Vendor newVendor = new Vendor(body.FirstName, body.LastName, body.CompanyName, body.Address, body.Email, body.Iban);
 
             if (await new LoginDataProvider(_context).UserNameExists(body.Username))
             {
@@ -32,6 +31,7 @@ namespace facturator_api.Controllers
             }
             else
             {
+                Vendor newVendor = new Vendor(body.FirstName, body.LastName, body.CompanyName, body.Address, body.Email, body.Iban);
                 var vendorSingedIn = await new LoginDataProvider(_context).VendorSingin(body.Username, body.Password, newVendor);
                 var vendorDto = new VendorDto { };
                 var vendorDtoFromVendor = new VendorDto(vendorSingedIn);

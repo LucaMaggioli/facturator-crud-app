@@ -10,6 +10,10 @@ import {MatButtonModule} from "@angular/material/button";
 import { ArticlesListComponent } from './components/articles-list/articles-list.component';
 import { VendorPageComponent } from './components/vendor-page/vendor-page.component';
 import { LoginComponent } from './components/login/login.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     CommonModule,
     VendorRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
   ]
 })
 export class VendorModule { }

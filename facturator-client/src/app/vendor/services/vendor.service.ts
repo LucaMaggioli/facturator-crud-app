@@ -8,7 +8,7 @@ export class VendorService {
 
   constructor() { }
 
-  public async singIn(username:string, password:string){
+  public async logIn(username:string, password:string){
     return await fetch(env.APIURL + '/vendor/login', {
       method: 'POST',
       headers: {
@@ -19,7 +19,7 @@ export class VendorService {
         'username': username,
         'password': password
       })
-    }).then((response) => response.json().then(result=> console.log(result)));
+    }).then((response) => response.json());
   }
 
 }
