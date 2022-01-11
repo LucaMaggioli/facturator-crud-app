@@ -36,4 +36,27 @@ export class VendorService {
 
   singIn(username:string, password:string) {
   }
+
+  UpdateVendor(param: { firstName: any; lastName: any; companyName: any }) {
+    console.log("fetch the api to patch")
+    console.log(param)
+    fetch(env.APIURL + '/vendor/' + localStorage.getItem("currentUserId"), {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify(param)
+    }).then(response=>{
+      if(response.status !== 200){
+        console.log("Error while updating the vendor")
+      }
+      else {
+        response.json().then(result=> {
+          console.log("success updating vendor");
+          console.log(result);
+        })
+      }
+    })
+  }
 }

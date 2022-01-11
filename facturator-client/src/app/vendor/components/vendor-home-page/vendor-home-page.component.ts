@@ -20,6 +20,5 @@ export class VendorHomePageComponent implements OnInit {
 
   logOut(){
     this._authService.logOut();
-    this.router.parseUrl('vendor/home')
   }
 }

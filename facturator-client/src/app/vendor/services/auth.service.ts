@@ -82,13 +82,15 @@ export class AuthService {
     this.isUserLogger = true;
     this.currentUser = userLogged;
     localStorage.userLogged = true;
-    localStorage.userLoggedId = userLogged.id;
+    localStorage.currentUserId = userLogged.id;
   }
 
   logOut(){
     localStorage.removeItem("userLogged");
     localStorage.removeItem("userLoggedId");
     this.currentUser = null;
-    this.isUserLogger = false;
+    this.isUserLogger = false
+    console.log("logot, redirecting to login")
+    this.router.parseUrl('vendor/login')
   }
 }
