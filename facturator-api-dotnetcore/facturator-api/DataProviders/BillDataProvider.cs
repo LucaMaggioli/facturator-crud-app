@@ -31,7 +31,10 @@ namespace facturator_api.DataProviders
 
         public async Task<List<Bill>> GetBillsForVendor(int vendorId)
         {
-            var bills = await _facturatorDbContext.Bills.Where(bill => bill.Vendor.Id == vendorId).Select(bill => bill).ToListAsync();
+            var bills = await _facturatorDbContext.Bills
+                .Where(bill => bill.Vendor.Id == vendorId)
+                .Select(bill => bill)
+                .Include(bill=> bill.Client).ToListAsync();
             return bills;
         }
 
@@ -44,7 +47,7 @@ namespace facturator_api.DataProviders
 
         internal async Task<Bill> AddArticles(Bill bill, List<Article> articles)
         {
-            articles.ForEach(article => { bill.Articles.Add(article); });
+            articles.ForEach(article => { bill.Articles.Add(article); bill.Total += article.Price; });
             await SaveChanges();
             return bill;
         }

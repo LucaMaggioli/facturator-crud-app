@@ -43,12 +43,14 @@ namespace facturator_api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> VendorLogin([FromBody] LoginBody body)
         {
-
             var vendorLoggedIn = await new LoginDataProvider(_context).VendorLogin(body.Username, body.Password);
-
+            
             if (vendorLoggedIn != null)
             {
-                return Ok(vendorLoggedIn);
+                var billsForVendor = await new BillDataProvider(_context).GetBillsForVendor(vendorLoggedIn.Id);
+                var vendorDto = new VendorDto(vendorLoggedIn);
+                vendorDto.Bills = billsForVendor.Select(b => new BillDto(b)).ToList();
+                return Ok(vendorDto);
             }
             else
             {
@@ -136,7 +138,7 @@ namespace facturator_api.Controllers
 
             //vendor = await new VendorDataProvider(_context).AddBillToVendor(vendor, bill);
 
-            return new BillDto(bill);
+            return new BillDto(addedBill);
         }
 
         [HttpGet("{id:int}/bills")]
