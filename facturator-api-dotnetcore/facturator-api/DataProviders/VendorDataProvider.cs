@@ -23,6 +23,23 @@ namespace facturator_api.DataProviders
             return vendor;
         }
 
+        public async Task<Vendor> UpdateVendor(int id, Vendor vendorUpdate)
+        {
+            var vendor = await _facturatorDbContext.Vendors.FindAsync(id);
+
+            if( vendor != null)
+            {
+                vendor.FirstName = vendorUpdate.FirstName;
+                vendor.LastName = vendorUpdate.LastName;
+                vendor.CompanyName = vendorUpdate.CompanyName;
+                vendor.Address = vendorUpdate.Address;
+                vendor.Email = vendorUpdate.Email;
+                vendor.Iban = vendorUpdate.Iban;
+                await SaveChanges();
+            }
+
+            return vendor;
+        }
 
         public async Task<Vendor> GetFullVendorById(int id)
         {
