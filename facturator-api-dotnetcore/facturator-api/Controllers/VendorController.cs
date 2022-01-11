@@ -24,7 +24,6 @@ namespace facturator_api.Controllers
         [HttpPost("singin")]
         public async Task<IActionResult> VendorSingin([FromBody] SinginBody body)
         {
-            Vendor newVendor = new Vendor(body.FirstName, body.LastName, body.CompanyName, body.Address, body.Email, body.Iban);
 
             if (await new LoginDataProvider(_context).UserNameExists(body.Username))
             {
@@ -32,6 +31,7 @@ namespace facturator_api.Controllers
             }
             else
             {
+                Vendor newVendor = new Vendor(body.FirstName, body.LastName, body.CompanyName, body.Address, body.Email, body.Iban);
                 var vendorSingedIn = await new LoginDataProvider(_context).VendorSingin(body.Username, body.Password, newVendor);
                 var vendorDto = new VendorDto { };
                 var vendorDtoFromVendor = new VendorDto(vendorSingedIn);
@@ -114,14 +114,17 @@ namespace facturator_api.Controllers
 
         [HttpPost("{id:int}/bill")]
         //public async Task<VendorDto> AddBill(int id, [FromBody] BillDto body)
-        public async Task<VendorDto> AddBill(int id, [FromBody] BillBody body)
+        public async Task<BillDto> AddBill(int id, [FromBody] BillBody body)
         {
+            //How can I do that in One Line?? (why the commented line doesn't work?)
+            //List<Article> articles = body.ArticlesIds.Select(async aId => await new ArticleDataProvider(_context).GetArticleAsync(aId)).ToList();
             List<Article> articles = new List<Article>();
-            //body.ArticlesIds.Select(async id => await new ArticleDataProvider(_context).GetArticleAsync(id)).ToList();
-            body.ArticlesIds.ForEach(async id => {
-                articles.Add(await new ArticleDataProvider(_context).GetArticleAsync(id));
-            });
+            body.ArticlesIds.ForEach(async aId => articles.Add(await new ArticleDataProvider(_context).GetArticleAsync(aId)));
+
+
             var client = await new ClientDataProvider(_context).GetClientById(body.ClientId);
+            //the 2 below are the same, what should I do?
+            //var vendor1 = await new VendorDataProvider(_context).GetVendorById(body.Vendorid);
             Vendor vendor = await new VendorDataProvider(_context).GetVendorById(id);
 
             DateTime date = DateTime.Now;
@@ -131,9 +134,9 @@ namespace facturator_api.Controllers
             addedBill = await new BillDataProvider(_context).SetBillClient(bill, client);
             addedBill = await new BillDataProvider(_context).SetBillVendor(bill, vendor);
 
-            vendor = await new VendorDataProvider(_context).AddBillToVendor(vendor, bill);
+            //vendor = await new VendorDataProvider(_context).AddBillToVendor(vendor, bill);
 
-            return new VendorDto(vendor);
+            return new BillDto(bill);
         }
 
         [HttpGet("{id:int}/bills")]
@@ -145,9 +148,8 @@ namespace facturator_api.Controllers
                 return StatusCode(503, "vendor not found with the given Id");
             }
 
-            var bills = new List<BillDto>();
-            vendor.Bills.ForEach(bill=> { bills.Add(new BillDto(bill)); });
-            //var bills = vendor.Bills.Select(bill => new BillDto(bill)).ToList();
+            var bills = await new BillDataProvider(_context).GetBillsForVendor(id);
+            var billsDto = bills.Select(b => new BillDto(b)).ToList();
 
             return Ok(bills);
         }

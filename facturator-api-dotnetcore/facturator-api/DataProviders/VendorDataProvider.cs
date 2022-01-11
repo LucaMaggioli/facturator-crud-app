@@ -30,7 +30,7 @@ namespace facturator_api.DataProviders
             Vendor vendor = await _facturatorDbContext.Vendors
             .Where(v => v.Id == id)
             .Include(vendor => vendor.Clients)
-            .Include(vendor => vendor.Bills)
+            //.Include(vendor => vendor.Bills)
             .Include(vendor => vendor.Articles)
             .FirstOrDefaultAsync();
             return vendor;
@@ -85,15 +85,7 @@ namespace facturator_api.DataProviders
             return clients;
         }
 
-        internal async Task<Vendor> AddBillToVendor(Vendor vendor, Bill bill)
-        {
-            vendor.Bills.Add(bill);
-            await SaveChanges();
-
-            return vendor;
-        }
-
-        internal async Task<Vendor> AddArticleToVendor(Vendor vendor, Article article)
+        public async Task<Vendor> AddArticleToVendor(Vendor vendor, Article article)
         {
             vendor.Articles.Add(article);
             await SaveChanges();

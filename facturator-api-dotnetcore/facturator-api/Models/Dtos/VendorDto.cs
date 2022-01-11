@@ -23,12 +23,12 @@ namespace facturator_api.Models.Dtos
                 var clientDto = new ClientDto(client);
                 Clients.Add(clientDto);
             });
-            Bills = new List<BillDto>();
-            vendor.Bills.ForEach(bill =>
-            {
-                var billDto = new BillDto(bill);
-                Bills.Add(billDto);
-            });
+            //Bills = new List<BillDto>();
+            //vendor.Bills.ForEach(bill =>
+            //{
+            //    var billDto = new BillDto(bill);
+            //    Bills.Add(billDto);
+            //});
         }
 
         public int Id { get; set; }

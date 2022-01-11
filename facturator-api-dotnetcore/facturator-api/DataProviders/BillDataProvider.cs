@@ -1,6 +1,7 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace facturator_api.DataProviders
         {
             var bill = await _facturatorDbContext.Bills.FindAsync(id);
             return bill;
+        }
+
+        public async Task<List<Bill>> GetBillsForVendor(int vendorId)
+        {
+            var bills = await _facturatorDbContext.Bills.Where(bill => bill.Vendor.Id == vendorId).Select(bill => bill).ToListAsync();
+            return bills;
         }
 
         public async Task<Bill> Add(Bill bill)
