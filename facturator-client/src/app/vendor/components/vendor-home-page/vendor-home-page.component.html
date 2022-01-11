@@ -11,6 +11,9 @@
   <div>
     <button mat-button routerLink="{{vendorUrl}}/info">Info</button>
   </div>
+  <div *ngIf="_authService.isUserLogger">
+    <button mat-button (click)="logOut()">Log Out</button>
+  </div>
 </div>
 
 <div id="content">

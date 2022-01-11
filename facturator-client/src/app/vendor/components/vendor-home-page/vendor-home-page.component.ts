@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-vendor-home-page',
@@ -8,8 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class VendorHomePageComponent implements OnInit {
 
   vendorUrl:string = "/vendor/home";
-  constructor() { }
+  constructor(
+    public _authService:AuthService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logOut(){
+    this._authService.logOut();
+    this.router.parseUrl('vendor/home')
   }
 }

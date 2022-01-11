@@ -18,8 +18,7 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log("guarding the route");
     if (this._authService.currentUser !== null ){
-      console.log("currentUser exist");
-      console.log(this._authService.currentUser)
+      console.log("user is logged so can access the protected route");
       return true;
     }
     else {

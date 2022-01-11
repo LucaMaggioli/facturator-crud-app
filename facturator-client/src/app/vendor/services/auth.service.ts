@@ -82,7 +82,7 @@ export class AuthService {
     this.isUserLogger = true;
     this.currentUser = userLogged;
     localStorage.userLogged = true;
-    localStorage.userLoggedId = userLogged.Id;
+    localStorage.userLoggedId = userLogged.id;
   }
 
   logOut(){
