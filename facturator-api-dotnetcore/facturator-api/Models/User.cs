@@ -13,13 +13,13 @@ namespace facturator_api.Models
             LastName = lastName;
             Address = address;
             Email = email;
-            Bills = new List<Bill>();
+            //Bills = new List<Bill>();
         }
 
-        public User(string firstName, string lastName, string address, string email, List<Bill> bills) : this(firstName, lastName, address, email)
-        {
-            Bills = bills;
-        }
+        //public User(string firstName, string lastName, string address, string email, List<Bill> bills) : this(firstName, lastName, address, email)
+        //{
+        //    Bills = bills;
+        //}
 
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -27,6 +27,6 @@ namespace facturator_api.Models
         public string Address { get; set; }
         public string Email { get; set; }
 
-        public List<Bill> Bills { get; set; }
+        //public List<Bill> Bills { get; set; }
     }
 }

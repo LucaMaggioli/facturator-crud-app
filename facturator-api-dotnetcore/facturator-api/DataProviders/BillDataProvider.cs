@@ -1,6 +1,7 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,15 @@ namespace facturator_api.DataProviders
             return bill;
         }
 
+        public async Task<List<Bill>> GetBillsForVendor(int vendorId)
+        {
+            var bills = await _facturatorDbContext.Bills
+                .Where(bill => bill.Vendor.Id == vendorId)
+                .Select(bill => bill)
+                .Include(bill=> bill.Client).ToListAsync();
+            return bills;
+        }
+
         public async Task<Bill> Add(Bill bill)
         {
             var addedBill = _facturatorDbContext.Bills.Add(bill);
@@ -37,7 +47,7 @@ namespace facturator_api.DataProviders
 
         internal async Task<Bill> AddArticles(Bill bill, List<Article> articles)
         {
-            articles.ForEach(article => { bill.Articles.Add(article); });
+            articles.ForEach(article => { bill.Articles.Add(article); bill.Total += article.Price; });
             await SaveChanges();
             return bill;
         }

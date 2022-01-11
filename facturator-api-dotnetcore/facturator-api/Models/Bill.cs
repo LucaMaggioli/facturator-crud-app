@@ -20,8 +20,8 @@ namespace facturator_api.Models
         {
             articles.ForEach(article => { Total += article.Price; });
             Articles = articles;
-            //Client = client;
-            //Vendor = vendor;
+            Client = client;
+            Vendor = vendor;
         }
 
         public int Id { get; set; }
