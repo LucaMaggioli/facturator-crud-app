@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
     this._authService.logInVendor(this.usernameControl.value, this.passwordControl.value);
     this.router.parseUrl('vendor/home')
   }
+
+  singin(){
+    this._authService.singinVendor(this.usernameControl.value, this.passwordControl.value);
+  }
+
   hidePasswordToggle(){
     this.hidePassword = !this.hidePassword;
   }

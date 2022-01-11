@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {VendorService} from "./vendor.service";
 import {ClientService} from "./client.service";
+import {env} from "./config";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,34 +13,82 @@ export class AuthService {
   isUserLogger:boolean = false;
 
   constructor(
+    private router:Router,
     private _vendorService:VendorService,
     private _clientService:ClientService
   ) { }
 
-  logInVendor(username:string, password:string){
-    this._vendorService.logIn(username, password).then(vendor=>{
-      console.log("auth service");
-      console.log(vendor);
-      if (vendor !== "Password or username incorrect"){
-        this.isUserLogger = true;
-        this.currentUser = vendor;
-        //localStorage.currentUser = vendor;
-        //localStorage.isUserLogged = true;
+  async logInVendor(username:string, password:string){
+    await fetch(env.APIURL + '/vendor/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({
+        'username': username,
+        'password': password
+      })
+    }).then(response=>{
+      if (response.status === 502){
+        console.log("Password or Username Incorrect")
       }
-      else {
-        console.log("vendor = undefined, user not logged");
-        this.isUserLogger = false;
+      if (response.status === 200){
+        response.json().then(result=> {
+          console.log("login success")
+          this.setUserLogged(result);
+          this.router.navigate(['vendor/home/info']);
+        });
       }
-      //if result != error then set current user as user returned from api
-      //this.currentUser = result;
-      //localStorage.userLogged = this.currentUser;
     });
   }
 
-  logOut(){
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("isUserLogged");
+  async singinVendor(username:string, password:string){
+    return await fetch(env.APIURL + '/vendor/singin', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({
+        'username': username,
+        'password': password
+      })
+    }).then((response) => {
+      if(response.status === 502){
+        console.log("ERROR: "+ response.status);
+        response.json().then(result=> {
+          console.log(result);
+        });
+      }
+      if(response.status === 501){
+        console.log("ERROR: "+ response.status);
+        response.json().then(result=> {
+          console.log(result);
+        });
+      }
+      if(response.status === 200){
+        response.json().then(vendorData=> {
+          console.log("Singin success!");
+          this.setUserLogged(vendorData);
+          this.router.navigate(['/vendor/home/info']);
+        });
+      }
+    });
+  }
 
+  private setUserLogged(userLogged:any){
+    console.log(userLogged);
+    this.isUserLogger = true;
+    this.currentUser = userLogged;
+    localStorage.userLogged = true;
+    localStorage.userLoggedId = userLogged.Id;
+  }
+
+  logOut(){
+    localStorage.removeItem("userLogged");
+    localStorage.removeItem("userLoggedId");
+    this.currentUser = null;
     this.isUserLogger = false;
   }
 }

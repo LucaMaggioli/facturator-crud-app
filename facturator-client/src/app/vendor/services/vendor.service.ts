@@ -22,6 +22,7 @@ export class VendorService {
         'password': password
       })
     }).then((response) => response.json()/*
+      //How to manage the response Status ??
       {
       if (response.status === 502){
         return Promise.reject(response);
@@ -33,4 +34,6 @@ export class VendorService {
     );
   }
 
+  singIn(username:string, password:string) {
+  }
 }
