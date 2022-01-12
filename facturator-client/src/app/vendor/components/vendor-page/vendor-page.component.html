@@ -14,5 +14,11 @@
     <input matInput [formControl]="companyName">
   </mat-form-field>
 
+  <mat-label>Company Name:</mat-label>
+  <mat-form-field appearance="outline" color="primary">
+    <input matInput [formControl]="companyName">
+  </mat-form-field>
+
   <button mat-button (click)="saveData()">Save</button>
+  <button mat-button (click)="fillVendorData()">Refresh</button>
 </div>

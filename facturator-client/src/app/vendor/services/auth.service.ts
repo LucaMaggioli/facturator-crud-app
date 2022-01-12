@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 export class AuthService {
 
   currentUser:any = null;
-  isUserLogger:boolean = false;
+  isUserLogger:boolean = localStorage.userLogged;
 
   constructor(
     private router:Router,
@@ -78,19 +78,23 @@ export class AuthService {
   }
 
   private setUserLogged(userLogged:any){
+    console.log("setting user Logged")
     console.log(userLogged);
     this.isUserLogger = true;
     this.currentUser = userLogged;
     localStorage.userLogged = true;
     localStorage.currentUserId = userLogged.id;
+    localStorage.currentUserJson = JSON.stringify(userLogged);
+    localStorage.currentUser = userLogged;
   }
 
   logOut(){
     localStorage.removeItem("userLogged");
-    localStorage.removeItem("userLoggedId");
+    localStorage.removeItem("currentUserId");
+    localStorage.removeItem("currentUser");
     this.currentUser = null;
     this.isUserLogger = false
     console.log("logot, redirecting to login")
-    this.router.parseUrl('vendor/login')
+    this.router.navigate(['/vendor/login']).then(r => console.log(r));
   }
 }

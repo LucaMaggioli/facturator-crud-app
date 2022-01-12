@@ -58,6 +58,21 @@ namespace facturator_api.Controllers
             }
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetVendorData(int id)
+        {
+            var vendor = await new VendorDataProvider(_context).GetVendorById(id);
+
+            if (vendor != null)
+            {
+                return Ok(new VendorDto(vendor));
+            }
+            else
+            {
+                return StatusCode(404, "Vendor not found for given Id");
+            }
+        }
+
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateVendor(int id, VendorDto updatedVendorDto)
         {

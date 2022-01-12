@@ -37,6 +37,27 @@ export class VendorService {
   singIn(username:string, password:string) {
   }
 
+  async GetVendorInfo(id:number){
+    console.log("Try to get info about Vendor with id: "+id);
+    return await fetch(env.APIURL + '/vendor/' + id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }).then(response=>{
+      if (response.status !== 200){
+        console.log("error while trying to retrieve Data about vendor with id "+id);
+        return response.json();
+      }
+      else {
+        console.log("result of api call /vendor/{id} [GET] is:");
+        console.log(response);
+        return response.json();
+      }
+    });
+  }
+
   UpdateVendor(param: { firstName: any; lastName: any; companyName: any }) {
     console.log("fetch the api to patch")
     console.log(param)
