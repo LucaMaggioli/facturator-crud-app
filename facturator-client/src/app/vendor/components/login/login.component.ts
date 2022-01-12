@@ -24,13 +24,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
-    this._authService.logInVendor(this.usernameControl.value, this.passwordControl.value);
+  async login(){
+    await this._authService.logInVendor(this.usernameControl.value, this.passwordControl.value);
+    console.log("after login")
     this.router.parseUrl('vendor/home')
   }
 
   singin(){
     this._authService.singinVendor(this.usernameControl.value, this.passwordControl.value);
+    this.router.parseUrl('vendor/home')
   }
 
   hidePasswordToggle(){

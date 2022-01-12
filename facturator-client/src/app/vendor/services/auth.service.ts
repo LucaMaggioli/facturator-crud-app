@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
 
-  currentUser:any = null;
   isUserLogger:boolean = localStorage.userLogged;
 
   constructor(
@@ -17,6 +16,10 @@ export class AuthService {
     private _vendorService:VendorService,
     private _clientService:ClientService
   ) { }
+
+  isUserLogged(){
+    return localStorage.getItem('userLogged');
+  }
 
   async logInVendor(username:string, password:string){
     await fetch(env.APIURL + '/vendor/login', {
@@ -78,23 +81,14 @@ export class AuthService {
   }
 
   private setUserLogged(userLogged:any){
-    console.log("setting user Logged")
-    console.log(userLogged);
-    this.isUserLogger = true;
-    this.currentUser = userLogged;
     localStorage.userLogged = true;
     localStorage.currentUserId = userLogged.id;
-    localStorage.currentUserJson = JSON.stringify(userLogged);
-    localStorage.currentUser = userLogged;
   }
 
   logOut(){
     localStorage.removeItem("userLogged");
     localStorage.removeItem("currentUserId");
-    localStorage.removeItem("currentUser");
-    this.currentUser = null;
-    this.isUserLogger = false
-    console.log("logot, redirecting to login")
-    this.router.navigate(['/vendor/login']).then(r => console.log(r));
+    console.log("logout, redirecting to login")
+    this.router.navigate(['/vendor/home/login']).then(r => console.log(r));
   }
 }

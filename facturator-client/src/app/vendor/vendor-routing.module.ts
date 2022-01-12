@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: `${VENDOR}/home`,
     component: VendorHomePageComponent,
     children: [
+      { path: `login`, component: LoginComponent },
       { path: 'articles', component: ArticlePageComponent, canActivate: [LoginGuard] },
       { path: 'clients', component: ClientPageComponent, canActivate: [LoginGuard] },
       { path: 'bills', component: BillPageComponent, canActivate: [LoginGuard] },

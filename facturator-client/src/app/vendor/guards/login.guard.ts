@@ -17,13 +17,12 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log("guarding the route");
-    if (this._authService.isUserLogger){
-    //if (localStorage.userLogged){
+    if (this._authService.isUserLogged()){
       console.log("user is logged so can access the protected route");
       return true;
     }
     else {
-      return this.router.parseUrl('vendor/login');
+      return this.router.parseUrl('vendor/home/login');
     }
   }
 
