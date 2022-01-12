@@ -1,0 +1,17 @@
+#vendorPageContainer{
+  display: grid;
+  grid-template-columns: 4fr 2fr 4fr;
+}
+
+#vendorPage{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: start;
+  grid-gap: 1em;
+}
+
+#buttonDiv{
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
+}

@@ -1,24 +1,25 @@
-<div>
-  <mat-label>First Name:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="firstName">
-  </mat-form-field>
+<div id="vendorPageContainer">
+  <span class="spacer"></span>
+  <div id="vendorPage">
+    <mat-label>First Name:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="firstName">
+    </mat-form-field>
 
-  <mat-label>Last Name:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="lastName">
-  </mat-form-field>
+    <mat-label>Last Name:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="lastName">
+    </mat-form-field>
 
-  <mat-label>Company Name:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="companyName">
-  </mat-form-field>
+    <mat-label>Company Name:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="companyName">
+    </mat-form-field>
 
-  <mat-label>Company Name:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="companyName">
-  </mat-form-field>
-
-  <button mat-button (click)="saveData()">Save</button>
-  <button mat-button (click)="fillVendorData()">Refresh</button>
+    <div id="buttonDiv">
+      <button mat-raised-button color="primary" (click)="saveData()">Save</button>
+      <button mat-raised-button color="primary" (click)="fillVendorData()">Refresh</button>
+    </div>
+  </div>
+  <span class="spacer"></span>
 </div>
