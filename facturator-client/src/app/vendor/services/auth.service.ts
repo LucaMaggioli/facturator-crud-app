@@ -88,7 +88,6 @@ export class AuthService {
   logOut(){
     localStorage.removeItem("userLogged");
     localStorage.removeItem("currentUserId");
-    console.log("logout, redirecting to login")
     this.router.navigate(['/vendor/home/login']).then(r => console.log(r));
   }
 }
