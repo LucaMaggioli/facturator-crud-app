@@ -21,6 +21,7 @@ namespace facturator_api.Controllers
             _billDataProvider = billDataProvider;
         }
 
+        // Call this enpoint to get a Bill bi Id
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetBill(int id)
         {
@@ -33,6 +34,14 @@ namespace facturator_api.Controllers
             {
                 return StatusCode(404, "bill not found");
             }
+        }
+
+        // Call this enpoint to Update a Bill by its' Id
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> AddBill(int id)
+        {
+            var bill = await _billDataProvider.GetBillById(id);
+            return Ok(bill);
         }
 
     }
