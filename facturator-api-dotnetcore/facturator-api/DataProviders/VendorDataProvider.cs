@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    public class VendorDataProvider
+    public class VendorDataProvider : IVendorDataProvider
     {
         private readonly FacturatorDbContext _facturatorDbContext;
 
@@ -17,17 +17,28 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
+        /// <summary>
+        /// Get vendor by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Vendor> GetVendorById(int id)
         {
             Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
             return vendor;
         }
 
+        /// <summary>
+        /// Update a vendor by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="vendorUpdate"></param>
+        /// <returns></returns>
         public async Task<Vendor> UpdateVendor(int id, Vendor vendorUpdate)
         {
             var vendor = await _facturatorDbContext.Vendors.FindAsync(id);
 
-            if( vendor != null)
+            if (vendor != null)
             {
                 vendor.FirstName = vendorUpdate.FirstName;
                 vendor.LastName = vendorUpdate.LastName;
@@ -41,6 +52,11 @@ namespace facturator_api.DataProviders
             return vendor;
         }
 
+        /// <summary>
+        /// Get Vendor With all his Articles and Clients by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Vendor> GetFullVendorById(int id)
         {
             //Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
@@ -53,6 +69,11 @@ namespace facturator_api.DataProviders
             return vendor;
         }
 
+        /// <summary>
+        /// Get the clients of the Vendor by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<List<Client>> GetVendorClients(int id)
         {
             Vendor vendor = await _facturatorDbContext.Vendors
@@ -69,10 +90,16 @@ namespace facturator_api.DataProviders
                     clients.Add(c);
                 });
             }
-            
+
             return clients;
         }
 
+        /// <summary>
+        /// Add a client to a vendor
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public async Task<Vendor> AddClientToVendor(Vendor vendor, Client client)
         {
             vendor.Clients.Add(client);
@@ -81,6 +108,11 @@ namespace facturator_api.DataProviders
             return vendor;
         }
 
+        /// <summary>
+        /// Get the vendor articles
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <returns></returns>
         public async Task<List<Client>> GetVendorArticles(Vendor vendor)
         {
             //is there another way to do this? for example pass as parameter a vendor that already have Clients
@@ -102,6 +134,12 @@ namespace facturator_api.DataProviders
             return clients;
         }
 
+        /// <summary>
+        /// Add an article to a Vendor 
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <param name="article"></param>
+        /// <returns></returns>
         public async Task<Vendor> AddArticleToVendor(Vendor vendor, Article article)
         {
             vendor.Articles.Add(article);

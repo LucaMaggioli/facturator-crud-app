@@ -151,8 +151,9 @@ namespace facturator_api.Controllers
         {
             //How can I do that in One Line?? (why the commented line doesn't work?)
             //List<Article> articles = body.ArticlesIds.Select(async aId => await new ArticleDataProvider(_context).GetArticleAsync(aId)).ToList();
-            List<Article> articles = new List<Article>();
-            body.ArticlesIds.ForEach(async aId => articles.Add(await new ArticleDataProvider(_context).GetArticleAsync(aId)));
+            //List<Article> articles = new List<Article>();
+            var articles = body.ArticlesIds.Select(a => new Article(a)).ToList();
+            //body.ArticlesIds.ForEach(async aId => articles.Add(await new ArticleDataProvider(_context).GetArticleAsync(aId)));
 
 
             var client = await new ClientDataProvider(_context).GetClientById(body.ClientId);
