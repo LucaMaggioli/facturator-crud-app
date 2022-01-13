@@ -57,6 +57,7 @@ namespace facturator_api.Controllers
             return updatedArticle;
         }
 
+        // Call this endpoint to Delete an article
         [HttpDelete("{id:int}")]
         public Task<Article> DeleteArticle(int id)
         {

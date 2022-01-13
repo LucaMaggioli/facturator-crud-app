@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace facturator_api.Controllers
 {
+    [Route("api/[Controller]")]
+    [ApiController]
     public class BillController : Controller
     {
         private readonly IBillDataProvider _billDataProvider;
@@ -18,5 +20,20 @@ namespace facturator_api.Controllers
         {
             _billDataProvider = billDataProvider;
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetBill(int id)
+        {
+            var bill = await _billDataProvider.GetBillById(id);
+            if(bill != null)
+            {
+                return Ok(bill);
+            }
+            else
+            {
+                return StatusCode(404, "bill not found");
+            }
+        }
+
     }
 }
