@@ -1,0 +1,4 @@
+TODO list for the project:
+
+- Check the user inputs
+- Tests
