@@ -18,4 +18,20 @@ export class ArticleService {
       },
     }).then((response) => response.json());
   }
+
+  public async addArticleForVendor(name:string, photoUrl:string, price:number, description:string){
+    return await fetch(this.backendURL + `/vendor/${this.currentUserId}/article`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({
+        "name": name,
+        "photoUrl": photoUrl,
+        "price": price,
+        "description": description,
+      })
+    }).then((response) => response.json());
+  }
 }

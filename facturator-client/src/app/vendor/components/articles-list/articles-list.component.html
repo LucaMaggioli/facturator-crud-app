@@ -2,8 +2,9 @@
 <div *ngFor="let article of articles" id="articlesContainer">
   <div class="article">
     <h3>Title: {{article.title}}</h3>
-    <p>Description: {{article.description}}</p>
+    <p>Name: {{article.name}}</p>
     <p>PhotoUrl: <a href="{{article.photoUrl}}">{{article.photoUrl}}</a></p>
     <p>Price: {{article.price}}</p>
+    <p>Description: {{article.description}}</p>
   </div>
 </div>
