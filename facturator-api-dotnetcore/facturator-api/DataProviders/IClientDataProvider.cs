@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    interface IClientDataProvider
+    public interface IClientDataProvider
     {
         /// <summary>
         /// Get a client by Id

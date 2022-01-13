@@ -64,6 +64,11 @@ namespace facturator_api.DataProviders
             return articleToAdd;
         }
 
+        //public async Task<Article> UpdateArticle(Article article)
+        //{
+        //    return article;
+        //}
+
         /// <summary>
         /// Update an existing article by it's Id
         /// </summary>

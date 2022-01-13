@@ -19,6 +19,10 @@ Selmir:
 	Pour le controlleur -> vendor/{id}/bill [POST]
 	je veux ajouter une facture, comment je passe les articles et le client de la facture? avec leur Ids oubien les objets complets??
 	pour le body de la requete donc comment je la passe? ça sera BillBody ou BillDto? 
+
+		Solution: 
+			Créer un BillDto pour faire communiquer Front -> back (avec les Id des articles),
+			et un BillViewModel pour afficher Back -> Front (avec les articles complets)
 	????????????????????
 
 	??????????????????????????

@@ -53,6 +53,8 @@ namespace facturator_api.Controllers
         [HttpPatch("{id:int}")]
         public Task<Article> UpdateArticle(int id, [FromBody] ArticleBody body)
         {
+            //var article = this._articleDataProvider.GetArticleAsync(id);
+
             var updatedArticle = this._articleDataProvider.UpdateArticleById(id, body.Name, body.PhotoUrl, body.Price, body.Description);
             return updatedArticle;
         }

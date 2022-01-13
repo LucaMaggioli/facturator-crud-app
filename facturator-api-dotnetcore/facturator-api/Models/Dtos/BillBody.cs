@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace facturator_api.Models.Dtos
+{
+    public class BillBody
+    {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public bool IsPayed { get; set; }
+        public int VendorId { get; set; }
+        public int ClientId { get; set; }
+        public List<int> ArticlesIds { get; set; }
+    }
+}

@@ -20,10 +20,6 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
-        public ClientDataProvider()
-        {
-        }
-
         /// <summary>
         /// Return a specific client by a given Id
         /// </summary>

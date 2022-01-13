@@ -40,6 +40,8 @@ namespace facturator_api
             services.AddTransient<IArticleDataProvider, ArticleDataProvider>();
             services.AddTransient<IClientDataProvider, ClientDataProvider>();
             services.AddTransient<IBillDataProvider, BillDataProvider>();
+            //traduit: à chaque fois que je demande un IVendorDataProvider je vais lui donner un instance de VendorDataProvider
+            services.AddTransient<IVendorDataProvider, VendorDataProvider>();
         }
 
 

@@ -135,6 +135,20 @@ namespace facturator_api.DataProviders
         }
 
         /// <summary>
+        /// Get bills for the vendor
+        /// </summary>
+        /// <param name="vendorId"></param>
+        /// <returns></returns>
+        public async Task<List<Bill>> GetBillsForVendor(int vendorId)
+        {
+            var bills = await _facturatorDbContext.Bills
+                .Where(bill => bill.Vendor.Id == vendorId)
+                .Select(bill => bill)
+                .Include(bill => bill.Client).ToListAsync();
+            return bills;
+        }
+
+        /// <summary>
         /// Add an article to a Vendor 
         /// </summary>
         /// <param name="vendor"></param>
@@ -143,6 +157,22 @@ namespace facturator_api.DataProviders
         public async Task<Vendor> AddArticleToVendor(Vendor vendor, Article article)
         {
             vendor.Articles.Add(article);
+            await SaveChanges();
+            return vendor;
+        }
+
+        /// <summary>
+        /// Add a Client and directly bind to a Vendor
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<Vendor> AddClientToVendor(Vendor vendor, string firstName, string lastName, string address, string email)
+        {
+            vendor.Clients.Add(new Client(firstName, lastName, address, email));
             await SaveChanges();
             return vendor;
         }

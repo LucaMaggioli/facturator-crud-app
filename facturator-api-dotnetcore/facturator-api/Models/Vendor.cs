@@ -7,6 +7,12 @@ namespace facturator_api.Models
 {
     public class Vendor : User
     {
+        private int vendorId;
+
+        public Vendor(int id) :base(id)
+        {
+        }
+
         public Vendor(string firstName, string lastName, string companyName, string address, string email, string iban) :base(firstName, lastName, address, email)
         {
             CompanyName = companyName;
