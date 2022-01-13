@@ -17,12 +17,15 @@ namespace facturator_api.Models.Dtos
             Address = vendor.Address;
             Email = vendor.Email;
             Iban = vendor.Iban;
-            Clients = new List<ClientDto>();
-            vendor.Clients.ForEach(client =>
+            if(vendor.Clients != null)
             {
-                var clientDto = new ClientDto(client);
-                Clients.Add(clientDto);
-            });
+                Clients = new List<ClientDto>();
+                vendor.Clients.ForEach(client =>
+                {
+                    var clientDto = new ClientDto(client);
+                    Clients.Add(clientDto);
+                });
+            }
             //Bills = new List<BillDto>();
             //vendor.Bills.ForEach(bill =>
             //{

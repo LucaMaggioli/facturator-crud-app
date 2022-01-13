@@ -10,7 +10,8 @@ namespace facturator_api.Controllers.Bodys
         public int Id { get; set; }
         public bool IsPayed { get; set; }
         public int ClientId { get; set; }
-        public int Vendorid { get; set; }
+        public int VendorId { get; set; }
         public List<int> ArticlesIds { get; set; }
+        public DateTime Date { get; set; }
     }
 }

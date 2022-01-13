@@ -18,16 +18,16 @@ namespace facturator_api.Controllers
         private readonly IVendorDataProvider _vendorDataProvider;
         private readonly ILoginDataProvider _loginDataProvider;
         private readonly IBillDataProvider _billDataProvider;
-        private readonly IClientDataProvider _clientDataProvider;
-        private readonly IArticleDataProvider _articleDataProvider;
+        //private readonly IClientDataProvider _clientDataProvider;
+        //private readonly IArticleDataProvider _articleDataProvider;
 
         public VendorController(IVendorDataProvider vendorDataProvider, ILoginDataProvider loginDataProvider, IBillDataProvider billDataProvider, IClientDataProvider clientDataProvider, IArticleDataProvider articleDataProvider)
         {
             _vendorDataProvider = vendorDataProvider;
             _loginDataProvider = loginDataProvider;
             _billDataProvider = billDataProvider;
-            _clientDataProvider = clientDataProvider;
-            _articleDataProvider = articleDataProvider;
+            //_clientDataProvider = clientDataProvider;
+            //_articleDataProvider = articleDataProvider;
         }
 
         [HttpPost("singin")]
@@ -155,7 +155,7 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/bill")]
-        public async Task<BillDto> AddBill(int id, [FromBody] Bodys.BillBody body)
+        public async Task<BillDto> AddBill(int id, [FromBody]BillBody body)
         {
             var articles = body.ArticlesIds.Select(a => new Article(a)).ToList();
             var client = new Client(body.ClientId);
