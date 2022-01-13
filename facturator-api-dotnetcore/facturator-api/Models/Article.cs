@@ -20,6 +20,11 @@ namespace facturator_api.Models
             this.Id = id;
         }
 
+        public Article(int id)
+        {
+            Id = id;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }

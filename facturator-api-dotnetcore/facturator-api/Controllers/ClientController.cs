@@ -19,20 +19,19 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ClientController : Controller
     {
-        private readonly FacturatorDbContext _context;
-        public ClientController(FacturatorDbContext context){
-            _context = context;
-        }
+        private readonly IClientDataProvider _clientDataProvider;
 
-        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
-        // /clients is different from /clients/{id}
+        public ClientController(IClientDataProvider clientDataProvider)
+        {
+            _clientDataProvider = clientDataProvider;
+        }
 
 
         // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
         [HttpGet("all")]
         public async Task<List<ClientDto>> GetClients()
         {
-            var clients = await new ClientDataProvider(_context).GetClientsAsync();
+            var clients = await _clientDataProvider.GetClientsAsync();
             
             var clientsDto = clients
                 .Select(client => new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email })
@@ -45,7 +44,7 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ClientDto> GetClient(int id)
         {
-            var client = await new ClientDataProvider(_context).GetClientById(id);
+            var client = await _clientDataProvider.GetClientById(id);
 
             return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
@@ -54,7 +53,7 @@ namespace facturator_api.Controllers
         [HttpPost]
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).Add(body.FirstName, body.LastName, body.Address, body.Email);
+            var client = await _clientDataProvider.Add(body.FirstName, body.LastName, body.Address, body.Email);
 
             return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
@@ -64,7 +63,7 @@ namespace facturator_api.Controllers
         public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
         {
             var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
-            var client = await new ClientDataProvider(_context).Update(id, updatedClientDto);
+            var client = await _clientDataProvider.Update(id, updatedClientDto);
             //If is null should return an error code
             return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
@@ -73,7 +72,7 @@ namespace facturator_api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
-            var deletedClient = await new ClientDataProvider(_context).SetArchived(id, true);
+            var deletedClient = await _clientDataProvider.SetArchived(id, true);
 
             if (deletedClient != null){
                 return new ClientDto { Id = deletedClient.Id, FirstName = deletedClient.FirstName, LastName = deletedClient.LastName, Address = deletedClient.Address, Email = deletedClient.Email };
@@ -88,7 +87,7 @@ namespace facturator_api.Controllers
         [HttpGet("archived")]
         public async Task<List<ClientDto>> GetArchivedClients()
         {
-            var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
+            var clients = await _clientDataProvider.GetArchivedClientsAsync();
             return clients;
         }
 

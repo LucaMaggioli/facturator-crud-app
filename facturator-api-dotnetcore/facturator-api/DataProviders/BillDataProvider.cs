@@ -29,18 +29,30 @@ namespace facturator_api.DataProviders
             return bill;
         }
 
-        public async Task<List<Bill>> GetBillsForVendor(int vendorId)
-        {
-            var bills = await _facturatorDbContext.Bills
-                .Where(bill => bill.Vendor.Id == vendorId)
-                .Select(bill => bill)
-                .Include(bill=> bill.Client).ToListAsync();
-            return bills;
-        }
-
         public async Task<Bill> Add(Bill bill)
         {
             var addedBill = _facturatorDbContext.Bills.Add(bill);
+            await SaveChanges();
+            return addedBill.Entity;
+        }
+
+        public async Task<Bill> AddFullBill(DateTime Date, bool IsPayed, Vendor vendor, Client client, List<Article> articles)
+        {
+            Bill newBill = new Bill(Date, IsPayed, articles, client, vendor);
+            var addedBill = _facturatorDbContext.Bills.Add(newBill);
+            await SaveChanges();
+            return addedBill.Entity;
+        }
+
+        public async Task<Bill> AddFullBill2(DateTime Date, bool IsPayed, int vendorId, int clientId, List<int> articlesIds)
+        {
+            Bill newBill = new Bill(Date, IsPayed);
+
+            var vendor = await new VendorDataProvider(_facturatorDbContext).GetVendorById(vendorId);
+            var client = await new ClientDataProvider(_facturatorDbContext).GetClientById(clientId);
+            
+
+            var addedBill = _facturatorDbContext.Bills.Add(newBill);
             await SaveChanges();
             return addedBill.Entity;
         }
@@ -70,10 +82,5 @@ namespace facturator_api.DataProviders
         {
             await _facturatorDbContext.SaveChangesAsync();
         }
-
-        //internal Task Add(object firstName, object lastName, object address, object email)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

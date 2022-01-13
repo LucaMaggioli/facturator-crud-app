@@ -15,24 +15,33 @@ namespace facturator_api.Controllers
     [ApiController]
     public class VendorController : Controller
     {
-        private readonly FacturatorDbContext _context;
-        public VendorController(FacturatorDbContext context)
+        private readonly IVendorDataProvider _vendorDataProvider;
+        private readonly ILoginDataProvider _loginDataProvider;
+        private readonly IBillDataProvider _billDataProvider;
+        //private readonly IClientDataProvider _clientDataProvider;
+        //private readonly IArticleDataProvider _articleDataProvider;
+
+        public VendorController(IVendorDataProvider vendorDataProvider, ILoginDataProvider loginDataProvider, IBillDataProvider billDataProvider, IClientDataProvider clientDataProvider, IArticleDataProvider articleDataProvider)
         {
-            _context = context;
+            _vendorDataProvider = vendorDataProvider;
+            _loginDataProvider = loginDataProvider;
+            _billDataProvider = billDataProvider;
+            //_clientDataProvider = clientDataProvider;
+            //_articleDataProvider = articleDataProvider;
         }
 
         [HttpPost("singin")]
         public async Task<IActionResult> VendorSingin([FromBody] SinginBody body)
         {
 
-            if (await new LoginDataProvider(_context).UserNameExists(body.Username))
+            if (await _loginDataProvider.UserNameExists(body.Username))
             {
                 return StatusCode(501, "username not available, choose another one");
             }
             else
             {
                 Vendor newVendor = new Vendor(body.FirstName, body.LastName, body.CompanyName, body.Address, body.Email, body.Iban);
-                var vendorSingedIn = await new LoginDataProvider(_context).VendorSingin(body.Username, body.Password, newVendor);
+                var vendorSingedIn = await _loginDataProvider.VendorSingin(body.Username, body.Password, newVendor);
                 var vendorDto = new VendorDto { };
                 var vendorDtoFromVendor = new VendorDto(vendorSingedIn);
                 //vendorDto.VendorDtoFromVendor(vendorSingedIn);
@@ -43,11 +52,11 @@ namespace facturator_api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> VendorLogin([FromBody] LoginBody body)
         {
-            var vendorLoggedIn = await new LoginDataProvider(_context).VendorLogin(body.Username, body.Password);
+            var vendorLoggedIn = await _loginDataProvider.VendorLogin(body.Username, body.Password);
             
             if (vendorLoggedIn != null)
             {
-                var billsForVendor = await new BillDataProvider(_context).GetBillsForVendor(vendorLoggedIn.Id);
+                var billsForVendor = await _vendorDataProvider.GetBillsForVendor(vendorLoggedIn.Id);
                 var vendorDto = new VendorDto(vendorLoggedIn);
                 vendorDto.Bills = billsForVendor.Select(b => new BillDto(b)).ToList();
                 return Ok(vendorDto);
@@ -61,7 +70,7 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetVendorData(int id)
         {
-            var vendor = await new VendorDataProvider(_context).GetVendorById(id);
+            var vendor = await _vendorDataProvider.GetVendorById(id);
 
             if (vendor != null)
             {
@@ -77,7 +86,7 @@ namespace facturator_api.Controllers
         public async Task<IActionResult> UpdateVendor(int id, VendorDto updatedVendorDto)
         {
             var vendorToUpdate = new Vendor(updatedVendorDto.FirstName, updatedVendorDto.LastName, updatedVendorDto.CompanyName, updatedVendorDto.Address, updatedVendorDto.Email, updatedVendorDto.Iban);
-            var updatedVendor = await new VendorDataProvider(_context).UpdateVendor(id, vendorToUpdate);
+            var updatedVendor = await _vendorDataProvider.UpdateVendor(id, vendorToUpdate);
 
             if (updatedVendor != null)
             {
@@ -92,12 +101,12 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}/clients")]
         public async Task<IActionResult> VendorClients(int id) //async Task<IActionResult> 
         {
-            if (await new VendorDataProvider(_context).GetFullVendorById(id) == null)
+            if (await _vendorDataProvider.GetFullVendorById(id) == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
             
-            var clients = await new VendorDataProvider(_context).GetVendorClients(id);
+            var clients = await _vendorDataProvider.GetVendorClients(id);
 
             var clientsDto = new List<ClientDto>();
             clients.ForEach(c => { clientsDto.Add(new ClientDto(c)); });
@@ -108,9 +117,8 @@ namespace facturator_api.Controllers
         [HttpPost("{id:int}/client")]
         public async Task<VendorDto> AddClient(int id, [FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).Add(body.FirstName, body.LastName, body.Address, body.Email);
-            var vendor = await new VendorDataProvider(_context).GetFullVendorById(id);
-            vendor = await new VendorDataProvider(_context).AddClientToVendor(vendor, client);
+            var vendor = await _vendorDataProvider.GetFullVendorById(id);
+            vendor = await _vendorDataProvider.AddClientToVendor(vendor, body.FirstName, body.LastName, body.Address, body.Email);
 
             return new VendorDto(vendor);
         }
@@ -118,7 +126,7 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}/articles")]
         public async Task<IActionResult> GetArticles(int id)
         {
-            var vendor = await new VendorDataProvider(_context).GetFullVendorById(id);
+            var vendor = await _vendorDataProvider.GetFullVendorById(id);
             if (vendor == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
@@ -133,41 +141,28 @@ namespace facturator_api.Controllers
         [HttpPost("{id:int}/article")]
         public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         {
-            var vendor = await new VendorDataProvider(_context).GetFullVendorById(id);
+            var vendor = await _vendorDataProvider.GetFullVendorById(id);
             if (vendor == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
 
-            var article = await new ArticleDataProvider(_context).AddArticle(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
-            vendor = await new VendorDataProvider(_context).AddArticleToVendor(vendor, article);
+            //var article = await new ArticleDataProvider(_context).AddArticleToVendor(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
+            var article = new Article(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
+            vendor = await _vendorDataProvider.AddArticleToVendor(vendor, article);
 
             return Ok(new VendorDto(vendor));
         }
 
         [HttpPost("{id:int}/bill")]
-        //public async Task<VendorDto> AddBill(int id, [FromBody] BillDto body)
-        public async Task<BillDto> AddBill(int id, [FromBody] BillBody body)
+        public async Task<BillDto> AddBill(int id, [FromBody]BillBody body)
         {
-            //How can I do that in One Line?? (why the commented line doesn't work?)
-            //List<Article> articles = body.ArticlesIds.Select(async aId => await new ArticleDataProvider(_context).GetArticleAsync(aId)).ToList();
-            List<Article> articles = new List<Article>();
-            body.ArticlesIds.ForEach(async aId => articles.Add(await new ArticleDataProvider(_context).GetArticleAsync(aId)));
+            var articles = body.ArticlesIds.Select(a => new Article(a)).ToList();
+            var client = new Client(body.ClientId);
+            Vendor vendor = await _vendorDataProvider.GetVendorById(id);
 
-
-            var client = await new ClientDataProvider(_context).GetClientById(body.ClientId);
-            //the 2 below are the same, what should I do?
-            //var vendor1 = await new VendorDataProvider(_context).GetVendorById(body.Vendorid);
-            Vendor vendor = await new VendorDataProvider(_context).GetVendorById(id);
-
-            DateTime date = DateTime.Now;
-            var bill = new Bill(date, body.IsPayed);
-            var addedBill = await new BillDataProvider(_context).Add(bill);
-            addedBill = await new BillDataProvider(_context).AddArticles(bill, articles);
-            addedBill = await new BillDataProvider(_context).SetBillClient(bill, client);
-            addedBill = await new BillDataProvider(_context).SetBillVendor(bill, vendor);
-
-            //vendor = await new VendorDataProvider(_context).AddBillToVendor(vendor, bill);
+            DateTime date = DateTime.Now;//TODO change and take it from the front
+            var addedBill = await _billDataProvider.AddFullBill(date, body.IsPayed, vendor, client, articles);
 
             return new BillDto(addedBill);
         }
@@ -175,13 +170,13 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}/bills")]
         public async Task<IActionResult> GetBills(int id)
         {
-            var vendor = await new VendorDataProvider(_context).GetFullVendorById(id);
+            var vendor = await  _vendorDataProvider.GetFullVendorById(id);
             if (vendor == null)
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
 
-            var bills = await new BillDataProvider(_context).GetBillsForVendor(id);
+            var bills = await _vendorDataProvider.GetBillsForVendor(id);
             var billsDto = bills.Select(b => new BillDto(b)).ToList();
 
             return Ok(bills);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    public class LoginDataProvider
+    public class LoginDataProvider : ILoginDataProvider
     {
         private readonly FacturatorDbContext _facturatorDbContext;
 
@@ -17,10 +17,15 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
+        /// <summary>
+        /// Check if a Username already exists
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>True or False</returns>
         public async Task<bool> UserNameExists(string username)
         {
             var loginFound = await _facturatorDbContext.Logins.Where(login => login.Username == username).FirstOrDefaultAsync();
-            
+
             if (loginFound == null)
             {
                 return false;
@@ -31,11 +36,17 @@ namespace facturator_api.DataProviders
             }
         }
 
+        /// <summary>
+        /// Return the vendor binded to the username and password provided
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<Vendor> VendorLogin(string username, string password)
         {
             var login = await _facturatorDbContext.Logins
                 .Where(l => l.Username == username && l.Password == password)
-                .Include(l=> l.Vendor)
+                .Include(l => l.Vendor)
                 .FirstOrDefaultAsync();
 
             if (login == null)
@@ -46,7 +57,15 @@ namespace facturator_api.DataProviders
             return login.Vendor;
         }
 
-        public async Task<Vendor> VendorSingin(string username, string password, Vendor newVendor){
+        /// <summary>
+        /// Add a vendor and bind it to a new login created from username and password provided 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="newVendor"></param>
+        /// <returns></returns>
+        public async Task<Vendor> VendorSingin(string username, string password, Vendor newVendor)
+        {
 
             var newLogin = new Login(username, password, newVendor);
 
