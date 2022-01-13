@@ -12,7 +12,7 @@ export class ArticlePageComponent implements OnInit {
   constructor(private articleService:ArticleService) { }
 
   ngOnInit(): void {
-    this.articleService.getArticles().then(a => {console.log(a); this.articles = a});
+    this.articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
   }
 
 }

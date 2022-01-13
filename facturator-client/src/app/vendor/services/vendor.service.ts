@@ -21,16 +21,7 @@ export class VendorService {
         'username': username,
         'password': password
       })
-    }).then((response) => response.json()/*
-      //How to manage the response Status ??
-      {
-      if (response.status === 502){
-        return Promise.reject(response);
-      }
-      else {
-        return Promise.resolve(response);
-      }
-    }*/
+    }).then((response) => response.json()
     );
   }
 

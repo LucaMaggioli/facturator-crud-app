@@ -1,6 +1,6 @@
 <h1> Article list Component</h1>
-<div *ngFor="let article of articles">
-  <div>
+<div *ngFor="let article of articles" id="articlesContainer">
+  <div class="article">
     <h3>Title: {{article.title}}</h3>
     <p>Description: {{article.description}}</p>
     <p>PhotoUrl: <a href="{{article.photoUrl}}">{{article.photoUrl}}</a></p>

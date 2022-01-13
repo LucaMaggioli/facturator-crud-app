@@ -14,9 +14,4 @@ export class ArticlesListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnChanges():void{
-    console.log("changes to component articleList, variables:")
-    console.log(`${this.articles}`)
-  }
-
 }

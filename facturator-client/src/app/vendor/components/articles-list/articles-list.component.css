@@ -1,0 +1,8 @@
+#articlesContainer{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1em;
+}
+.article{
+  border: 2px solid #6C52FE;
+}

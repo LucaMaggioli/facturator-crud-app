@@ -6,11 +6,11 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ArticleService {
   backendURL: string = 'https://localhost:44335/api';
-
+  currentUserId = parseInt(<string>localStorage.getItem('currentUserId'));
   constructor() { }
 
-  public async getArticles(){
-    return await fetch(this.backendURL + '/vendor/3/articles', {
+  public async getArticlesForLoggedVendor(){
+    return await fetch(this.backendURL + `/vendor/${this.currentUserId}/articles`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
