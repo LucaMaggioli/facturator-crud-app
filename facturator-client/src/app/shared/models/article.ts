@@ -1,14 +1,14 @@
 export class Article{
   id: any = "";
   name: string = "";
-  photo: string = "";
+  photoUrl: string = "";
   price: number = 0;
   description: string = "";
 
-  constructor(_name:string, price:number, _photo:string, description:string, _id?:string ) {
+  constructor(_name:string, _photo:string, price:number, description:string, _id?:string ) {
     this.id = _id;
     this.name = _name;
-    this.photo = _photo;
+    this.photoUrl = _photo;
     this.price = price;
     this.description = description;
   }

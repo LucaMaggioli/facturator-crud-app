@@ -14,6 +14,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
+import { AddArticleComponent } from './components/add-article/add-article.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {MatInputModule} from "@angular/material/input";
     ArticlesListComponent,
     VendorPageComponent,
     LoginComponent,
+    AddArticleComponent,
   ],
   imports: [
     CommonModule,

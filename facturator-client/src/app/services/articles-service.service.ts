@@ -36,7 +36,7 @@ export class ArticleService {
     console.log(`saving new article`);
     let body = JSON.stringify({
       name: newArticle.name,
-      photoUrl: newArticle.photo,
+      photoUrl: newArticle.photoUrl,
       price: newArticle.price,
       description: newArticle.description,
     });

@@ -1,26 +1,5 @@
 <div id="articlePage">
   <h2>Article Page</h2>
   <app-articles-list [articles]="articles"></app-articles-list>
-
-  <br>
-  <div>
-    <h3>Add Article:</h3>
-    <mat-label>Name:</mat-label>
-    <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="name">
-    </mat-form-field>
-    <mat-label>PhotoUrl:</mat-label>
-    <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="photoUrl">
-    </mat-form-field>
-    <mat-label>Price:</mat-label>
-    <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="price">
-    </mat-form-field>
-    <mat-label>Description:</mat-label>
-    <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="description">
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addArticle()">Save</button>
-  </div>
+  <app-add-article (newArticle)="addArticle($event)"></app-add-article>
 </div>

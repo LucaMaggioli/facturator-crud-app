@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Article} from "../../shared/models/article";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ArticleService {
     }).then((response) => response.json());
   }
 
-  public async addArticleForVendor(name:string, photoUrl:string, price:number, description:string){
+  //public async addArticleForVendor(name:string, photoUrl:string, price:number, description:string){
+  public async addArticleForVendor(article:Article){
     return await fetch(this.backendURL + `/vendor/${this.currentUserId}/article`, {
       method: 'POST',
       headers: {
@@ -27,10 +29,10 @@ export class ArticleService {
         'Content-Type': 'application/json',
       },
       body:JSON.stringify({
-        "name": name,
-        "photoUrl": photoUrl,
-        "price": price,
-        "description": description,
+        "name": article.name,
+        "photoUrl": article.photoUrl,
+        "price": article.price,
+        "description": article.description,
       })
     }).then((response) => response.json());
   }

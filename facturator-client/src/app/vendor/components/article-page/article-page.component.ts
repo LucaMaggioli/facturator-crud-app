@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticleService} from "../../services/article.service";
 import {FormControl} from "@angular/forms";
+import {Article} from "../../../shared/models/article";
 
 @Component({
   selector: 'app-article-page',
@@ -21,9 +22,8 @@ export class ArticlePageComponent implements OnInit {
     this.articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
   }
 
-  addArticle(){
-    let intPrice = parseInt(<string>this.price.value);
-    this.articleService.addArticleForVendor(this.name.value, this.photoUrl.value, intPrice, this.description.value)
+  addArticle(newArticle:Article){
+    this.articleService.addArticleForVendor(newArticle)
       .then(result => {
         console.log("article added");
         console.log(result);
