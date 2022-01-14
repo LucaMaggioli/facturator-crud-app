@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {Article} from "../../../shared/models/article";
 
 @Component({
@@ -9,9 +9,9 @@ import {Article} from "../../../shared/models/article";
 })
 export class AddArticleComponent implements OnInit {
 
-  name = new FormControl('');
-  photoUrl = new FormControl('');
-  price = new FormControl('');
+  name = new FormControl('', [Validators.required]);
+  photoUrl = new FormControl('',[Validators.required]);
+  price = new FormControl('', [Validators.required, Validators.pattern("[0-9]*\.[0-9]{2}$")]); //Valide que les nombres entiers ou decimals avec 2 aprés la virgule
   description = new FormControl('');
   @Output() newArticle = new EventEmitter<Article>();
 
@@ -28,6 +28,16 @@ export class AddArticleComponent implements OnInit {
   formHasChanged(){
   }
 
-  formChanged = !this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty;
+  isValidForm(): boolean {
+    return (
+      this.name.valid &&
+      this.photoUrl.valid &&
+      this.price.valid &&
+      this.description.valid
+    );
+  }
+
+  hasFormChanged = !this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty;
+
 
 }

@@ -19,6 +19,7 @@
       <input matInput [formControl]="description">
     </mat-form-field>
     <span></span>
-    <button (click)="addArticle()" color="primary" [disabled]="!this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty" mat-raised-button>Save</button>
+<!--    <button (click)="addArticle()" color="primary" [disabled]="!this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty" mat-raised-button>Save</button>-->
+    <button (click)="addArticle()" color="primary" [disabled]="!isValidForm()" mat-raised-button>Save</button>
   </div>
 </div>
