@@ -1,4 +1,9 @@
 #addArticleContainer{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+}
+
+.label{
+  justify-self: center;
 }

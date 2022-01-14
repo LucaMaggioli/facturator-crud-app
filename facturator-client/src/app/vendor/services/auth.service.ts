@@ -20,6 +20,9 @@ export class AuthService {
   isUserLogged(){
     return localStorage.getItem('userLogged');
   }
+  getUserLoggedId(){
+    return localStorage.getItem('currentUserId')
+  }
 
   async logInVendor(username:string, password:string){
     await fetch(env.APIURL + '/vendor/login', {

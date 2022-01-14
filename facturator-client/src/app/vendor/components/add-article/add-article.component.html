@@ -1,20 +1,24 @@
-<div id="addArticleContainer">
+
+<div>
   <h3>Add Article:</h3>
-  <mat-label>Name:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="name">
-  </mat-form-field>
-  <mat-label>PhotoUrl:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="photoUrl">
-  </mat-form-field>
-  <mat-label>Price:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="price">
-  </mat-form-field>
-  <mat-label>Description:</mat-label>
-  <mat-form-field appearance="outline" color="primary">
-    <input matInput [formControl]="description">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="addArticle()">Save</button>
+  <div id="addArticleContainer">
+    <mat-label class="label">Name:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="name">
+    </mat-form-field>
+    <mat-label class="label">PhotoUrl:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="photoUrl">
+    </mat-form-field>
+    <mat-label class="label">Price:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="price">
+    </mat-form-field>
+    <mat-label class="label">Description:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="description">
+    </mat-form-field>
+    <span></span>
+    <button (click)="addArticle()" color="primary" [disabled]="!this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty" mat-raised-button>Save</button>
+  </div>
 </div>

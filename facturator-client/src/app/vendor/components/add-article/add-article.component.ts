@@ -25,4 +25,9 @@ export class AddArticleComponent implements OnInit {
     this.newArticle.emit(new Article(this.name.value, this.photoUrl.value, intPrice, this.description.value));
   }
 
+  formHasChanged(){
+  }
+
+  formChanged = !this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty;
+
 }
