@@ -1,0 +1,13 @@
+<div id="articleContainer">
+  <p><span>#<strong>{{article.id}}</strong></span>{{article.name}}</p>
+  <img id="articleImage" [src]="article.photoUrl" alt="Article Image">
+  <p>Price: {{article.price}}</p>
+  <div  *ngIf="!seeDescription" class="description">
+    <p id="descriptionHint">{{article.description}}</p>
+    <button mat-icon-button (click)="toggleDescription()"><mat-icon>expand_more</mat-icon></button>
+  </div>
+  <div  *ngIf="seeDescription" class="description">
+    <p id="descriptionComplete">{{article.description}}</p>
+    <button mat-icon-button (click)="toggleDescription()"><mat-icon>expand_less</mat-icon></button>
+  </div>
+</div>

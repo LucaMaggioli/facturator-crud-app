@@ -25,9 +25,6 @@ export class AddArticleComponent implements OnInit {
     this.newArticle.emit(new Article(this.name.value, this.photoUrl.value, intPrice, this.description.value));
   }
 
-  formHasChanged(){
-  }
-
   isValidForm(): boolean {
     return (
       this.name.valid &&
@@ -36,8 +33,4 @@ export class AddArticleComponent implements OnInit {
       this.description.valid
     );
   }
-
-  hasFormChanged = !this.name.dirty && !this.photoUrl.dirty && !this.price.dirty && !this.description.dirty;
-
-
 }
