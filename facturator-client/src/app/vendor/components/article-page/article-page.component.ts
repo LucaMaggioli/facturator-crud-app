@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticleService} from "../../services/article.service";
 import {FormControl} from "@angular/forms";
-import {Article} from "../../../shared/models/article";
+import {ArticleDto} from "../../../shared/models/articleDto";
 
 @Component({
   selector: 'app-article-page',
@@ -10,7 +10,7 @@ import {Article} from "../../../shared/models/article";
 })
 export class ArticlePageComponent implements OnInit {
 
-  articles:any[] = []
+  articles:ArticleDto[] = []
   constructor(private articleService:ArticleService) { }
 
   name = new FormControl('');
@@ -22,7 +22,7 @@ export class ArticlePageComponent implements OnInit {
     this.articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
   }
 
-  addArticle(newArticle:Article){
+  addArticle(newArticle:ArticleDto){
     this.articleService.addArticleForVendor(newArticle)
       .then(result => {
         console.log("article added");

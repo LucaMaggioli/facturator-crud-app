@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Article} from "../shared/models/article";
+import {ArticleDto} from "../shared/models/articleDto";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,8 @@ export class ArticleDtoService {
 
   constructor() { }
 
-  public dataToArticle(dtoArticle: any):Article{
-    let article = new Article(dtoArticle['id'],dtoArticle['price'],dtoArticle['name'],dtoArticle['photoUrl'], dtoArticle['description']);
+  public dataToArticle(dtoArticle: any):ArticleDto{
+    let article = new ArticleDto(dtoArticle['id'],dtoArticle['price'],dtoArticle['name'],dtoArticle['photoUrl'], dtoArticle['description']);
     return article;
   }
 }

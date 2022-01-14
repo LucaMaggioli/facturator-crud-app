@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ClientDto} from "../../../shared/models/ClientDto";
 
 @Component({
   selector: 'app-client-page',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-page.component.css']
 })
 export class ClientPageComponent implements OnInit {
+
+  clients:ClientDto [] = [];
 
   constructor() { }
 

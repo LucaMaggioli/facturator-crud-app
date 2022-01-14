@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Article} from "../../shared/models/article";
+import {ArticleDto} from "../../shared/models/articleDto";
 
 @Component({
   selector: 'app-articles-list',
@@ -8,9 +8,9 @@ import {Article} from "../../shared/models/article";
 })
 export class ArticlesListComponent implements OnInit {
 
-  @Input() articles: Article[] = [];
+  @Input() articles: ArticleDto[] = [];
   @Input() selectionMode:boolean = false;
-  @Output() selUnselectArticle = new EventEmitter<Article>();
+  @Output() selUnselectArticle = new EventEmitter<ArticleDto>();
 
   constructor() { }
 
@@ -20,7 +20,7 @@ export class ArticlesListComponent implements OnInit {
   ngOnChanges():void{
   }
 
-  selUnselArticle(article:Article){
+  selUnselArticle(article:ArticleDto){
     this.selUnselectArticle.emit(article);
   }
 

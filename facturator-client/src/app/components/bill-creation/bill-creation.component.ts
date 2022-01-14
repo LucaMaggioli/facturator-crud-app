@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClientDto } from '../../shared/models/ClientDto';
 import { Bill } from '../../shared/models/bill';
-import { Article } from '../../shared/models/article';
+import { ArticleDto } from '../../shared/models/articleDto';
 import { auditTime } from 'rxjs/operators';
 import { ArticleService } from '../../services/articles-service.service';
 import { ClientService } from '../../services/client.service';
@@ -40,7 +40,7 @@ export class BillCreationComponent implements OnInit {
     this.nextStep();
   }
 
-  addRemoveArticleToBill(article: Article) {
+  addRemoveArticleToBill(article: ArticleDto) {
     let index = this.bill.articles.indexOf(article);
     if (index > -1) {
       this.bill.articles.splice(index, 1);

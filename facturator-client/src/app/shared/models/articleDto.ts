@@ -1,4 +1,4 @@
-export class Article{
+export class ArticleDto {
   id?: any = "";
   name?: string = "";
   photoUrl?: string = "";

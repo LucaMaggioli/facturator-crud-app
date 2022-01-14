@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Article} from "../../../shared/models/article";
+import {ArticleDto} from "../../../shared/models/articleDto";
 
 @Component({
   selector: 'app-articles-list',

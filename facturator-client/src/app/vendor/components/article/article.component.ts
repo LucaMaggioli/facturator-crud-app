@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Article} from "../../../shared/models/article";
+import {ArticleDto} from "../../../shared/models/articleDto";
 
 @Component({
   selector: 'app-article',
@@ -8,7 +8,7 @@ import {Article} from "../../../shared/models/article";
 })
 export class ArticleComponent implements OnInit {
 
-  @Input() article:Article = new Article();
+  @Input() article:ArticleDto = new ArticleDto();
   seeDescription = false;
   constructor() { }
 

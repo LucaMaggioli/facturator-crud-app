@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Article } from '../shared/models/article';
+import { ArticleDto } from '../shared/models/articleDto';
 import { FacturatorApiCallService } from './facturator-api-call.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ArticleService {
       for (let article of data) {
         console.log(article);
         articles.push(
-          new Article(
+          new ArticleDto(
             article['name'],
             article['price'],
             article['photoUrl'],
@@ -31,7 +31,7 @@ export class ArticleService {
     //return articles;
   }
 
-  saveArticle(newArticle: Article) {
+  saveArticle(newArticle: ArticleDto) {
     let updatedArticlesList;
     console.log(`saving new article`);
     let body = JSON.stringify({

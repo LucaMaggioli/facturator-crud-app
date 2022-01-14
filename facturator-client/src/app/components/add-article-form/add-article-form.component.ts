@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ClientDto } from '../../shared/models/ClientDto';
-import { Article } from '../../shared/models/article';
+import { ArticleDto } from '../../shared/models/articleDto';
 
 @Component({
   selector: 'app-add-article-form',
@@ -9,7 +9,7 @@ import { Article } from '../../shared/models/article';
   styleUrls: ['./add-article-form.component.css'],
 })
 export class AddArticleFormComponent implements OnInit {
-  @Output() newArticle = new EventEmitter<Article>();
+  @Output() newArticle = new EventEmitter<ArticleDto>();
 
   name = new FormControl('', [Validators.required]);
   price = new FormControl('', [Validators.required]);
@@ -37,7 +37,7 @@ export class AddArticleFormComponent implements OnInit {
   }
 
   sendNewArticleEvent() {
-    let newArticle = new Article(
+    let newArticle = new ArticleDto(
       this.name.value,
       this.price.value,
       this.photoLink.value,

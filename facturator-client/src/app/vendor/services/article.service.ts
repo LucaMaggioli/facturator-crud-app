@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Article} from "../../shared/models/article";
+import {ArticleDto} from "../../shared/models/articleDto";
 import {AuthService} from "./auth.service";
 
 @Injectable({
@@ -20,7 +19,7 @@ export class ArticleService {
     }).then((response) => response.json());
   }
 
-  public async addArticleForVendor(article:Article){
+  public async addArticleForVendor(article:ArticleDto){
     return await fetch(this.backendURL + `/vendor/${this._authService.getUserLoggedId()}/article`, {
       method: 'POST',
       headers: {
