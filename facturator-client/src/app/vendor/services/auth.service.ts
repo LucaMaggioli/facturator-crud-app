@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {VendorService} from "./vendor.service";
-import {ClientService} from "./client.service";
 import {env} from "./config";
 import {Router} from "@angular/router";
 
@@ -13,8 +12,6 @@ export class AuthService {
 
   constructor(
     private router:Router,
-    private _vendorService:VendorService,
-    private _clientService:ClientService
   ) { }
 
   isUserLogged(){

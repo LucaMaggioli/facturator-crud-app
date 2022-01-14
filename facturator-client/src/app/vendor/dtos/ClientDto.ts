@@ -1,12 +1,14 @@
 export class ClientDto {
   id: any;
-  name: string;
+  firstName: string;
+  lastName: string;
   address: string;
   email: string;
 
-  constructor(_name: string, _address: string, _email: string, _id?: any) {
+  constructor(_name: string, _lastName: string, _address: string, _email: string, _id?: any) {
     this.id = _id;
-    this.name = _name;
+    this.firstName = _name;
+    this.lastName = _lastName;
     this.address = _address;
     this.email = _email;
   }
@@ -14,7 +16,8 @@ export class ClientDto {
   public fromDtoToJson() {
     return {
       id: this.id,
-      name: this.name,
+      name: this.firstName,
+      lastName: this.lastName,
       address: this.address,
       email: this.email,
     };

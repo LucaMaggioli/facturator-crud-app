@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import {ArticleDto} from "../../shared/models/articleDto";
 import {AuthService} from "./auth.service";
+import {env} from "./config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
-  backendURL: string = 'https://localhost:44335/api';
-  constructor(private _authService:AuthService) { }
+  constructor(
+    private _authService:AuthService
+  ) { }
 
   public async getArticlesForLoggedVendor(){
-    return await fetch(this.backendURL + `/vendor/${this._authService.getUserLoggedId()}/articles`, {
+    return await fetch(env.APIURL + `/vendor/${this._authService.getUserLoggedId()}/articles`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -20,7 +22,7 @@ export class ArticleService {
   }
 
   public async addArticleForVendor(article:ArticleDto){
-    return await fetch(this.backendURL + `/vendor/${this._authService.getUserLoggedId()}/article`, {
+    return await fetch(env.APIURL + `/vendor/${this._authService.getUserLoggedId()}/article`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
