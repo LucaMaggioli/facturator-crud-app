@@ -64,11 +64,6 @@ namespace facturator_api.DataProviders
             return articleToAdd;
         }
 
-        //public async Task<Article> UpdateArticle(Article article)
-        //{
-        //    return article;
-        //}
-
         /// <summary>
         /// Update an existing article by it's Id
         /// </summary>
@@ -94,12 +89,6 @@ namespace facturator_api.DataProviders
             return article;
         }
 
-        //TOASK better DeleteArticle(int id) or DeleteArticle(Article articleToDelete)???
-        //this will result into a controller modification too:
-        //controller should use _articleDataProvider.GetArticleAsync(id) 
-        //and then the found article is passed thruough this method ->
-        //in controller call: _articleDataProvider.DeleteArticle(Article article);
-        //Same comment for the UpdateArticle
         public async Task<Article> DeleteArticleById(int id)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
@@ -109,16 +98,6 @@ namespace facturator_api.DataProviders
 
             return article;
         }
-        //Or better like this ? 
-        /*
-        public async Task<Article> DeleteArticle(Article articleToDelete)
-        {
-            articleToDelete.IsArchived = true;
-            await SaveChanges();
-
-            return articleToDelete;
-        }*/
-
 
         private async Task SaveChanges()
         {

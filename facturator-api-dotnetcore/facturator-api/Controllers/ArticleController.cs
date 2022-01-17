@@ -22,7 +22,7 @@ namespace facturator_api.Controllers
         }
 
         // Call this enpoint to get the list of all available articles 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<List<Article>> getArticles()
         {
             var articles = await _articleDataProvider.GetArticlesAsync();

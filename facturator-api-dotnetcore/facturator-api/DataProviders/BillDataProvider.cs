@@ -18,6 +18,11 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
+        public async Task<List<Bill>> GetAllBills()
+        {
+            return await _facturatorDbContext.Bills.ToListAsync();
+        }
+
         /// <summary>
         /// Get a bill by it's Id
         /// </summary>

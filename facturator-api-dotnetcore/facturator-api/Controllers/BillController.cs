@@ -26,6 +26,13 @@ namespace facturator_api.Controllers
             _billDataProvider = billDataProvider;
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetBills(int id)
+        {
+            var bills = await _billDataProvider.GetAllBills();
+            return Ok(bills);
+        }
+
         // Call this enpoint to get a Bill bi Id
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetBill(int id)

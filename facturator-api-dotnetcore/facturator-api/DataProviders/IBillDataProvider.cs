@@ -10,5 +10,6 @@ namespace facturator_api.DataProviders
         Task<Bill> Add(Bill bill);
         Task<Bill> AddFullBill(DateTime Date, bool IsPayed, Vendor vendor, Client client, List<Article> articles);
         Task<Bill> GetBillById(int id);
+        Task<List<Bill>> GetAllBills();
     }
 }

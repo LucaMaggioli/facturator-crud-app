@@ -29,7 +29,6 @@ namespace facturator_api
         {
             services.AddDbContext<FacturatorDbContext>(options =>
             options.UseSqlite(@"Data Source=Facturator.db;"));
-            //.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", GenerateCorsPolicy()); });
             services.AddControllersWithViews();
