@@ -10,4 +10,7 @@
     <p id="descriptionComplete">{{article.description}}</p>
     <button mat-icon-button (click)="toggleDescription()"><mat-icon>expand_less</mat-icon></button>
   </div>
+  <button mat-icon-button (click)="emitRemoveArticle(article.id)">
+    <mat-icon class="dark-red">delete</mat-icon>
+  </button>
 </div>

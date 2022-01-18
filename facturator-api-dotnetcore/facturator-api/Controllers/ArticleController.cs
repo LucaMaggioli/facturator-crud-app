@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using facturator_api.DataProviders;
 using facturator_api.Models;
+using facturator_api.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace facturator_api.Controllers
@@ -61,11 +62,18 @@ namespace facturator_api.Controllers
 
         // Call this endpoint to Delete an article
         [HttpDelete("{id:int}")]
-        public Task<Article> DeleteArticle(int id)
+        public async Task<IActionResult> DeleteArticle(int id)
         {
-            var deletedArticle = _articleDataProvider.DeleteArticleById(id);
-            
-            return deletedArticle;
+            var deletedArticle = await _articleDataProvider.DeleteArticleById(id);
+
+            if(deletedArticle != null)
+            {
+                return Ok(new ArticleDto(deletedArticle));
+            }
+            else
+            {
+                return StatusCode(404, "article not found with given ID " + id);
+            }
         }
 
         public class ArticleBody

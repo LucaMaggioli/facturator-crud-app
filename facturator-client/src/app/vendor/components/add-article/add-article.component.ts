@@ -13,6 +13,7 @@ export class AddArticleComponent implements OnInit {
   photoUrl = new FormControl('',[Validators.required]);
   price = new FormControl('', [Validators.required, Validators.pattern("[0-9]*\.[0-9]{2}$")]); //Valide que les nombres entiers ou decimals avec 2 aprés la virgule
   description = new FormControl('');
+
   @Output() newArticle = new EventEmitter<ArticleDto>();
 
   constructor() { }

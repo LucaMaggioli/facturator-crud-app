@@ -43,4 +43,19 @@ export class ArticleService {
       }
     });
   }
+
+  async removeArticle(id: number) {
+    return await fetch(`${env.APIURL}/article/${id}`,{
+      method:'DELETE',
+      headers:env.BASIC_HEADERS,
+      })
+      .then(response=>{
+        if (response.ok){
+          return response.json();
+        }
+        else {
+          throw new Error(response.statusText);
+        }
+      });
+  }
 }

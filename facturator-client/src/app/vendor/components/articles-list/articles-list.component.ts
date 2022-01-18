@@ -9,12 +9,15 @@ import {ArticleDto} from "../../../shared/models/articleDto";
 export class ArticlesListComponent implements OnInit {
 
   @Input() articles: any = [];
-
-  //@Output() newArticle = new EventEmitter<Article>();
+  @Output() removeArticle = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  emitRemoveArticleFromList(id:number){
+    this.removeArticle.emit(id);
   }
 
   // addArticle(emittedArticle:Article){

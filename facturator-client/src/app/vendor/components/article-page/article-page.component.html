@@ -1,5 +1,7 @@
 <div id="articlePage">
   <h2>Article Page</h2>
-  <app-articles-list [articles]="articles"></app-articles-list>
+  <app-articles-list [articles]="articles" (removeArticle)="removeArticle($event)"></app-articles-list>
   <app-add-article (newArticle)="addArticle($event)"></app-add-article>
 </div>
+
+

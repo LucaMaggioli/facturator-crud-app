@@ -129,11 +129,16 @@ namespace facturator_api.Controllers
             var vendor = await _vendorDataProvider.GetFullVendorById(id);
             if (vendor == null)
             {
-                return StatusCode(503, "vendor not found with the given Id");
+                return StatusCode(404, "vendor not found with the given Id");
             }
 
             var articlesDto = new List<ArticleDto>();
-            vendor.Articles.ForEach(article => { articlesDto.Add(new ArticleDto(article)); });
+            vendor.Articles.ForEach(article => {
+                if (!article.IsArchived)
+                {
+                    articlesDto.Add(new ArticleDto(article));
+                }
+            });
 
             return Ok(articlesDto);
         }

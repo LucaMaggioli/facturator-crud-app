@@ -19,7 +19,10 @@ export class ArticlePageComponent implements OnInit {
   description = new FormControl('');
 
   ngOnInit(): void {
-    this._articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
+    this._articleService.getArticlesForLoggedVendor().then(a => {
+      console.log(a);
+      this.articles = a;
+    });
   }
 
   addArticle(newArticle:ArticleDto){
@@ -31,6 +34,24 @@ export class ArticlePageComponent implements OnInit {
       }).catch(error=>{
         console.log(error);
       });
+  }
+
+  removeArticle(id:number){
+    this._articleService.removeArticle(id)
+      .then(result=>{
+        console.log("article deleted with Id: " + result.id);
+        this.deleteArticleFromArticles(result.id);
+      }).catch(error=>{
+      console.log(error);
+    });
+  }
+
+  deleteArticleFromArticles(_id:number){
+    this.articles.forEach(article=>{
+      if(article.id == _id){
+        this.articles.splice(this.articles.indexOf(article),1);
+      }
+    });
   }
 
 }
