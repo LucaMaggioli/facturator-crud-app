@@ -157,11 +157,11 @@ namespace facturator_api.DataProviders
         /// <param name="vendor"></param>
         /// <param name="article"></param>
         /// <returns></returns>
-        public async Task<Vendor> AddArticleToVendor(Vendor vendor, Article article)
+        public async Task<Article> AddArticleToVendor(Vendor vendor, Article article)
         {
             vendor.Articles.Add(article);
             await SaveChanges();
-            return vendor;
+            return article;
         }
 
         /// <summary>

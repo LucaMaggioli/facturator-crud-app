@@ -139,6 +139,7 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/article")]
+        //public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         {
             var vendor = await _vendorDataProvider.GetFullVendorById(id);
@@ -146,12 +147,16 @@ namespace facturator_api.Controllers
             {
                 return StatusCode(503, "vendor not found with the given Id");
             }
+            if (articleDto.Price == (decimal)12)
+            {
+                return StatusCode(501, "price can't be 12.12");
+            }
 
             //var article = await new ArticleDataProvider(_context).AddArticleToVendor(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
             var article = new Article(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
-            vendor = await _vendorDataProvider.AddArticleToVendor(vendor, article);
+            var articleAdded = await _vendorDataProvider.AddArticleToVendor(vendor, article);
 
-            return Ok(new VendorDto(vendor));
+            return Ok(new ArticleDto(articleAdded));
         }
 
         [HttpPost("{id:int}/bill")]

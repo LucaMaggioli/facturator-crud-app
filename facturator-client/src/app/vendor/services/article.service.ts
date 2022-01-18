@@ -34,6 +34,13 @@ export class ArticleService {
         "price": article.price,
         "description": article.description,
       })
-    }).then((response) => response.json());
+    }).then((response)=>{
+      if(response.ok) {
+        return response.json()
+      }
+      else{
+        throw new Error(response.statusText);
+      }
+    });
   }
 }

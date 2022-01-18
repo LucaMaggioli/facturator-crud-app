@@ -6,7 +6,7 @@ namespace facturator_api.DataProviders
 {
     public interface IVendorDataProvider
     {
-        Task<Vendor> AddArticleToVendor(Vendor vendor, Article article);
+        Task<Article> AddArticleToVendor(Vendor vendor, Article article);
         Task<Vendor> AddClientToVendor(Vendor vendor, Client client);
         Task<Client> AddClientToVendor(Vendor vendor, string firstName, string lastName, string address, string email);
         Task<List<Bill>> GetBillsForVendor(int vendorId);

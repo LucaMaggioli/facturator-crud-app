@@ -11,7 +11,7 @@ import {ArticleDto} from "../../../shared/models/articleDto";
 export class ArticlePageComponent implements OnInit {
 
   articles:ArticleDto[] = []
-  constructor(private articleService:ArticleService) { }
+  constructor(private _articleService:ArticleService) { }
 
   name = new FormControl('');
   photoUrl = new FormControl('');
@@ -19,17 +19,18 @@ export class ArticlePageComponent implements OnInit {
   description = new FormControl('');
 
   ngOnInit(): void {
-    this.articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
+    this._articleService.getArticlesForLoggedVendor().then(a => {console.log(a); this.articles = a});
   }
 
   addArticle(newArticle:ArticleDto){
-    this.articleService.addArticleForVendor(newArticle)
+    this._articleService.addArticleForVendor(newArticle)
       .then(result => {
         console.log("article added");
         console.log(result);
+        this.articles.push(result);
       }).catch(error=>{
-      console.log(error);
-    });
+        console.log(error);
+      });
   }
 
 }
