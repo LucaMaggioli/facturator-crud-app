@@ -19,6 +19,12 @@ namespace facturator_api.Models
             ClientUniqueCode = "generate here a unique code to let clients login into their Client Page to see their Bills";
         }
 
+        public Client(string firstName, string lastName, string address, string email, int id)
+            : base(firstName, lastName, address, email)
+        {
+            Id = id;
+        }
+
         public string ClientUniqueCode { get; set; }
         public bool IsArchived { get; set; }
 
