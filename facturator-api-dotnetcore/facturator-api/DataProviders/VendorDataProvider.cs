@@ -74,7 +74,7 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<List<Client>> GetVendorClients(int id)
+        public async Task<List<Client>> GetNotArchivedClientsForVendor(int id)
         {
             Vendor vendor = await _facturatorDbContext.Vendors
             .Where(v => v.Id == id)
@@ -87,7 +87,10 @@ namespace facturator_api.DataProviders
             {
                 vendor.Clients.ForEach(c =>
                 {
-                    clients.Add(c);
+                    if (!c.IsArchived)
+                    {
+                        clients.Add(c);
+                    }
                 });
             }
 
@@ -170,11 +173,12 @@ namespace facturator_api.DataProviders
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<Vendor> AddClientToVendor(Vendor vendor, string firstName, string lastName, string address, string email)
+        public async Task<Client> AddClientToVendor(Vendor vendor, string firstName, string lastName, string address, string email)
         {
-            vendor.Clients.Add(new Client(firstName, lastName, address, email));
+            var newClient = new Client(firstName, lastName, address, email);
+            vendor.Clients.Add(newClient);
             await SaveChanges();
-            return vendor;
+            return newClient;
         }
 
         private async Task SaveChanges()

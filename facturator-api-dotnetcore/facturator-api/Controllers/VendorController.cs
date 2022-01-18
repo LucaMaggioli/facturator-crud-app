@@ -106,7 +106,7 @@ namespace facturator_api.Controllers
                 return StatusCode(503, "vendor not found with the given Id");
             }
             
-            var clients = await _vendorDataProvider.GetVendorClients(id);
+            var clients = await _vendorDataProvider.GetNotArchivedClientsForVendor(id);
 
             var clientsDto = new List<ClientDto>();
             clients.ForEach(c => { clientsDto.Add(new ClientDto(c)); });
@@ -115,12 +115,12 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/client")]
-        public async Task<VendorDto> AddClient(int id, [FromBody] ClientBody body)
+        public async Task<ClientDto> AddClient(int id, [FromBody] ClientBody body)
         {
             var vendor = await _vendorDataProvider.GetFullVendorById(id);
-            vendor = await _vendorDataProvider.AddClientToVendor(vendor, body.FirstName, body.LastName, body.Address, body.Email);
+            var newClient = await _vendorDataProvider.AddClientToVendor(vendor, body.FirstName, body.LastName, body.Address, body.Email);
 
-            return new VendorDto(vendor);
+            return new ClientDto(newClient);
         }
 
         [HttpGet("{id:int}/articles")]

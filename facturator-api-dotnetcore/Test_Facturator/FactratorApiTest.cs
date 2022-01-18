@@ -11,19 +11,14 @@ using facturator_api.DataProviders;
 namespace Test_Facturator
 {
     [TestClass]
-    public class ArticleDataProviderTest
+    public class FactratorApiTest
     {
 
-        protected DbContextOptions<FacturatorDbContext> Options { get; private set; }
         protected FacturatorDbContext Context { get; private set; }
 
         [TestInitialize]
         public void TestSetUp()
         {
-            var options = new DbContextOptionsBuilder<FacturatorDbContext>().UseSqlite(@"Data Source=./Facturator.db;").Options;
-
-            Options = options;
-
             Context = InMemoryContext();
         }
 
@@ -42,7 +37,7 @@ namespace Test_Facturator
             Assert.AreEqual(initialArticlesCount + 1 , finalArticlesCount);
         }
 
-        public static FacturatorDbContext InMemoryContext()
+        private FacturatorDbContext InMemoryContext()
         {
             // SEE: https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/sqlite
             var connection = new SqliteConnection("Data Source=:memory:");

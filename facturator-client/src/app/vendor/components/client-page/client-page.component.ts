@@ -34,6 +34,21 @@ export class ClientPageComponent implements OnInit {
   addClient(){
     let clientToAdd = new ClientDto(this.clientFirstName.value, this.clientLastName.value, this.cliAddress.value, this.cliEmail.value)
     this._clientService.addClientToVendor(clientToAdd, parseInt(<string>this._authService.getUserLoggedId()))
+      .then(addedClient=>{
+        console.log("Added client is: ")
+        console.log(addedClient)
+        this.clients.push(addedClient);
+      });
   }
 
+  deleteClient(id:number){
+    console.log("deleting the client with ID: " + id);
+    this._clientService.deleteClient(id).then(()=>{
+      this.clients.forEach(client=>{
+        if(client.id == id){
+          this.clients.splice(this.clients.indexOf(client),1);
+        }
+      });
+    });
+  }
 }

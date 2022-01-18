@@ -8,7 +8,7 @@
       <p>{{client.email}}</p>
       <div class="clientActions">
         <button mat-icon-button><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button (click)="deleteClient(client.id)"><mat-icon>delete</mat-icon></button>
       </div>
     </div>
   </div>

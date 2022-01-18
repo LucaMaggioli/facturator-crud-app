@@ -3,6 +3,7 @@ import {AuthService} from "./auth.service";
 import {env} from "./config";
 import {ArticleDto} from "../../shared/models/articleDto";
 import {ClientDto} from "../dtos/ClientDto";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ import {ClientDto} from "../dtos/ClientDto";
 export class ClientService {
 
   constructor(
-    private _authService:AuthService
+    private _authService:AuthService,
+    private http:HttpClient
   ) { }
 
   public async getClientsForLoggedVendor(){
@@ -39,5 +41,34 @@ export class ClientService {
         "email": client.email,
       })
     }).then((response) => response.json());
+  }
+
+  public deleteClient(id:number): Promise<ClientDto>{
+    //return new Promise<ClientDto>
+    return new Promise<ClientDto>((resolve) => {
+      this.http.delete<ClientDto>(env.APIURL + `/client/${id}`)
+      .subscribe(
+        (result:ClientDto)=> {
+        console.log("detele client")
+        console.log(result)
+        resolve(result);
+      }, error=>{
+        console.log(error);
+      })
+    });
+  }
+
+  getItems(id:number): Promise<ClientDto> {
+    return new Promise<ClientDto>((resolve) => {
+      this.http.delete<ClientDto>(env.APIURL + `/client/`+ id).subscribe(
+        (result: ClientDto) => {
+          // toto = result;
+          resolve(result);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    });
   }
 }
