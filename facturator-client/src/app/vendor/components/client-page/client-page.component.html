@@ -8,7 +8,7 @@
       <p>{{client.email}}</p>
       <div class="clientActions">
         <button mat-icon-button><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button (click)="deleteClient(client.id)"><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button class="dark-red" (click)="deleteClient(client.id)"><mat-icon>delete</mat-icon></button>
       </div>
     </div>
   </div>
@@ -28,12 +28,12 @@
 
     <mat-label class="label">Address:</mat-label>
     <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="cliAddress">
+      <input matInput [formControl]="clientAddress">
     </mat-form-field>
 
     <mat-label class="label">Email:</mat-label>
     <mat-form-field appearance="outline" color="primary">
-      <input matInput [formControl]="cliEmail">
+      <input matInput [formControl]="clientEmail">
     </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="addClient()">Add +</button>

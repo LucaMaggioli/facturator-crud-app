@@ -15,8 +15,8 @@ export class ClientPageComponent implements OnInit {
 
   clientFirstName = new FormControl('', [Validators.required]);
   clientLastName = new FormControl('', [Validators.required]);
-  cliAddress = new FormControl('', [Validators.required]);
-  cliEmail = new FormControl('', [Validators.required, Validators.email]);
+  clientAddress = new FormControl('', [Validators.required]);
+  clientEmail = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
     private _clientService:ClientService,
@@ -32,12 +32,15 @@ export class ClientPageComponent implements OnInit {
   }
 
   addClient(){
-    let clientToAdd = new ClientDto(this.clientFirstName.value, this.clientLastName.value, this.cliAddress.value, this.cliEmail.value)
+    let clientToAdd = new ClientDto(this.clientFirstName.value, this.clientLastName.value, this.clientAddress.value, this.clientEmail.value)
     this._clientService.addClientToVendor(clientToAdd, parseInt(<string>this._authService.getUserLoggedId()))
       .then(addedClient=>{
         console.log("Added client is: ")
         console.log(addedClient)
         this.clients.push(addedClient);
+      })
+      .catch(error=>{
+        console.log(error);
       });
   }
 

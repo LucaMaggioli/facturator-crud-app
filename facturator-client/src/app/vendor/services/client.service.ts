@@ -40,7 +40,14 @@ export class ClientService {
         "address": client.address,
         "email": client.email,
       })
-    }).then((response) => response.json());
+    }).then(response=>{
+      if (response.ok){
+        return response.json();
+      }
+      else {
+        throw new Error(response.statusText);
+      }
+    });
   }
 
   public deleteClient(id:number): Promise<ClientDto>{

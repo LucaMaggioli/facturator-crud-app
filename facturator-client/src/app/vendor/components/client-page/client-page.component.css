@@ -6,3 +6,7 @@
 #addClientContainer{
   display: grid;
 }
+
+.dark-red{
+  color: darkred;
+}
