@@ -60,12 +60,20 @@ namespace facturator_api.Controllers
 
         // Call this endpoint to Update an existing client
         [HttpPatch("{id:int}")]
-        public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
+        public async Task<IActionResult> UpdateClient(int id, [FromBody] ClientBody body)
         {
+            if (!this.IsValidEmail(body.Email))
+            {
+                return StatusCode(422, "Email provided is not right format");
+            }
             var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
             var client = await _clientDataProvider.Update(id, updatedClientDto);
+            if(client == null)
+            {
+                return StatusCode(404, "Client not found with given Id");
+            }
             //If is null should return an error code
-            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
+            return Ok(new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email });
         }
 
         // Call this endpoint to Archive a client by it's Id
@@ -89,6 +97,32 @@ namespace facturator_api.Controllers
         {
             var clients = await _clientDataProvider.GetArchivedClientsAsync();
             return clients;
+        }
+
+
+
+        /// <summary>
+        /// private method to check if the email is in a valid format, it's only used in this controller that's why I didn't created an Utility Class yet 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool IsValidEmail(string email)
+        {
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

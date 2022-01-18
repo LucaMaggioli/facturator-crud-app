@@ -1,10 +1,26 @@
 #clientsContainer{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2em;
+  z-index: 5;
+}
+
+.client{
+  border-radius: 2em;
+  border: #6C52FE 2px solid;
+  padding: 2em;
 }
 
 #addClientContainer{
   display: grid;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 2em;
+
+  /*width: 100%;*/
+  background-color: #9198e5;
+  z-index: 10;
 }
 
 .dark-red{

@@ -1,0 +1,13 @@
+.client{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+
+  border-radius: 2em;
+  border: #6C52FE 2px solid;
+  padding: 2em;
+}
+
+.spacer{
+  padding: 0 2em 0 2em;
+}

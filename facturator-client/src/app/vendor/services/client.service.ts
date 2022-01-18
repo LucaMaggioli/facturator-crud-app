@@ -50,6 +50,26 @@ export class ClientService {
     });
   }
 
+  public updateClient(client: ClientDto) {
+    return fetch(`${env.APIURL}/client/${client.id}`,{
+      method:'PATCH',
+      headers:env.BASIC_HEADERS,
+      body:JSON.stringify({
+        "firstName": client.firstName,
+        "lastName": client.lastName,
+        "address": client.address,
+        "email": client.email
+      })
+    }).then(response=>{
+      if (response.ok){
+        return response.json();
+      }
+      else {
+        throw new Error(response.statusText);
+      }
+    })
+  }
+
   public deleteClient(id:number): Promise<ClientDto>{
     //return new Promise<ClientDto>
     return new Promise<ClientDto>((resolve) => {
@@ -78,4 +98,5 @@ export class ClientService {
       );
     });
   }
+
 }

@@ -52,6 +52,18 @@ export class ClientPageComponent implements OnInit {
           this.clients.splice(this.clients.indexOf(client),1);
         }
       });
-    });
+    })
+      .catch((error)=>{
+        console.log(error);
+      });
+  }
+
+  updateClient(client: ClientDto) {
+    this._clientService.updateClient(client)
+      .then((result)=>{
+        console.log("Client successfully updated");
+        console.log(result);
+      })
+      .catch((error)=>console.log(error));
   }
 }

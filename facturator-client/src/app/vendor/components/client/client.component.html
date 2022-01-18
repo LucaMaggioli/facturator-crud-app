@@ -1,0 +1,33 @@
+<div class="client">
+  <h3>#{{client.id}}</h3>
+  <span></span>
+
+  <span *ngIf="!editMode">{{client.lastName}}</span>
+  <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+    <input matInput value="{{client.lastName}}" [formControl]="lastName">
+  </mat-form-field>
+
+  <span *ngIf="!editMode">{{client.firstName}}</span>
+  <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+    <input matInput value="{{client.firstName}}" [formControl]="firstName">
+  </mat-form-field>
+
+  <p *ngIf="!editMode">{{client.address}}</p>
+  <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+    <input matInput value="{{client.address}}" [formControl]="address">
+  </mat-form-field>
+
+  <span class="spacer"></span>
+
+  <p *ngIf="!editMode">{{client.email}}</p>
+  <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+    <input matInput value="{{client.email}}" [formControl]="email">
+  </mat-form-field>
+  <span class="spacer"></span>
+
+  <div class="clientActions">
+    <button mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>
+    <button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>
+    <button mat-icon-button class="dark-red" (click)="deleteClient()"><mat-icon>delete</mat-icon></button>
+  </div>
+</div>

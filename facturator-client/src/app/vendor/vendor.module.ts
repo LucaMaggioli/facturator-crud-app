@@ -17,6 +17,7 @@ import {MatInputModule} from "@angular/material/input";
 import { AddArticleComponent } from './components/add-article/add-article.component';
 import { ArticleComponent } from './components/article/article.component';
 import { VendorHomeComponent } from './components/vendor-home/vendor-home.component';
+import { ClientComponent } from './components/client/client.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { VendorHomeComponent } from './components/vendor-home/vendor-home.compon
     AddArticleComponent,
     ArticleComponent,
     VendorHomeComponent,
+    ClientComponent,
   ],
   imports: [
     CommonModule,
