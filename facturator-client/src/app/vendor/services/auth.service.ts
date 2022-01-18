@@ -14,35 +14,39 @@ export class AuthService {
     private router:Router,
   ) { }
 
-  isUserLogged(){
-    return localStorage.getItem('userLogged');
+  isUserLogged():boolean{
+    return localStorage.getItem('userLogged') === 'true';
   }
   getUserLoggedId(){
     return localStorage.getItem('currentUserId')
   }
 
-  async logInVendor(username:string, password:string){
-    await fetch(env.APIURL + '/vendor/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify({
-        'username': username,
-        'password': password
-      })
-    }).then(response=>{
-      if (response.status === 502){
-        console.log("Password or Username Incorrect")
-      }
-      if (response.status === 200){
-        response.json().then(result=> {
-          console.log("login success")
-          this.setUserLogged(result);
-          this.router.navigate(['vendor/home/info']);
-        });
-      }
+  async logInVendor(username:string, password:string):Promise<boolean>{
+    return new Promise<boolean> ((resolve)=> {
+      fetch(env.APIURL + '/vendor/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'username': username,
+          'password': password
+        })
+      }).then(response => {
+        if (response.status === 502) {
+          console.log("Password or Username Incorrect")
+          resolve(false);
+        }
+        if (response.status === 200) {
+          response.json().then(result => {
+            console.log("login success")
+            this.setUserLogged(result);
+            this.router.navigate(['vendor/info']);
+          });
+          resolve(true);
+        }
+      });
     });
   }
 
@@ -74,7 +78,7 @@ export class AuthService {
         response.json().then(vendorData=> {
           console.log("Singin success!");
           this.setUserLogged(vendorData);
-          this.router.navigate(['/vendor/home/info']);
+          this.router.navigate(['/vendor']);
         });
       }
     });
@@ -88,6 +92,6 @@ export class AuthService {
   logOut(){
     localStorage.removeItem("userLogged");
     localStorage.removeItem("currentUserId");
-    this.router.navigate(['/vendor/home/login']).then(r => console.log(r));
+    this.router.navigate(['/vendor']).then(r => console.log(r));
   }
 }

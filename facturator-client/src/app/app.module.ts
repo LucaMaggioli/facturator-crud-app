@@ -31,7 +31,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {LoginRoutingModule} from "./login/login-routing.module";
 import {LoginModule} from "./login/login.module";
 import {VendorModule} from "./vendor/vendor.module";
-//import { VendorHomePageComponent } from './vendor-home-page/vendor-home-page.component';
+//import { VendorHomePageComponent } from './vendor-page/vendor-page.component';
 
 
 @NgModule({

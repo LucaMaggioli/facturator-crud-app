@@ -25,14 +25,20 @@ export class LoginComponent implements OnInit {
   }
 
   async login(){
-    await this._authService.logInVendor(this.usernameControl.value, this.passwordControl.value);
-    console.log("after login")
-    this.router.parseUrl('vendor/home')
+    await this._authService.logInVendor(this.usernameControl.value, this.passwordControl.value).then((res)=>{
+      console.log("loginVendor Method of authService return a Observable with result = " + res);
+      if (res){
+        // HOW TO CALL A ROUTE WITH QUERYPARAMS SEE: https://angular-training-guide.rangle.io/routing/query_params  AND  https://angular.io/guide/router#accessing-query-parameters-and-fragments
+        // this.router.navigate(['vendor'], {queryParams: {isUserLogged: this._authService.isUserLogged()}}).then(()=>{});
+      }
+    });
   }
 
   singin(){
-    this._authService.singinVendor(this.usernameControl.value, this.passwordControl.value);
-    this.router.parseUrl('vendor/home')
+    this._authService.singinVendor(this.usernameControl.value, this.passwordControl.value).then(()=>{
+      console.log("after sing in");
+      this.router.parseUrl('vendor');
+    });
   }
 
   hidePasswordToggle(){

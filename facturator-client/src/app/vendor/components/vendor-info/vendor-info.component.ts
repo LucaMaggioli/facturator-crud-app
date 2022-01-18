@@ -6,10 +6,10 @@ import {VendorDto} from "../../dtos/VendorDto";
 
 @Component({
   selector: 'app-vendor-page',
-  templateUrl: './vendor-page.component.html',
-  styleUrls: ['./vendor-page.component.css']
+  templateUrl: './vendor-info.component.html',
+  styleUrls: ['./vendor-info.component.css']
 })
-export class VendorPageComponent implements OnInit {
+export class VendorInfoComponent implements OnInit {
   firstName = new FormControl('');
   lastName = new FormControl('');
   companyName = new FormControl('');
