@@ -3,6 +3,7 @@ using facturator_api.DataProviders;
 using facturator_api.Models;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using facturator_api.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -115,15 +116,20 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/client")]
-        public async Task<IActionResult> AddClient(int id, [FromBody] ClientBody body)
+        public async Task<IActionResult> AddClient(int id, [FromBody] ClientAddDto body)
         {
-            if (!IsValidEmail(body.Email))
+            if (!new EmailService().IsValidEmail(body.Email))
             {
                 //422 Unprocessable Entity SEE: https://www.bennadel.com/blog/2434-http-status-codes-for-invalid-data-400-vs-422.htm
                 return StatusCode(422, "Wrong email format");
             }
             var vendor = await _vendorDataProvider.GetFullVendorById(id);
-            var newClient = await _vendorDataProvider.AddClientToVendor(vendor, body.FirstName, body.LastName, body.Address, body.Email);
+            if( vendor == null)
+            {
+                return StatusCode(404, "Vendor not found with given Id");
+            }
+
+            var newClient = await _vendorDataProvider.AddClientToVendor(vendor, body);
 
             return Ok(new ClientDto(newClient));
         }
@@ -195,30 +201,6 @@ namespace facturator_api.Controllers
             var billsDto = bills.Select(b => new BillDto(b)).ToList();
 
             return Ok(bills);
-        }
-
-        /// <summary>
-        /// private method to check if the email is in a valid format, it's only used in this controller that's why I didn't created an Utility Class yet 
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        private bool IsValidEmail(string email)
-        {
-            var trimmedEmail = email.Trim();
-
-            if (trimmedEmail.EndsWith("."))
-            {
-                return false; // suggested by @TK-421
-            }
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == trimmedEmail;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 

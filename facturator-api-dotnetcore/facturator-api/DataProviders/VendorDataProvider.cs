@@ -1,5 +1,6 @@
 ﻿using facturator_api.Models;
 using facturator_api.Models.Context;
+using facturator_api.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -168,14 +169,11 @@ namespace facturator_api.DataProviders
         /// Add a Client and directly bind to a Vendor
         /// </summary>
         /// <param name="vendor"></param>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="address"></param>
-        /// <param name="email"></param>
+        /// <param name="client"></param>
         /// <returns></returns>
-        public async Task<Client> AddClientToVendor(Vendor vendor, string firstName, string lastName, string address, string email)
+        public async Task<Client> AddClientToVendor(Vendor vendor, ClientAddDto client)
         {
-            var newClient = new Client(firstName, lastName, address, email);
+            var newClient = new Client(client.FirstName, client.LastName, client.Address, client.Email);
             vendor.Clients.Add(newClient);
             await SaveChanges();
             return newClient;

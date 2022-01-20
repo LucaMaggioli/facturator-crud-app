@@ -176,12 +176,20 @@ namespace Test_Facturator
             Assert.AreNotEqual(initialEmail, modifiedClient.Email);
         }
 
-        [TestMethod]
-        public async Task ControllerUpdateCLientWrongEmailAddress()
-        {
-            //Arrange
-            await TestSetUp();
-        }
+        //Test d' Integration
+        //[TestMethod]
+        //public async Task ControllerUpdateCLientForVendorWrongEmailAddress()
+        //{
+        //    //Arrange
+        //    await TestSetUp();
+        //    var vendor = Context.Vendors.First();
+
+        //    //Act
+        //    var clientToAdd = new ClientAddDto("fName", "lName", "address", "valid@email.com");
+        //    var result = await new VendorController.AddClient(vendor.Id, clientToAdd);
+
+        //    //Arrange
+        //}
 
         private FacturatorDbContext InMemoryContext()
         {
