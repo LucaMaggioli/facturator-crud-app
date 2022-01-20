@@ -68,18 +68,18 @@ namespace facturator_api.DataProviders
         /// <summary>
         /// Update an existing client by it's Id
         /// </summary>
-        /// <param name="clientToUpdate"></param>
+        /// <param name="newClient"></param>
         /// <returns></returns>
-        public async Task<Client> Update(int id,  ClientDto clientToUpdate)
+        public async Task<Client> Update(int id,  ClientUpdateDto newClient)
         {
             var client = await _facturatorDbContext.Clients.FindAsync(id);
 
             if (client != null)
             {
-                client.FirstName = clientToUpdate.FirstName;
-                client.LastName = clientToUpdate.LastName;
-                client.Address = clientToUpdate.Address;
-                client.Email = clientToUpdate.Email;
+                client.FirstName = newClient.FirstName;
+                client.LastName = newClient.LastName;
+                client.Address = newClient.Address;
+                client.Email = newClient.Email;
                 await SaveChanges();
             }
             return client;

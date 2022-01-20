@@ -66,8 +66,9 @@ namespace facturator_api.Controllers
             {
                 return StatusCode(422, "Email provided is not right format");
             }
-            var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
-            var client = await _clientDataProvider.Update(id, updatedClientDto);
+            //var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
+            var updatedClient = new ClientUpdateDto { FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
+            var client = await _clientDataProvider.Update(id, updatedClient);
             if(client == null)
             {
                 return StatusCode(404, "Client not found with given Id");

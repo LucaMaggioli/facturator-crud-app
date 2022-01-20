@@ -51,6 +51,6 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="clientToUpdate"></param>
         /// <returns></returns>
-        Task<Client> Update(int id, ClientDto clientToUpdate);
+        Task<Client> Update(int id, ClientUpdateDto clientToUpdate);
     }
 }
