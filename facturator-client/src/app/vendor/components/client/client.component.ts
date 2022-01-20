@@ -41,6 +41,13 @@ export class ClientComponent implements OnInit {
     this.clientChanged = false;
   }
 
+  saveCLient() {
+    if (this.clientChanged){
+      this.sendClientUpdate()
+    }
+    this.toggleEditMode();
+  }
+
   subrscribeToFormChanges(){
     this.firstName.valueChanges.subscribe((val)=>{
       this.clientChanged = true;

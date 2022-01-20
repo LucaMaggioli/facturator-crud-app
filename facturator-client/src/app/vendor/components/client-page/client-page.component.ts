@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ClientService} from "../../services/client.service";
 import {ClientDto} from "../../dtos/ClientDto";
-import {EmailValidator, FormControl, Validators} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 
 @Component({

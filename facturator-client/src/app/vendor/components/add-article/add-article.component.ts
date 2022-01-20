@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, NgForm, Validators} from "@angular/forms";
 import {ArticleDto} from "../../../shared/models/articleDto";
+import {IArticleDto} from "../../dtos/i-article-dto";
 
 @Component({
   selector: 'app-add-article',
@@ -15,6 +16,13 @@ export class AddArticleComponent implements OnInit {
   description = new FormControl('');
 
   @Output() newArticle = new EventEmitter<ArticleDto>();
+  //model:IArticleDto ;
+    /*new class implements IArticleDto {
+      description;
+      name: string;
+      photoUrl: string;
+      price: number;
+    };*/
 
   constructor() { }
 
@@ -33,5 +41,10 @@ export class AddArticleComponent implements OnInit {
       this.price.valid &&
       this.description.valid
     );
+  }
+
+  addArticle2(form: NgForm) {
+    console.log(form);
+    console.log(form.value);
   }
 }

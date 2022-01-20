@@ -21,3 +21,9 @@
     <button (click)="addArticle()" color="primary" [disabled]="!isValidForm()" mat-raised-button>Save</button>
   </div>
 </div>
+
+<form #addElementForm="ngForm" (ngSubmit)="addArticle2(addElementForm)">
+  <input name="articleName" ngModel required #articleName="ngModel">
+  <input name="last" ngModel>
+  <button>Submit</button>
+</form>

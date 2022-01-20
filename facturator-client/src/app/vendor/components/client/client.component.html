@@ -26,8 +26,9 @@
   <span class="spacer"></span>
 
   <div class="clientActions">
-    <button mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>
-    <button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>
+    <button *ngIf="!editMode" mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>
+    <!--<button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>-->
+    <button *ngIf="editMode" mat-icon-button (click)="saveCLient()"><mat-icon>save</mat-icon></button>
     <button mat-icon-button class="dark-red" (click)="deleteClient()"><mat-icon>delete</mat-icon></button>
   </div>
 </div>
