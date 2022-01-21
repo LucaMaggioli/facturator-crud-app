@@ -20,10 +20,10 @@ export class VendorComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.setIfUserLogged();
+    this.setUserLogged();
     this.routerSub = this.router.events.subscribe((route)=>{
       console.log("in router subscription on VendorComponent");
-      this.setIfUserLogged();
+      this.setUserLogged();
       console.log("User Logged: " + this.isUserLogged);
     })
     //HOW TO READ PARAMETERS OF THE URL WITH ANGULAR NAVIGATION SEE: https://angular-training-guide.rangle.io/routing/query_params
@@ -36,10 +36,10 @@ export class VendorComponent implements OnInit, OnDestroy {
 
   logOut(){
     this._authService.logOut();
-    this.setIfUserLogged();
+    this.setUserLogged();
   }
 
-  setIfUserLogged(){
+  setUserLogged(){
     this.isUserLogged = this._authService.isUserLogged();
   }
 }

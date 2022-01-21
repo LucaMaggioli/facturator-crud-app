@@ -18,7 +18,7 @@ export class AuthService {
     return localStorage.getItem('userLogged') === 'true';
   }
   getUserLoggedId(){
-    return localStorage.getItem('currentUserId')
+    return parseInt(<string>localStorage.getItem('currentUserId'));
   }
 
   async logInVendor(username:string, password:string):Promise<boolean>{

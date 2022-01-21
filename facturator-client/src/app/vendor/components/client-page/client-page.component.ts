@@ -33,7 +33,7 @@ export class ClientPageComponent implements OnInit {
 
   addClient(){
     let clientToAdd = new ClientDto(this.clientFirstName.value, this.clientLastName.value, this.clientAddress.value, this.clientEmail.value)
-    this._clientService.addClientToVendor(clientToAdd, parseInt(<string>this._authService.getUserLoggedId()))
+    this._clientService.addClientToVendor(clientToAdd, this._authService.getUserLoggedId())
       .then(addedClient=>{
         console.log("Added client is: ")
         console.log(addedClient)

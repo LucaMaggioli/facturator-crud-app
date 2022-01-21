@@ -11,7 +11,8 @@ import { VendorHomeComponent } from './components/vendor-home/vendor-home.compon
 
 const VENDOR: string = "vendor";
 const routes: Routes = [
-  { path: `${VENDOR}:isUserLogged`, redirectTo: `${VENDOR}/home:isUserLogged`, pathMatch: 'full' },
+  //{ path: `${VENDOR}:isUserLogged`, redirectTo: `${VENDOR}/home:isUserLogged`, pathMatch: 'full' },
+  { path: `${VENDOR}`, redirectTo: `${VENDOR}/home`, pathMatch: 'full' },
   { path: `${VENDOR}`,
     component: VendorComponent,
     children: [
