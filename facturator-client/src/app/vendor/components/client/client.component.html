@@ -1,4 +1,4 @@
-<div class="client">
+<!--<div class="client">
   <h3>#{{client.id}}</h3>
   <span></span>
 
@@ -26,9 +26,42 @@
   <span class="spacer"></span>
 
   <div class="clientActions">
+    <button *ngIf="!editMode" mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>-->
+    <!--<button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>-->
+    <!--<button *ngIf="editMode" mat-icon-button (click)="saveCLient()"><mat-icon>save</mat-icon></button>
+    <button mat-icon-button class="dark-red" (click)="deleteClient()"><mat-icon>delete</mat-icon></button>
+  </div>
+</div>-->
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><span>#<strong>{{client.id}}</strong></span></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngIf="!editMode">{{client.lastName}}</p>
+    <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+      <input matInput value="{{client.lastName}}" [formControl]="lastName">
+    </mat-form-field>
+
+    <p *ngIf="!editMode">{{client.firstName}}</p>
+    <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+      <input matInput value="{{client.firstName}}" [formControl]="firstName">
+    </mat-form-field>
+
+    <p *ngIf="!editMode">{{client.address}}</p>
+    <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+      <input matInput value="{{client.address}}" [formControl]="address">
+    </mat-form-field>
+
+    <p *ngIf="!editMode">{{client.email}}</p>
+    <mat-form-field *ngIf="editMode" appearance="outline" color="primary">
+      <input matInput value="{{client.email}}" [formControl]="email">
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
     <button *ngIf="!editMode" mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>
     <!--<button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>-->
     <button *ngIf="editMode" mat-icon-button (click)="saveCLient()"><mat-icon>save</mat-icon></button>
     <button mat-icon-button class="dark-red" (click)="deleteClient()"><mat-icon>delete</mat-icon></button>
-  </div>
-</div>
+  </mat-card-actions>
+</mat-card>

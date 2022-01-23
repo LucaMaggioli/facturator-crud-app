@@ -19,6 +19,7 @@ import { ArticleComponent } from './components/article/article.component';
 import { VendorHomeComponent } from './components/vendor-home/vendor-home.component';
 import { ClientComponent } from './components/client/client.component';
 import { BillComponent } from './components/bill/bill.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { BillComponent } from './components/bill/bill.component';
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        MatCardModule
     ]
 })
 export class VendorModule { }

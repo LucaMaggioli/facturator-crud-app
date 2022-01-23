@@ -3,7 +3,7 @@
 <p>	- stay in main folder and run command `dotnet test`
 <h3>for swagger:</h3>
 <p>	1) go into `facturator-api-dotnetcore/facturator-api` folder and run command `dotnet run`</p>
-<p>	2) open http://localhost:5000 in a browser</p>
+<p>	2) open http://localhost:5001 in a browser</p>
 <p>	3) click on "Go to swagger" button in home page</p>
 
 <h2>Frontend</h2>
