@@ -58,7 +58,7 @@ namespace facturator_api.Controllers
             //var client = await _clientDataProvider.GetClientById(billBody.ClientId);
             //var vendor = await _vendorDataProvider.GetVendorById(billBody.VendorId);
 
-            var bill = await _billDataProvider.AddFullBill(billBody.Date, billBody.IsPayed, vendor, client, articles);
+            var bill = await _billDataProvider.AddFullBill(billBody.Date, billBody.IsPayed, billBody.VendorId, billBody.ClientId, billBody.ArticlesIds);
 
             return Ok(bill);
         }

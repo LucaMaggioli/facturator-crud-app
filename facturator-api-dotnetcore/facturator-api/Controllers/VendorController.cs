@@ -19,7 +19,7 @@ namespace facturator_api.Controllers
         private readonly IVendorDataProvider _vendorDataProvider;
         private readonly ILoginDataProvider _loginDataProvider;
         private readonly IBillDataProvider _billDataProvider;
-        //private readonly IClientDataProvider _clientDataProvider;
+        private readonly IClientDataProvider _clientDataProvider;
         //private readonly IArticleDataProvider _articleDataProvider;
 
         public VendorController(IVendorDataProvider vendorDataProvider, ILoginDataProvider loginDataProvider, IBillDataProvider billDataProvider, IClientDataProvider clientDataProvider, IArticleDataProvider articleDataProvider)
@@ -27,7 +27,7 @@ namespace facturator_api.Controllers
             _vendorDataProvider = vendorDataProvider;
             _loginDataProvider = loginDataProvider;
             _billDataProvider = billDataProvider;
-            //_clientDataProvider = clientDataProvider;
+            _clientDataProvider = clientDataProvider;
             //_articleDataProvider = articleDataProvider;
         }
 
@@ -168,7 +168,6 @@ namespace facturator_api.Controllers
                 return StatusCode(501, "price can't be 12.12");
             }
 
-            //var article = await new ArticleDataProvider(_context).AddArticleToVendor(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
             var article = new Article(articleDto.Name, articleDto.PhotoUrl, articleDto.Price, articleDto.Description);
             var articleAdded = await _vendorDataProvider.AddArticleToVendor(vendor, article);
 
@@ -179,11 +178,9 @@ namespace facturator_api.Controllers
         public async Task<BillDto> AddBill(int id, [FromBody]BillBody body)
         {
             var articles = body.ArticlesIds.Select(a => new Article(a)).ToList();
-            var client = new Client(body.ClientId);
-            Vendor vendor = await _vendorDataProvider.GetVendorById(id);
 
             DateTime date = DateTime.Now;//TODO change and take it from the front
-            var addedBill = await _billDataProvider.AddFullBill(date, body.IsPayed, vendor, client, articles);
+            var addedBill = await _billDataProvider.AddFullBill(date, body.IsPayed, id, body.ClientId, body.ArticlesIds);
 
             return new BillDto(addedBill);
         }
@@ -194,13 +191,13 @@ namespace facturator_api.Controllers
             var vendor = await  _vendorDataProvider.GetFullVendorById(id);
             if (vendor == null)
             {
-                return StatusCode(503, "vendor not found with the given Id");
+                return StatusCode(404, "vendor not found with the given Id");
             }
 
             var bills = await _vendorDataProvider.GetBillsForVendor(id);
             var billsDto = bills.Select(b => new BillDto(b)).ToList();
 
-            return Ok(bills);
+            return Ok(billsDto);
         }
     }
 

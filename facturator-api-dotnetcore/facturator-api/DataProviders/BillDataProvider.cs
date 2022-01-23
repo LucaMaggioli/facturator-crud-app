@@ -41,24 +41,33 @@ namespace facturator_api.DataProviders
             return addedBill.Entity;
         }
 
-        public async Task<Bill> AddFullBill(DateTime Date, bool IsPayed, Vendor vendor, Client client, List<Article> articles)
+        public async Task<Bill> AddFullBill2(DateTime Date, bool IsPayed, Vendor vendor, Client client, List<Article> articles)
         {
-            Bill newBill = new Bill(Date, IsPayed, articles, client, vendor);
+            Bill newBill = new Bill(Date, IsPayed);
+
+            //Bill newBill = new Bill(Date, IsPayed, articles, client, vendor);
             var addedBill = _facturatorDbContext.Bills.Add(newBill);
             await SaveChanges();
             return addedBill.Entity;
         }
 
-        public async Task<Bill> AddFullBill2(DateTime Date, bool IsPayed, int vendorId, int clientId, List<int> articlesIds)
+        public async Task<Bill> AddFullBill(DateTime Date, bool IsPayed, int vendorId, int clientId, List<int> articlesIds)
         {
             Bill newBill = new Bill(Date, IsPayed);
 
             var vendor = await new VendorDataProvider(_facturatorDbContext).GetVendorById(vendorId);
             var client = await new ClientDataProvider(_facturatorDbContext).GetClientById(clientId);
-            
 
             var addedBill = _facturatorDbContext.Bills.Add(newBill);
+
+            articlesIds.ForEach(aId => {
+                addedBill.Entity.Articles.Add(new Article(aId));
+            });
+            addedBill.Entity.Client = client;
+            addedBill.Entity.Vendor = vendor;
+
             await SaveChanges();
+
             return addedBill.Entity;
         }
 
