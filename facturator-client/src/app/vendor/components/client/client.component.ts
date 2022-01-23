@@ -5,10 +5,11 @@ import {FormControl} from "@angular/forms";
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  styleUrls: ['./client.component.css','./../../global.styles.css']
 })
 export class ClientComponent implements OnInit {
 
+  @Input() readOnlyMode:boolean = false;
   @Input() client:ClientDto = new ClientDto();
   @Output()  removeClient = new EventEmitter<number>();
   @Output()  updateClient = new EventEmitter<ClientDto>();

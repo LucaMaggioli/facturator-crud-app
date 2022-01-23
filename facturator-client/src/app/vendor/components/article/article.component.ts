@@ -4,10 +4,11 @@ import {ArticleDto} from "../../../shared/models/articleDto";
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  styleUrls: ['./article.component.css','./../../global.styles.css']
 })
 export class ArticleComponent implements OnInit {
 
+  @Input() readOnlyMode:boolean = false;
   @Input() article:ArticleDto = new ArticleDto();
   @Output() removeArticle = new EventEmitter<number>();
   seeDescription = false;

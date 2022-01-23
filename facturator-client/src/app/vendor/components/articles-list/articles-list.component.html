@@ -1,7 +1,7 @@
 <h1> Article list Component</h1>
 <div id="articlesContainer">
   <div *ngFor="let article of articles">
-    <app-article [article]="article" (removeArticle)="emitRemoveArticleFromList($event)"></app-article>
+    <app-article [article]="article" [readOnlyMode]="readOnlyMode" (removeArticle)="emitRemoveArticleFromList($event)"></app-article>
   </div>
 <!--  <app-add-article (newArticle)="addArticle($event)"></app-add-article>-->
 </div>

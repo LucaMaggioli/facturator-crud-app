@@ -6,8 +6,8 @@
     <p>Date: {{bill.date}}</p>
     <p>Payed: {{bill.isPayed}}</p>
     <p>Total: {{bill.total}}</p>
-    <app-client [client]='bill.client'></app-client>
-    <app-articles-list [articles]="bill.articles"></app-articles-list>
+    <app-client [readOnlyMode]="true" [client]='bill.client'></app-client>
+    <app-articles-list [articles]="bill.articles" [readOnlyMode]="true"></app-articles-list>
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button class="dark-red"><mat-icon>delete</mat-icon></button>

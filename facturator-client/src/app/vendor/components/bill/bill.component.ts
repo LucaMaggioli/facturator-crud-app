@@ -4,7 +4,7 @@ import {IBillDto} from "../../dtos/IBillDto";
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
-  styleUrls: ['./bill.component.css']
+  styleUrls: ['./bill.component.css', './../../global.styles.css']
 })
 export class BillComponent implements OnInit {
 

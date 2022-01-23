@@ -6,7 +6,7 @@
   <mat-card-content>
     <p>{{article.description}}</p>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="!readOnlyMode">
     <button mat-icon-button (click)="emitRemoveArticle(article.id)">
       <mat-icon class="dark-red">delete</mat-icon>
     </button>

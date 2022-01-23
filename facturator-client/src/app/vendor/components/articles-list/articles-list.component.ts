@@ -8,6 +8,7 @@ import {ArticleDto} from "../../../shared/models/articleDto";
 })
 export class ArticlesListComponent implements OnInit {
 
+  @Input() readOnlyMode:boolean = false;
   @Input() articles: any = [];
   @Output() removeArticle = new EventEmitter<number>();
 
@@ -21,8 +22,4 @@ export class ArticlesListComponent implements OnInit {
   emitRemoveArticleFromList(id:number){
     this.removeArticle.emit(id);
   }
-
-  // addArticle(emittedArticle:Article){
-  //   this.newArticle.emit(emittedArticle);
-  // }
 }

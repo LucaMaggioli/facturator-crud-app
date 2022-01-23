@@ -23,9 +23,8 @@
       <input matInput value="{{client.email}}" [formControl]="email">
     </mat-form-field>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="!readOnlyMode">
     <button *ngIf="!editMode" mat-icon-button (click)="toggleEditMode()"><mat-icon>edit</mat-icon></button>
-    <!--<button *ngIf="clientChanged" mat-icon-button (click)="sendClientUpdate()"><mat-icon>save</mat-icon></button>-->
     <button *ngIf="editMode" mat-icon-button (click)="saveCLient()"><mat-icon>save</mat-icon></button>
     <button mat-icon-button class="dark-red" (click)="deleteClient()"><mat-icon>delete</mat-icon></button>
   </mat-card-actions>
