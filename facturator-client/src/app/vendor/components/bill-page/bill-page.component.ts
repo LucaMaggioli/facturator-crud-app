@@ -32,9 +32,9 @@ export class BillPageComponent implements OnInit {
   deleteBill(billId:number) {
     this._billService.deleteBillById(billId)
       .then(result=>{
-        this.bills.some(b=>{
-          if(b.id == result.id){
-            this.bills.splice(this.bills.indexOf(result),1);
+        this.bills.forEach(bill=>{
+          if(bill.id == billId){
+            this.bills.splice(this.bills.indexOf(bill),1);
           }
         });
       })

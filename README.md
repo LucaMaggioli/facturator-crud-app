@@ -11,6 +11,7 @@
 <p> 1) run the backend (only the first step) as described above</p>
 <p>	2) go into `facturator-client` folder</p>
 <p>	3) run command `npm start`</p>
-<p> 4) open http://localhost:4200 in a browser
+<p> 4) open http://localhost:4200 in a browser</p>
+<p> 5) in case for the login if you want an user that already have some data inserted you can use: username-> 'luca' password->'1234'</p>
 
 <h3>Enjoy ;-)</h3>

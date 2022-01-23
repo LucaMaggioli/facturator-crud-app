@@ -155,7 +155,6 @@ namespace facturator_api.Controllers
         }
 
         [HttpPost("{id:int}/article")]
-        //public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         public async Task<IActionResult> AddArticle(int id, [FromBody] ArticleDto articleDto)
         {
             var vendor = await _vendorDataProvider.GetFullVendorById(id);
@@ -194,7 +193,7 @@ namespace facturator_api.Controllers
                 return StatusCode(404, "vendor not found with the given Id");
             }
 
-            var bills = await _vendorDataProvider.GetBillsForVendor(id);
+            var bills = await _vendorDataProvider.GetNotArchivedBills(id);
             var billsDto = bills.Select(b => new BillDto(b)).ToList();
 
             return Ok(billsDto);

@@ -3,6 +3,5 @@
   <div *ngFor="let article of articles">
     <app-article [article]="article" [readOnlyMode]="readOnlyMode" (removeArticle)="emitRemoveArticleFromList($event)"></app-article>
   </div>
-<!--  <app-add-article (newArticle)="addArticle($event)"></app-add-article>-->
 </div>
 

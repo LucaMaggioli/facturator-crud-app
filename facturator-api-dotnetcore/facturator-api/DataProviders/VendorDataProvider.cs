@@ -60,11 +60,9 @@ namespace facturator_api.DataProviders
         /// <returns></returns>
         public async Task<Vendor> GetFullVendorById(int id)
         {
-            //Vendor vendor = await _facturatorDbContext.Vendors.FindAsync(id);
             Vendor vendor = await _facturatorDbContext.Vendors
             .Where(v => v.Id == id)
             .Include(vendor => vendor.Clients)
-            //.Include(vendor => vendor.Bills)
             .Include(vendor => vendor.Articles)
             .FirstOrDefaultAsync();
             return vendor;
@@ -153,6 +151,22 @@ namespace facturator_api.DataProviders
                 .ToListAsync();
             return bills;
         }
+
+        /// <summary>
+        /// Get all the bills of a vendor which are not archived
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Bill>> GetNotArchivedBills(int vendorId)
+        {
+            var bills = await _facturatorDbContext.Bills
+                .Where(bill => bill.Vendor.Id == vendorId && !bill.IsArchived)
+                .Select(bill => bill)
+                .Include(bill => bill.Client)
+                .Include(bill => bill.Articles)
+                .ToListAsync();
+            return bills;
+        }
+
 
         /// <summary>
         /// Add an article to a Vendor 
