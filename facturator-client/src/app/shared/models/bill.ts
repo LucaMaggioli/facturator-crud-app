@@ -1,5 +1,5 @@
 import { ClientDto } from './ClientDto';
-import { Article } from './article';
+import { ArticleDto } from './articleDto';
 
 export class Bill {
   id: string = '';
@@ -8,5 +8,5 @@ export class Bill {
   validated: boolean = false;
 
   client: ClientDto = new ClientDto('', '', '');
-  articles: Article[] = [];
+  articles: ArticleDto[] = [];
 }

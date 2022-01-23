@@ -1,0 +1,19 @@
+﻿using facturator_api.Models;
+using facturator_api.Models.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace facturator_api.DataProviders
+{
+    public interface IVendorDataProvider
+    {
+        Task<Article> AddArticleToVendor(Vendor vendor, Article article);
+        Task<Client> AddClientToVendor(Vendor vendor, ClientAddDto clientAddDto);
+        Task<List<Bill>> GetBillsForVendor(int vendorId);
+        Task<Vendor> GetFullVendorById(int id);
+        Task<List<Client>> GetVendorArticles(Vendor vendor);
+        Task<Vendor> GetVendorById(int id);
+        Task<List<Client>> GetNotArchivedClientsForVendor(int id);
+        Task<Vendor> UpdateVendor(int id, Vendor vendorUpdate);
+    }
+}

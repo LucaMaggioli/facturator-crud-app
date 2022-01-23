@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using facturator_api.DataProviders;
 using facturator_api.Models;
+using facturator_api.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace facturator_api.Controllers
@@ -22,7 +23,7 @@ namespace facturator_api.Controllers
         }
 
         // Call this enpoint to get the list of all available articles 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<List<Article>> getArticles()
         {
             var articles = await _articleDataProvider.GetArticlesAsync();
@@ -53,16 +54,26 @@ namespace facturator_api.Controllers
         [HttpPatch("{id:int}")]
         public Task<Article> UpdateArticle(int id, [FromBody] ArticleBody body)
         {
+            //var article = this._articleDataProvider.GetArticleAsync(id);
+
             var updatedArticle = this._articleDataProvider.UpdateArticleById(id, body.Name, body.PhotoUrl, body.Price, body.Description);
             return updatedArticle;
         }
 
+        // Call this endpoint to Delete an article
         [HttpDelete("{id:int}")]
-        public Task<Article> DeleteArticle(int id)
+        public async Task<IActionResult> DeleteArticle(int id)
         {
-            var deletedArticle = _articleDataProvider.DeleteArticleById(id);
-            
-            return deletedArticle;
+            var deletedArticle = await _articleDataProvider.DeleteArticleById(id);
+
+            if(deletedArticle != null)
+            {
+                return Ok(new ArticleDto(deletedArticle));
+            }
+            else
+            {
+                return StatusCode(404, "article not found with given ID " + id);
+            }
         }
 
         public class ArticleBody

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FacturatorApiCallService } from '../../services/facturator-api-call.service';
 import { ArticleService } from '../../services/articles-service.service';
-import { Article } from '../../shared/models/article';
+import { ArticleDto } from '../../shared/models/articleDto';
 
 @Component({
   selector: 'app-article-page',
@@ -21,7 +21,7 @@ export class ArticlesPageComponent implements OnInit {
     this.dataLoaded = true;
   }
 
-  saveArticle(newArticle: Article) {
+  saveArticle(newArticle: ArticleDto) {
     this._articleService.saveArticle(newArticle);
     this.articles.push(newArticle);
   }

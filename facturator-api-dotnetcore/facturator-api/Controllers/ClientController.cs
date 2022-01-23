@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using facturator_api.DataProviders;
 using facturator_api.Models.Context;
 using facturator_api.Models.Dtos;
+using facturator_api.Controllers.Bodys;
 
 namespace facturator_api.Controllers
 {
@@ -18,23 +19,22 @@ namespace facturator_api.Controllers
     [ApiController]
     public class ClientController : Controller
     {
-        private readonly FacturatorDbContext _context;
-        public ClientController(FacturatorDbContext context){
-            _context = context;
-        }
+        private readonly IClientDataProvider _clientDataProvider;
 
-        // TOASK better /client/all or /clients  -> /client/all/archived or /clients/archived
-        // /clients is different from /clients/{id}
+        public ClientController(IClientDataProvider clientDataProvider)
+        {
+            _clientDataProvider = clientDataProvider;
+        }
 
 
         // Call this endpoint to get all the clients (TODO: call this endpoint to get all the clients for the current user)
         [HttpGet("all")]
         public async Task<List<ClientDto>> GetClients()
         {
-            var clients = await new ClientDataProvider(_context).GetClientsAsync();
+            var clients = await _clientDataProvider.GetClientsAsync();
             
             var clientsDto = clients
-                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .Select(client => new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email })
                 .ToList();
 
             return clientsDto;
@@ -44,38 +44,47 @@ namespace facturator_api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ClientDto> GetClient(int id)
         {
-            var client = await new ClientDataProvider(_context).GetClientById(id);
+            var client = await _clientDataProvider.GetClientById(id);
 
-            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to add a new client
         [HttpPost]
         public async Task<ClientDto> AddClient([FromBody] ClientBody body)
         {
-            var client = await new ClientDataProvider(_context).Add(body.Name, body.Address, body.Email);
+            var client = await _clientDataProvider.Add(body.FirstName, body.LastName, body.Address, body.Email);
 
-            return new ClientDto { Id = client.Id , Name = client.Name, Address = client.Address, Email = client.Email };
+            return new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email };
         }
 
         // Call this endpoint to Update an existing client
         [HttpPatch("{id:int}")]
-        public async Task<ClientDto> UpdateClient(int id, [FromBody] ClientBody body)
+        public async Task<IActionResult> UpdateClient(int id, [FromBody] ClientBody body)
         {
-            var updatedClientDto = new ClientDto { Id = body.Id, Name = body.Name, Address = body.Address, Email = body.Email };
-            var client = await new ClientDataProvider(_context).Update(id, updatedClientDto);
+            if (!this.IsValidEmail(body.Email))
+            {
+                return StatusCode(422, "Email provided is not right format");
+            }
+            //var updatedClientDto = new ClientDto { Id = body.Id, FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
+            var updatedClient = new ClientUpdateDto { FirstName = body.FirstName, LastName = body.LastName, Address = body.Address, Email = body.Email };
+            var client = await _clientDataProvider.Update(id, updatedClient);
+            if(client == null)
+            {
+                return StatusCode(404, "Client not found with given Id");
+            }
             //If is null should return an error code
-            return new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email };
+            return Ok(new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email });
         }
 
         // Call this endpoint to Archive a client by it's Id
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ClientDto>> ArchiveClient(int id)
         {
-            var deletedClient = await new ClientDataProvider(_context).SetArchived(id, true);
+            var deletedClient = await _clientDataProvider.SetArchived(id, true);
 
             if (deletedClient != null){
-                return new ClientDto { Id = deletedClient.Id, Name = deletedClient.Name, Address = deletedClient.Address, Email = deletedClient.Email };
+                return new ClientDto { Id = deletedClient.Id, FirstName = deletedClient.FirstName, LastName = deletedClient.LastName, Address = deletedClient.Address, Email = deletedClient.Email };
             }
             else
             {
@@ -87,16 +96,35 @@ namespace facturator_api.Controllers
         [HttpGet("archived")]
         public async Task<List<ClientDto>> GetArchivedClients()
         {
-            var clients = await new ClientDataProvider(_context).GetArchivedClientsAsync();
+            var clients = await _clientDataProvider.GetArchivedClientsAsync();
             return clients;
         }
 
-        public class ClientBody
+
+
+        /// <summary>
+        /// private method to check if the email is in a valid format, it's only used in this controller that's why I didn't created an Utility Class yet 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool IsValidEmail(string email)
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Address { get; set; }
-            public string Email { get; set; }
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
     }
 }

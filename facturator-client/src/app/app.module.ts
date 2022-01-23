@@ -30,21 +30,24 @@ import { AddArticleFormComponent } from './components/add-article-form/add-artic
 import {MatIconModule} from "@angular/material/icon";
 import {LoginRoutingModule} from "./login/login-routing.module";
 import {LoginModule} from "./login/login.module";
+import {VendorModule} from "./vendor/vendor.module";
+//import { VendorHomePageComponent } from './vendor-page/vendor-page.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    ArticlesListComponent,
-    AddClientFormComponent,
-    ClientListComponent,
-    BillCreationComponent,
-    BillConfirmerComponent,
-    ClientPageComponent,
-    ArticlesPageComponent,
-    AddArticleFormComponent
-  ],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        ArticlesListComponent,
+        AddClientFormComponent,
+        ClientListComponent,
+        BillCreationComponent,
+        BillConfirmerComponent,
+        ClientPageComponent,
+        ArticlesPageComponent,
+        AddArticleFormComponent,
+        //VendorHomePageComponent
+    ],
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -63,8 +66,12 @@ import {LoginModule} from "./login/login.module";
         MatToolbarModule,
         MatIconModule,
         LoginModule,
+        VendorModule,
     ],
-  providers: [FacturatorApiCallService, MatDatepickerModule],
-  bootstrap: [AppComponent]
+    providers: [FacturatorApiCallService, MatDatepickerModule],
+    exports: [
+        ArticlesListComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

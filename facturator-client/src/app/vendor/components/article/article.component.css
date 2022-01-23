@@ -1,0 +1,40 @@
+p{
+  margin: 0;
+}
+
+#articleContainer{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+
+  height: 28em;
+  width: 28em;
+  border: 2px solid #6C52FE;
+  border-radius: 4em;
+}
+
+.defaultImage{
+  min-height: 380px;
+  min-width: 380px;
+}
+
+#articleImage{
+  height: 18em;
+  width: 18em;
+  border-radius: 50%;
+}
+
+.description{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+#descriptionHint{
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

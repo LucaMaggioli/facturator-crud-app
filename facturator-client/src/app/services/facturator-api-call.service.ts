@@ -12,7 +12,7 @@ export class FacturatorApiCallService {
 
   async getCLients() {
     return await fetch(this.backendURL + '/client/all', { method: 'GET' }).then(
-      (response) => response.json()
+      response => response.json()
     );
   }
 

@@ -21,6 +21,10 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
+        /// <summary>
+        /// Get all the articles
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Article>> GetArticlesAsync()
         {
             var articles = await _facturatorDbContext.Articles
@@ -31,6 +35,11 @@ namespace facturator_api.DataProviders
             return articles;
         }
 
+        /// <summary>
+        /// Get an article by it's Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Article> GetArticleAsync(int id)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
@@ -38,6 +47,14 @@ namespace facturator_api.DataProviders
             return article;
         }
 
+        /// <summary>
+        /// Add a new article
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="photoUrl"></param>
+        /// <param name="price"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public async Task<Article> AddArticle(string name, string photoUrl, decimal price, string description)
         {
             var articleToAdd = new Article(name, photoUrl, price, description);
@@ -72,12 +89,6 @@ namespace facturator_api.DataProviders
             return article;
         }
 
-        //TOASK better DeleteArticle(int id) or DeleteArticle(Article articleToDelete)???
-        //this will result into a controller modification too:
-        //controller should use _articleDataProvider.GetArticleAsync(id) 
-        //and then the found article is passed thruough this method ->
-        //in controller call: _articleDataProvider.DeleteArticle(Article article);
-        //Same comment for the UpdateArticle
         public async Task<Article> DeleteArticleById(int id)
         {
             var article = await _facturatorDbContext.Articles.FindAsync(id);
@@ -87,16 +98,6 @@ namespace facturator_api.DataProviders
 
             return article;
         }
-        //Or better like this ? 
-        /*
-        public async Task<Article> DeleteArticle(Article articleToDelete)
-        {
-            articleToDelete.IsArchived = true;
-            await SaveChanges();
-
-            return articleToDelete;
-        }*/
-
 
         private async Task SaveChanges()
         {

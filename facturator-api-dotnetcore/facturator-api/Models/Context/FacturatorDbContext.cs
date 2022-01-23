@@ -22,7 +22,9 @@ namespace facturator_api.Models.Context
         : base(options)
         { }
 
+        public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Login> Logins { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Bill> Bills { get; set; }
 

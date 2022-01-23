@@ -1,0 +1,18 @@
+<div class="login-form-container">
+  <mat-label>Username:</mat-label>
+  <mat-form-field appearance="outline" color="primary">
+    <input matInput [formControl]="usernameControl">
+  </mat-form-field>
+  <mat-label>Password:</mat-label>
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="passwordControl">
+    <button mat-icon-button matSuffix (click)="hidePasswordToggle()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <span></span>
+  </mat-form-field>
+  <span class="spacer"></span>
+  <button mat-button (click)="login()">Login</button>
+  <button mat-button (click)="singin()">Singin</button>
+</div>

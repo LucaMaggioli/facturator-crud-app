@@ -20,10 +20,6 @@ namespace facturator_api.DataProviders
             _facturatorDbContext = context;
         }
 
-        public ClientDataProvider()
-        {
-        }
-
         /// <summary>
         /// Return a specific client by a given Id
         /// </summary>
@@ -52,15 +48,16 @@ namespace facturator_api.DataProviders
         }
 
         /// <summary>
-        /// Add a new client
+        /// Add a new Client
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<Client> Add(string name, string address, string email)
+        public async Task<Client> Add(string firstName, string lastName, string address, string email)
         {
-            Client clientToAdd = new Client(name, address, email);
+            Client clientToAdd = new Client(firstName, lastName, address, email);
 
             var addedClient = await _facturatorDbContext.Clients.AddAsync(clientToAdd);
             await SaveChanges();
@@ -71,17 +68,18 @@ namespace facturator_api.DataProviders
         /// <summary>
         /// Update an existing client by it's Id
         /// </summary>
-        /// <param name="clientToUpdate"></param>
+        /// <param name="newClient"></param>
         /// <returns></returns>
-        public async Task<Client> Update(int id,  ClientDto clientToUpdate)
+        public async Task<Client> Update(int id,  ClientUpdateDto newClient)
         {
             var client = await _facturatorDbContext.Clients.FindAsync(id);
 
             if (client != null)
             {
-                client.Name = clientToUpdate.Name;
-                client.Address = clientToUpdate.Address;
-                client.Email = clientToUpdate.Email;
+                client.FirstName = newClient.FirstName;
+                client.LastName = newClient.LastName;
+                client.Address = newClient.Address;
+                client.Email = newClient.Email;
                 await SaveChanges();
             }
             return client;
@@ -111,7 +109,7 @@ namespace facturator_api.DataProviders
         {
             var archivedClients = await _facturatorDbContext.Clients
                 .Where(c => c.IsArchived)
-                .Select(client => new ClientDto { Id = client.Id, Name = client.Name, Address = client.Address, Email = client.Email })
+                .Select(client => new ClientDto { Id = client.Id, FirstName = client.FirstName, LastName = client.LastName, Address = client.Address, Email = client.Email })
                 .ToListAsync();
             return archivedClients;
         }

@@ -1,12 +1,13 @@
-import { Article } from '../shared/models/article';
+import { ArticleDto } from '../shared/models/articleDto';
 import { Bill } from '../shared/models/bill';
-import { ClientDto } from '../shared/models/client';
+// @ts-ignore
+import { ClientDto } from "../shared/models/clientDto";
 
-export const articles: Article[] = [
-  new Article('phone', 55.99, '/photo/url', 'description', '0-1'),
-  new Article('laptop', 225.99, '/photo/url', 'description', '0-2'),
-  new Article('fridge', 79.99, '/photo/url', 'description', '0-3'),
-  new Article('book', 5.99, '/photo/url', 'description', '0-4'),
+export const articles: ArticleDto[] = [
+  new ArticleDto('phone',  '/photo/url',55.99, 'description', '0-1'),
+  new ArticleDto('phone',  '/photo/url',55.99, 'description', '0-1'),
+  new ArticleDto('phone',  '/photo/url',55.99, 'description', '0-1'),
+  new ArticleDto('phone',  '/photo/url',55.99, 'description', '0-1'),
 ];
 
 export const bills: Bill[] = [];

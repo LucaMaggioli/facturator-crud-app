@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace facturator_api.DataProviders
 {
-    interface IClientDataProvider
+    public interface IClientDataProvider
     {
         /// <summary>
         /// Get a client by Id
@@ -25,11 +25,12 @@ namespace facturator_api.DataProviders
         /// <summary>
         /// Add a client
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="address"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        Task<Client> Add(string name, string address, string email);
+        Task<Client> Add(string firstName, string lastName, string address, string email);
 
         /// <summary>
         /// Get the clients with property IsArchived = true
@@ -50,6 +51,6 @@ namespace facturator_api.DataProviders
         /// </summary>
         /// <param name="clientToUpdate"></param>
         /// <returns></returns>
-        Task<Client> Update(int id, ClientDto clientToUpdate);
+        Task<Client> Update(int id, ClientUpdateDto clientToUpdate);
     }
 }

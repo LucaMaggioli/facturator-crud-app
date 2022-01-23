@@ -1,0 +1,14 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><span>#<strong>{{article.id}}</strong></span>  {{article.name}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image class="defaultImage" src="{{article.photoUrl}}" alt="Photo of the Article">
+  <mat-card-content>
+    <p>{{article.description}}</p>
+  </mat-card-content>
+  <mat-card-actions *ngIf="!readOnlyMode">
+    <button mat-icon-button (click)="emitRemoveArticle(article.id)">
+      <mat-icon class="dark-red">delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

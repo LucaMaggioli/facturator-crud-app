@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,27 +8,28 @@ namespace facturator_api.Models
 {
     public class Bill
     {
-        public Bill(int id, DateTime date, bool isPayed)
+        public Bill(DateTime date, bool isPayed)
         {
-            Id = id;
             Date = date;
             Total = 0;
             IsPayed = isPayed;
-        }
+            Articles = new List<Article>();
 
-        public Bill(int id, DateTime date, bool isPayed, List<Article> articles)
+        }
+        public Bill(DateTime date, bool isPayed, List<Article> articles, Client client, Vendor vendor) :this(date, isPayed)
         {
             articles.ForEach(article => { Total += article.Price; });
-            Id = id;
-            Date = date;
-            IsPayed = isPayed;
             Articles = articles;
+            Client = client;
+            Vendor = vendor;
         }
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal Total { get; set; }
         public bool IsPayed { get; set; }
+        public Client Client { get; set; }
+        public Vendor Vendor { get; set; }
         public List<Article> Articles { get; set; }
         
     }

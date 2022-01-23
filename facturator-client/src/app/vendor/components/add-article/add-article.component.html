@@ -1,0 +1,29 @@
+<div>
+  <h3>Add Article:</h3>
+  <div id="addArticleContainer">
+    <mat-label class="label">Name:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="name">
+    </mat-form-field>
+    <mat-label class="label">PhotoUrl:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="photoUrl">
+    </mat-form-field>
+    <mat-label class="label">Price:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="price">
+    </mat-form-field>
+    <mat-label class="label">Description:</mat-label>
+    <mat-form-field appearance="outline" color="primary">
+      <input matInput [formControl]="description">
+    </mat-form-field>
+    <span></span>
+    <button (click)="addArticle()" color="primary" [disabled]="!isValidForm()" mat-raised-button>Save</button>
+  </div>
+</div>
+
+<form #addElementForm="ngForm" (ngSubmit)="addArticle2(addElementForm)">
+  <input name="articleName" ngModel required #articleName="ngModel">
+  <input name="last" ngModel>
+  <button>Submit</button>
+</form>

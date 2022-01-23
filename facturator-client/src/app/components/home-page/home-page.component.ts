@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FacturatorApiCallService } from '../../services/facturator-api-call.service';
-import { Article } from '../../shared/models/article';
+import { ArticleDto } from '../../shared/models/articleDto';
 import { ClientDto } from '../../shared/models/ClientDto';
 
 @Component({
@@ -29,7 +29,7 @@ export class HomePageComponent implements OnInit {
       for (let item of data) {
         // @ts-ignore
         this.articles.push(
-          new Article(
+          new ArticleDto(
             item['Id'],
             item['Name'],
             item['PhotoUrl'],

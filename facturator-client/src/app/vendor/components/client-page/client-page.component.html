@@ -1,0 +1,32 @@
+<h2>This is the Clients Page</h2>
+<div id="clientsContainer">
+  <div id="clientsList" *ngFor="let client of clients">
+    <app-client [client]="client" (removeClient)="deleteClient($event)" (updateClient)="updateClient($event)"></app-client>
+  </div>
+</div>
+
+<div>
+  <h3>Add a new Client Form</h3>
+
+  <mat-label class="label">First Name:</mat-label>
+  <mat-form-field appearance="outline">
+    <input matInput [formControl]="clientFirstName">
+  </mat-form-field>
+
+  <mat-label class="label">Last Name:</mat-label>
+  <mat-form-field appearance="outline" color="primary">
+    <input matInput [formControl]="clientLastName">
+  </mat-form-field>
+
+  <mat-label class="label">Address:</mat-label>
+  <mat-form-field appearance="outline" color="primary">
+    <input matInput [formControl]="clientAddress">
+  </mat-form-field>
+
+  <mat-label class="label">Email:</mat-label>
+  <mat-form-field appearance="outline" color="primary">
+    <input matInput [formControl]="clientEmail">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="addClient()">Add +</button>
+</div>

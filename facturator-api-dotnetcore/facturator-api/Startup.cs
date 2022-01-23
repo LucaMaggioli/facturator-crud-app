@@ -29,14 +29,19 @@ namespace facturator_api
         {
             services.AddDbContext<FacturatorDbContext>(options =>
             options.UseSqlite(@"Data Source=Facturator.db;"));
-            //.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors(options => { options.AddPolicy("AllowAllOrigins", GenerateCorsPolicy()); });
             services.AddControllersWithViews();
+
+            services.AddSwaggerGen();
+
             //injecte les dépendances pour les classes qui utilisent celles-ci -- P.ex va injecter ClientDataProvider dans ClientControlleur lors de son instanciation, donne un coup d'oeil ici https://www.c-sharpcorner.com/article/understanding-addtransient-vs-addscoped-vs-addsingleton-in-asp-net-core/
             services.AddTransient<IArticleDataProvider, ArticleDataProvider>();
             services.AddTransient<IClientDataProvider, ClientDataProvider>();
             services.AddTransient<IBillDataProvider, BillDataProvider>();
+            //traduit: à chaque fois que je demande un IVendorDataProvider je vais lui donner un instance de VendorDataProvider
+            services.AddTransient<IVendorDataProvider, VendorDataProvider>();
+            services.AddTransient<ILoginDataProvider, LoginDataProvider>();
         }
 
 
@@ -56,6 +61,8 @@ namespace facturator_api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
