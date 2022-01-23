@@ -71,5 +71,13 @@ namespace facturator_api.Controllers
             return Ok(bill);
         }
 
+        // Call this enpoint to Update a Bill by its' Id
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteBill(int id)
+        {
+            var bill = await _billDataProvider.DeleteBillById(id);
+            return Ok(bill);
+        }
+
     }
 }

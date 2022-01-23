@@ -24,4 +24,16 @@ export class BillService {
       }
     });
   }
+
+  deleteBillById(billId: number) {
+    return fetch(env.APIURL + `/bill/${billId}`,
+      {
+        method:'DELETE',
+        headers:env.BASIC_HEADERS
+      },
+    ).then(response=>{
+      if (response.ok){ return response.json(); }
+      else {throw new Error(`${response.status}: ${response.statusText}`); }
+    });
+  }
 }

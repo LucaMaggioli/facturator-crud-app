@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IBillDto} from "../../dtos/IBillDto";
 
 @Component({
@@ -9,6 +9,7 @@ import {IBillDto} from "../../dtos/IBillDto";
 export class BillComponent implements OnInit {
 
   @Input() bill = {} as IBillDto;
+  @Output() billDeletionEmitter = new EventEmitter();
   showArticles: boolean = false;
   constructor() { }
 
@@ -19,5 +20,9 @@ export class BillComponent implements OnInit {
 
   toggleArticles() {
     this.showArticles = ! this.showArticles;
+  }
+
+  emitDeleteBill() {
+    this.billDeletionEmitter.emit(this.bill.id);
   }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using facturator_api.Models.Context;
 
 namespace facturator_api.Migrations
 {
     [DbContext(typeof(FacturatorDbContext))]
-    partial class FacturatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220123214317_isArchived_to_bill")]
+    partial class isArchived_to_bill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

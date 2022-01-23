@@ -31,6 +31,6 @@ namespace facturator_api.Models
         public Client Client { get; set; }
         public Vendor Vendor { get; set; }
         public List<Article> Articles { get; set; }
-        
+        public bool IsArchived { get; set; }
     }
 }

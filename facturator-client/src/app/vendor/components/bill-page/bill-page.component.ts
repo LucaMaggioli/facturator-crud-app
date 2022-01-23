@@ -18,7 +18,6 @@ export class BillPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("billpage init")
     let loggedUserId = this._authService.getUserLoggedId();
     this._billService.getVendorBills(loggedUserId)
       .then(result=>{
@@ -27,7 +26,21 @@ export class BillPageComponent implements OnInit {
       })
       .catch(error=>{
         console.log(error);
-      })
+      });
   }
 
+  deleteBill(billId:number) {
+    this._billService.deleteBillById(billId)
+      .then(result=>{
+        this.bills.some(b=>{
+          if(b.id == result.id){
+            this.bills.splice(this.bills.indexOf(result),1);
+          }
+        });
+      })
+      .catch(error=>{
+        console.log(error);
+      });
+    console.log(billId);
+  }
 }

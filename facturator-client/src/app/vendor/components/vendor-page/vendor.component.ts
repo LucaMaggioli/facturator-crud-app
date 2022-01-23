@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-vendor-home-page',
   templateUrl: './vendor.component.html',
-  styleUrls: ['./vendor.component.css']
+  styleUrls: ['./vendor.component.css','./../../global.styles.css']
 })
 export class VendorComponent implements OnInit, OnDestroy {
 
