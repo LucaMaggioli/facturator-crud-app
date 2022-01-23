@@ -14,6 +14,7 @@ namespace facturator_api.Models.Dtos
             Date = bill.Date;
             Client = new ClientDto(bill.Client);
             Vendor = new VendorDto(bill.Vendor);
+            Articles = bill.Articles.Select(a => new ArticleDto(a)).ToList();
             IsPayed = bill.IsPayed;
             Total = bill.Total;
         }
@@ -34,6 +35,7 @@ namespace facturator_api.Models.Dtos
                 Date = bill.Date,
                 Client = new ClientDto(bill.Client),
                 Vendor = new VendorDto(bill.Vendor),
+                Articles = bill.Articles.Select(a => new ArticleDto(a)).ToList(),
                 IsPayed = bill.IsPayed,
                 Total = bill.Total 
             };

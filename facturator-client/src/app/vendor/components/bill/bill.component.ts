@@ -12,6 +12,8 @@ export class BillComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("bill received in bill component: ")
+    console.log(this.bill);
   }
 
 }

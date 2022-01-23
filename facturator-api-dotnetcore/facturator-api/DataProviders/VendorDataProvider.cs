@@ -148,7 +148,9 @@ namespace facturator_api.DataProviders
             var bills = await _facturatorDbContext.Bills
                 .Where(bill => bill.Vendor.Id == vendorId)
                 .Select(bill => bill)
-                .Include(bill => bill.Client).ToListAsync();
+                .Include(bill => bill.Client)
+                .Include(bill => bill.Articles)
+                .ToListAsync();
             return bills;
         }
 
