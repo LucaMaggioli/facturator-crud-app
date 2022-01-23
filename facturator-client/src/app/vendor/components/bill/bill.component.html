@@ -7,7 +7,14 @@
     <p>Payed: {{bill.isPayed}}</p>
     <p>Total: {{bill.total}}</p>
     <app-client [readOnlyMode]="true" [client]='bill.client'></app-client>
-    <app-articles-list [articles]="bill.articles" [readOnlyMode]="true"></app-articles-list>
+    <div>
+      <span><strong>Show Articles</strong></span>
+      <button mat-icon-button (click)="toggleArticles()">
+        <mat-icon *ngIf="!showArticles">add</mat-icon>
+        <mat-icon *ngIf="showArticles">remove</mat-icon>
+      </button>
+      <app-articles-list *ngIf="showArticles" [articles]="bill.articles" [readOnlyMode]="true"></app-articles-list>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button class="dark-red"><mat-icon>delete</mat-icon></button>

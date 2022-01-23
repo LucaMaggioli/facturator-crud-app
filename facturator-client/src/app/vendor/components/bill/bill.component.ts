@@ -9,6 +9,7 @@ import {IBillDto} from "../../dtos/IBillDto";
 export class BillComponent implements OnInit {
 
   @Input() bill = {} as IBillDto;
+  showArticles: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -16,4 +17,7 @@ export class BillComponent implements OnInit {
     console.log(this.bill);
   }
 
+  toggleArticles() {
+    this.showArticles = ! this.showArticles;
+  }
 }
