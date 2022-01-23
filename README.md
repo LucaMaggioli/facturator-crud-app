@@ -10,3 +10,6 @@
 <h3>Run the app:</h3>
 <p>	- go into `facturator-client` folder</p>
 <p>	- run command `npm start`</p>
+<p> - open https://localhost:4200 in a browser
+
+<h3>Enjoy ;-)</h3>
