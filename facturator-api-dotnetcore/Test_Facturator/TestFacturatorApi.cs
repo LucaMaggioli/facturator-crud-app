@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using facturator_api.DataProviders;
 using facturator_api.Models.Dtos;
+using facturator_api.Services;
 
 namespace Test_Facturator
 {
@@ -176,6 +177,40 @@ namespace Test_Facturator
             Assert.AreNotEqual(initialEmail, modifiedClient.Email);
         }
 
+        [TestMethod]
+        public async Task EmailServiceWIthGoodEmailFormattingShouldReturnTrue()
+        {
+            //Arrange
+            var emailService = new EmailService();
+            var niceFormattedEmail = "nice.formatted@email.com";
+
+            //Act
+            var result = emailService.IsValidEmail(niceFormattedEmail);
+
+            //Assert 
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public async Task EmailServiceWIthBadEmailFormattingShouldReturnFalse()
+        {
+            //Arrange
+            var emailService = new EmailService();
+            var badFormatted1 = "should.be.bad.formatted@email.com.";
+            var badFormatted2 = "should.be.bad.formatted@.email.com";
+            var badFormatted3 = ".should.be.bad.formatted@email.com";
+
+            //Act
+            var expectedResult1 = emailService.IsValidEmail(badFormatted1);
+            var expectedresult2 = emailService.IsValidEmail(badFormatted2);
+            var expectedResult3 = emailService.IsValidEmail(badFormatted3);
+
+            //Assert 
+            Assert.IsFalse(expectedResult1);
+            Assert.IsFalse(expectedresult2);
+            Assert.IsFalse(expectedResult3);
+        }
+
         //Test d' Integration
         //[TestMethod]
         //public async Task ControllerUpdateCLientForVendorWrongEmailAddress()
@@ -213,13 +248,10 @@ namespace Test_Facturator
         {
             context.Articles.Add(new Article("", "", (decimal)11.11, ""));
             context.Articles.Add(new Article("", "", (decimal)12.12, ""));
-            //context.Articles.Add(new Article("", "", (decimal)13.13, "", 2));
-            //context.Articles.Add(new Article("", "", (decimal)14.14, "", 3));
 
             context.Clients.Add(new Client("", "", "", ""));
             context.Clients.Add(new Client("", "", "", ""));
             context.Clients.Add(new Client("", "", "", ""));
-            //context.Clients.Add(new Client("", "", "", "", 3));
 
             await context.SaveChangesAsync();
 
