@@ -25,6 +25,9 @@ export class BillPageComponent implements OnInit {
         this.bills = result;
         console.log(this.bills);
       })
+      .catch(error=>{
+        console.log(error);
+      })
   }
 
 }

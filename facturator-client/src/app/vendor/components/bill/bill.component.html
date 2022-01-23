@@ -3,5 +3,6 @@
   <p>Date: {{bill.date}}</p>
   <p>Payed: {{bill.isPayed}}</p>
   <p>Total: {{bill.total}}</p>
-  <!--<app-client [client]='bill.client'></app-client>-->
+  <app-client [client]='bill.client'></app-client>
+  <app-articles-list [articles]="bill.articles"></app-articles-list>
 </div>

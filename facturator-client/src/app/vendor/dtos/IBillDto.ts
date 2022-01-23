@@ -1,6 +1,6 @@
 import {IArticleDto} from "./i-article-dto";
-import {IClientDto} from "./iclient-dto";
-import {IVendorDto} from "./ivendor-dto";
+import {VendorDto} from "./Vendor-dto";
+import {ClientDto} from "./ClientDto";
 
 export interface IBillDto {
   id:number;
@@ -8,6 +8,6 @@ export interface IBillDto {
   total:number;
   isPayed:boolean;
   articles:IArticleDto[];
-  client:IClientDto;
-  vendor:IVendorDto;
+  client:ClientDto;
+  vendor:VendorDto;
 }

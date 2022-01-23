@@ -14,6 +14,8 @@ export class ArticlesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("articles are:")
+    console.log(this.articles);
   }
 
   emitRemoveArticleFromList(id:number){
